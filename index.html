@@ -9,137 +9,107 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
-        
-        :root { 
-            --awa-orange: #f26522; /* Official AWA Orange */
-            --awa-deep: #1e293b;
-        }
-        
+        :root { --awa-orange: #f26522; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
         .serif { font-family: 'Playfair Display', serif; }
-        .text-awa-orange { color: var(--awa-orange); }
-        .bg-awa-orange { background-color: var(--awa-orange); }
-        .border-awa-orange { border-color: var(--awa-orange); }
-        
         .glass-nav { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .text-gradient { background: linear-gradient(to right, #f26522, #ff8c52); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .bg-grain { background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png"); }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 2rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
     </style>
 </head>
 <body class="bg-white text-slate-900">
 
     <nav class="fixed w-full z-[100] glass-nav">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <img src="https://anglicanmissions.org.nz/wp-content/uploads/2023/04/AM-AWA-Logo-1.png" alt="AWA Logo" class="h-10">
-                <div class="h-8 w-[1px] bg-slate-200 hidden md:block"></div>
-                <span class="font-extrabold text-lg tracking-tighter uppercase hidden md:block">Bricks<span class="text-awa-orange">Life</span></span>
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-[#f26522] rounded-xl flex items-center justify-center text-white shadow-lg"><i data-lucide="droplets" class="w-6 h-6"></i></div>
+                <span class="font-extrabold text-xl tracking-tighter uppercase">Bricks<span class="text-[#f26522]">Life</span></span>
             </div>
-            <div class="flex items-center gap-4 md:gap-8 text-sm font-bold uppercase tracking-widest">
-                <a href="#story" class="hidden sm:block hover:text-awa-orange transition">The Story</a>
-                <a href="https://anglicanmissions.org.nz/donate" class="bg-awa-orange text-white px-6 py-3 rounded-full hover:shadow-xl hover:-translate-y-1 transition-all">Donate Now</a>
+            <div class="hidden md:flex items-center gap-8 text-sm font-bold uppercase tracking-widest">
+                <a href="#story" class="hover:text-[#f26522] transition">The Story</a>
+                <a href="#video" class="hover:text-[#f26522] transition text-[#f26522]">Watch Film</a>
+                <a href="https://anglicanmissions.org.nz/donate" class="bg-[#f26522] text-white px-6 py-3 rounded-full hover:shadow-xl transition-all">Donate</a>
             </div>
         </div>
     </nav>
 
     <section class="min-h-screen flex items-center relative overflow-hidden pt-20">
         <div class="absolute inset-0 z-0">
-            <img src="https://anglicanmissions.org.nz/wp-content/uploads/2023/03/Amlaku-scaled.jpg" class="w-full h-full object-cover opacity-20" alt="Amlaku Yaregal">
-            <div class="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white"></div>
+            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb773b09?q=80&w=2000" class="w-full h-full object-cover opacity-10" alt="Ethiopia Landscape">
         </div>
-        
         <div class="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
             <div data-aos="fade-right">
-                <span class="inline-block px-4 py-1 mb-6 rounded-md bg-orange-100 text-awa-orange font-bold text-xs uppercase tracking-widest">Ethiopia Development Project</span>
-                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-8">
-                    Sustainable <br><span class="text-awa-orange">Bricks</span> for a New Future.
-                </h1>
-                <p class="text-xl text-slate-600 mb-10 max-w-lg leading-relaxed">
-                    Partnering with Amlaku Yaregal to bring food security, clean water, and local enterprise to the village of Baregota.
-                </p>
-                <a href="#story" class="inline-flex items-center gap-2 font-bold text-awa-orange border-b-2 border-awa-orange pb-1 hover:gap-4 transition-all">
-                    See the Impact <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                </a>
+                <h1 class="text-6xl md:text-8xl font-extrabold leading-[0.9] mb-8">Building <br><span class="text-[#f26522]">Independence.</span></h1>
+                <p class="text-xl text-slate-600 mb-10 max-w-lg leading-relaxed">90% of your donation goes directly to seeds, water infrastructure, and local soap-making tools for the village of Baregota.</p>
+                <div class="flex gap-4">
+                    <a href="#video" class="bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-2 hover:bg-[#f26522] transition-colors">Watch Amlaku's Story <i data-lucide="play-circle"></i></a>
+                </div>
             </div>
             <div class="relative" data-aos="zoom-in">
-                <div class="absolute -inset-4 bg-orange-500/10 rounded-[40px] blur-2xl"></div>
-                <img src="https://anglicanmissions.org.nz/wp-content/uploads/2023/03/Amlaku-planting-scaled.jpg" class="relative rounded-[32px] shadow-2xl border-4 border-white" alt="Planting in Baregota">
+                <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=1000" class="relative rounded-[32px] shadow-2xl border-8 border-white" alt="Community">
             </div>
         </div>
     </section>
 
-    <section id="story" class="py-32 bg-slate-50 bg-grain overflow-hidden">
+    <section id="video" class="py-24 bg-slate-900 overflow-hidden">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-[#f26522] font-black uppercase tracking-widest text-xs">Video Feature</span>
+                <h2 class="text-4xl font-bold text-white mt-4 serif">Witness the Transformation</h2>
+            </div>
+            <div class="video-container" data-aos="zoom-in-up">
+                <iframe src="https://www.youtube.com/embed/E-0h4yA8x4M" title="Bricks for Life Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 bg-white">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-20 items-center">
-                <div class="relative" data-aos="fade-right">
-                    <img src="https://anglicanmissions.org.nz/wp-content/uploads/2023/03/Amlaku-and-Ric.jpg" class="rounded-3xl shadow-2xl" alt="Amlaku and Ric Foxley">
-                    <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl max-w-xs">
-                        <p class="italic text-slate-600">"Amlaku escaped the streets to learn, then returned to lead."</p>
-                    </div>
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold italic serif">What your "Bricks" buy...</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 bg-slate-50 rounded-3xl border-b-4 border-[#f26522]" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-[#f26522] mb-4"><i data-lucide="sprout" class="w-10 h-10"></i></div>
+                    <h3 class="text-2xl font-bold mb-2">$50 - The Seed Brick</h3>
+                    <p class="text-slate-500">Provides high-yield, drought-resistant seeds and fertilizer for one family for an entire season.</p>
                 </div>
-                <div data-aos="fade-left">
-                    <h2 class="text-4xl md:text-5xl font-extrabold mb-8 serif">The Visionary: <span class="text-awa-orange">Amlaku Yaregal</span></h2>
-                    <p class="text-lg text-slate-600 mb-6 leading-relaxed">
-                        At age 12, Amlaku ran away from home to pursue an education, living on the streets before eventually securing a degree in Plant Science.
-                    </p>
-                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">
-                        Today, he is a beacon of hope in Baregota. He trains farmers in row-planting, manages irrigation projects, and is now pioneering the <strong>Baregota Soap Enterprise</strong> to support local women and hygiene.
-                    </p>
-                    <div class="grid grid-cols-2 gap-6">
-                        <div class="border-l-4 border-awa-orange pl-4">
-                            <h4 class="font-black text-2xl">5,000L</h4>
-                            <p class="text-sm text-slate-500 uppercase font-bold">Water Storage</p>
-                        </div>
-                        <div class="border-l-4 border-awa-orange pl-4">
-                            <h4 class="font-black text-2xl">90%</h4>
-                            <p class="text-sm text-slate-500 uppercase font-bold">Direct Aid</p>
-                        </div>
-                    </div>
+                <div class="p-8 bg-slate-50 rounded-3xl border-b-4 border-[#f26522]" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-[#f26522] mb-4"><i data-lucide="pipette" class="w-10 h-10"></i></div>
+                    <h3 class="text-2xl font-bold mb-2">$150 - The Water Brick</h3>
+                    <p class="text-slate-500">Funds 20 meters of concrete piping to redirect water from evaporation-prone ditches to crop rows.</p>
+                </div>
+                <div class="p-8 bg-slate-50 rounded-3xl border-b-4 border-[#f26522]" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-[#f26522] mb-4"><i data-lucide="sparkles" class="w-10 h-10"></i></div>
+                    <h3 class="text-2xl font-bold mb-2">$500 - The Enterprise Brick</h3>
+                    <p class="text-slate-500">Equips the soap-making startup with raw materials and tools to employ local women.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-32 bg-slate-900 text-white relative">
-        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-            <div data-aos="fade-up">
-                <h2 class="text-5xl font-extrabold mb-8">The <span class="text-awa-orange">Soap</span> Business</h2>
-                <p class="text-xl text-slate-400 mb-8 leading-relaxed">
-                    Amlaku is launching a local soap-making business to tackle hygiene challenges and create economic independence for the women of the village.
-                </p>
-                <div class="space-y-4">
-                    <div class="flex items-center gap-4">
-                        <i data-lucide="check-circle" class="text-awa-orange"></i>
-                        <span>Locally manufactured in Baregota</span>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <i data-lucide="check-circle" class="text-awa-orange"></i>
-                        <span>Promotes feminine hygiene access</span>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <i data-lucide="check-circle" class="text-awa-orange"></i>
-                        <span>Reinvests profits into agricultural tools</span>
-                    </div>
+    <section id="story" class="py-32 bg-slate-50 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
+            <div data-aos="fade-right">
+                <h2 class="text-5xl font-extrabold mb-8 serif">Amlaku's <span class="text-[#f26522]">Soap Enterprise</span></h2>
+                <p class="text-lg text-slate-600 mb-6 leading-relaxed">Beyond agriculture, Amlaku is empowering the women of Baregota. By launching a local soap production line, the community is tackling hygiene-related diseases while creating a sustainable income stream that stays within the village.</p>
+                <div class="bg-white p-6 rounded-2xl shadow-md border-l-4 border-[#f26522]">
+                    <p class="font-bold">Did you know?</p>
+                    <p class="text-slate-500 text-sm italic">"Donations are processed through AWA, meaning 100% of the funds reaching Ethiopia are used for development, not religious proselytizing."</p>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-4" data-aos="fade-left">
-                <img src="https://anglicanmissions.org.nz/wp-content/uploads/2023/03/Amlaku-planting-scaled.jpg" class="rounded-2xl h-64 w-full object-cover" alt="Soap Project 1">
-                <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/10/Amlaku-2.jpg" class="rounded-2xl h-64 w-full object-cover mt-8" alt="Soap Project 2">
+            <div class="relative" data-aos="fade-left">
+                <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?q=80&w=800" class="rounded-3xl shadow-2xl" alt="Soap Making">
             </div>
         </div>
     </section>
 
-    <section class="py-32 text-center px-6">
-        <div class="max-w-3xl mx-auto" data-aos="zoom-in">
-            <img src="https://anglicanmissions.org.nz/wp-content/uploads/2023/04/AM-AWA-Logo-1.png" alt="AWA Logo" class="h-16 mx-auto mb-10">
-            <h2 class="text-5xl md:text-6xl font-extrabold mb-8">Help us lay the <span class="text-awa-orange italic">next brick.</span></h2>
-            <p class="text-xl text-slate-500 mb-12">Donations to Bricks for Life through AWA are eligible for tax credits in NZ.</p>
-            <a href="https://anglicanmissions.org.nz/donate" class="inline-block px-12 py-6 bg-awa-orange text-white rounded-2xl font-black text-2xl hover:bg-black hover:scale-105 transition-all shadow-2xl">SUPPORT BAREGOTA</a>
+    <footer class="py-20 bg-slate-900 text-white text-center px-6">
+        <h2 class="text-4xl font-bold mb-8">Ready to make a difference?</h2>
+        <a href="https://anglicanmissions.org.nz/donate" class="inline-block px-10 py-5 bg-[#f26522] rounded-2xl font-black hover:scale-105 transition-all mb-12">DONATE VIA ANGLICAN MISSIONS</a>
+        <div class="pt-10 border-t border-slate-800 text-slate-500 text-sm">
+            © 2026 Bricks for Life. A flagship project of Anglican Missions (AWA).
         </div>
-    </section>
-
-    <footer class="py-12 bg-slate-50 text-center border-t border-slate-100">
-        <p class="text-slate-400 text-sm">© 2026 Anglican Missions Board. Bricks for Life is a flagship AWA Project.</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
