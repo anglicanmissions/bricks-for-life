@@ -11,218 +11,250 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
         
         :root { --brand-orange: #f26522; --brand-deep: #0f172a; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
         .serif { font-family: 'Playfair Display', serif; }
         
-        .glass-nav { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .text-gradient { background: linear-gradient(to right, #f26522, #ff8c52); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        /* Premium Navbar */
+        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
         
+        .text-gradient { background: linear-gradient(135deg, #f26522 0%, #ff8c52 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* Background Textures */
         .bg-grain { background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png"); }
-        .soap-card { background: linear-gradient(145deg, #ffffff, #f0f4f8); border: 1px solid rgba(242, 101, 34, 0.1); }
+        
+        /* High-End Card Effects */
+        .impact-card { transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); border: 1px solid rgba(0,0,0,0.05); }
+        .impact-card:hover { transform: translateY(-12px) scale(1.02); border-color: var(--brand-orange); box-shadow: 0 40px 80px -20px rgba(242, 101, 34, 0.15); }
+        
+        .soap-card { background: linear-gradient(145deg, #ffffff, #f9fafb); border: 1px solid rgba(242, 101, 34, 0.1); position: relative; }
+        .soap-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, transparent, rgba(242, 101, 34, 0.05)); pointer-events: none; }
         
         .reveal-line { position: relative; display: inline-block; }
-        .reveal-line::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: var(--brand-orange); transform: scaleX(0); transform-origin: right; transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1); }
+        .reveal-line::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 4px; background: var(--brand-orange); transform: scaleX(0); transform-origin: right; transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1); }
         .aos-animate .reveal-line::after { transform: scaleX(1); transform-origin: left; }
 
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 2rem; background: #000; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 2.5rem; background: #000; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5); }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        
+        /* Animated Gradient Background for dark sections */
+        .dark-grad { background: radial-gradient(circle at 20% 30%, #1e293b 0%, #0f172a 100%); }
     </style>
 </head>
 <body class="bg-white text-slate-900">
 
-    <nav class="fixed w-full z-[100] glass-nav">
+    <nav class="fixed w-full z-[100] glass-nav transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-2 group cursor-pointer">
-                <div class="w-10 h-10 bg-[#f26522] rounded-xl flex items-center justify-center text-white shadow-lg group-hover:rotate-12 transition-transform">
-                    <i data-lucide="blocks" class="w-6 h-6"></i>
+            <div class="flex items-center gap-3 group cursor-pointer">
+                <div class="w-11 h-11 bg-[#f26522] rounded-2xl flex items-center justify-center text-white shadow-[0_10px_20px_-5px_rgba(242,101,34,0.4)] group-hover:rotate-[15deg] transition-all duration-500">
+                    <i data-lucide="layout-grid" class="w-6 h-6"></i>
                 </div>
-                <span class="font-extrabold text-xl tracking-tighter uppercase">Bricks<span class="text-[#f26522]">Life</span></span>
+                <span class="font-extrabold text-2xl tracking-tighter uppercase">Bricks<span class="text-[#f26522]">Life</span></span>
             </div>
-            <div class="hidden md:flex items-center gap-8 text-sm font-bold uppercase tracking-widest">
-                <a href="#story" class="hover:text-[#f26522] transition">The Story</a>
-                <a href="#outcomes" class="hover:text-[#f26522] transition">Outcomes</a>
-                <a href="#soap" class="hover:text-[#f26522] transition text-[#f26522]">Enterprise</a>
-                <a href="https://anglicanmissions.org.nz/donate" class="bg-[#f26522] text-white px-6 py-3 rounded-full hover:shadow-xl hover:-translate-y-1 transition-all">Donate</a>
+            <div class="hidden md:flex items-center gap-10 text-[13px] font-bold uppercase tracking-[0.15em]">
+                <a href="#story" class="hover:text-[#f26522] transition-colors relative group">The Story <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#f26522] transition-all group-hover:w-full"></span></a>
+                <a href="#outcomes" class="hover:text-[#f26522] transition-colors relative group">Impact <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#f26522] transition-all group-hover:w-full"></span></a>
+                <a href="#soap" class="text-[#f26522] hover:opacity-80 transition-opacity">Enterprise</a>
+                <a href="https://anglicanmissions.org.nz/donate" class="bg-[#f26522] text-white px-8 py-3.5 rounded-2xl hover:shadow-[0_15px_30px_-10px_rgba(242,101,34,0.5)] hover:-translate-y-1 active:scale-95 transition-all">Donate Now</a>
             </div>
         </div>
     </nav>
 
     <section class="min-h-screen flex items-center relative overflow-hidden pt-20">
+        <div class="absolute top-20 right-[10%] w-64 h-64 bg-orange-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute bottom-10 left-[5%] w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" style="animation-delay: 2s;"></div>
+
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=2000" class="w-full h-full object-cover opacity-20" alt="Landscape">
+            <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=2000" class="w-full h-full object-cover opacity-[0.07]" alt="Landscape">
             <div class="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white"></div>
         </div>
         
-        <div class="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-            <div data-aos="fade-right">
-                <h1 class="text-6xl md:text-8xl font-extrabold leading-[0.9] mb-8">
-                    More than <br><span class="text-gradient">Agriculture.</span><br> A Future.
+        <div class="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-20 items-center">
+            <div data-aos="fade-right" data-aos-duration="1200">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#f26522] text-[11px] font-black uppercase tracking-widest mb-6 border border-orange-100">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#f26522] animate-ping"></span>
+                    Ethiopia Project
+                </div>
+                <h1 class="text-7xl md:text-[92px] font-[900] leading-[0.85] mb-10 tracking-tight">
+                    Beyond <br><span class="text-gradient">Survival.</span><br> Resilience.
                 </h1>
-                <p class="text-xl text-slate-600 mb-10 max-w-lg leading-relaxed">
-                    How one man's journey from the streets of Ethiopia to a University degree is now lifting an entire village out of poverty.
+                <p class="text-xl text-slate-500 mb-12 max-w-lg leading-relaxed font-medium italic">
+                    "We aren't just giving seeds; we are building the architectural foundations of a self-sustaining community."
                 </p>
-                <div class="flex gap-4">
-                    <a href="#video" class="bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-2 hover:bg-[#f26522] transition-colors">Watch the Story <i data-lucide="play"></i></a>
+                <div class="flex flex-wrap gap-6">
+                    <a href="#video" class="bg-slate-900 text-white px-10 py-5 rounded-2xl font-bold flex items-center gap-3 hover:bg-[#f26522] transition-all shadow-2xl active:scale-95">
+                        Watch The Vision <i data-lucide="play-circle" class="fill-white/20"></i>
+                    </a>
                 </div>
             </div>
-            <div class="relative" data-aos="zoom-in" data-aos-delay="200">
-                <div class="absolute -inset-4 bg-orange-500/10 rounded-[40px] blur-2xl"></div>
-                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb773b09?q=80&w=1000" class="relative rounded-[32px] shadow-2xl border-8 border-white" alt="Farming">
+            <div class="relative" data-aos="zoom-in" data-aos-delay="200" data-aos-duration="1500">
+                <div class="absolute -inset-10 bg-gradient-to-tr from-orange-500/20 to-transparent rounded-[60px] blur-3xl"></div>
+                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb773b09?q=80&w=1000" class="relative rounded-[40px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] border-[12px] border-white" alt="Farming">
             </div>
         </div>
     </section>
 
-    <section id="video" class="py-24 bg-slate-900">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="text-center mb-12" data-aos="fade-up">
-                <h2 class="text-3xl md:text-5xl font-bold text-white serif tracking-tight">Seeing the Foundation</h2>
+    <section id="video" class="py-32 dark-grad relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-6xl font-bold text-white serif italic">The Baregota Story</h2>
+                <div class="w-24 h-1.5 bg-[#f26522] mx-auto mt-6 rounded-full"></div>
             </div>
-            <div class="video-wrapper shadow-2xl" data-aos="zoom-in-up">
+            <div class="video-wrapper shadow-2xl" data-aos="fade-up" data-aos-delay="200">
                 <iframe src="https://www.youtube.com/embed/twtHTajsx50" title="Bricks for Life Ethiopia" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </section>
 
-    <section id="story" class="py-32 bg-slate-50 bg-grain">
+    <section id="story" class="py-40 bg-slate-50 bg-grain">
         <div class="max-w-5xl mx-auto px-6">
-            <div class="text-center mb-20" data-aos="fade-up">
-                <span class="text-[#f26522] font-black uppercase tracking-[0.3em] text-xs">The Founder's Journey</span>
-                <h2 class="text-4xl md:text-6xl font-extrabold mt-4 serif">From the Streets to Plant Science</h2>
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32" data-aos="fade-up">
+                <div>
+                    <h2 class="text-5xl font-black mb-8 leading-tight serif">The Student who <br><span class="text-[#f26522]">Came Home.</span></h2>
+                    <p class="text-xl text-slate-600 leading-relaxed">
+                        At age 12, Amlaku Yaregal escaped a life on the streets to pursue a degree in <strong>Plant Science</strong>. His success wasn't a ticket out, but a tool to go back.
+                    </p>
+                </div>
+                <div class="rounded-[40px] overflow-hidden shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-700">
+                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800" class="w-full h-full object-cover" alt="Ethiopia Education">
+                </div>
             </div>
 
-            <div class="space-y-12">
-                <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up">
-                    <div class="order-2 md:order-1">
-                        <h3 class="text-2xl font-bold mb-4 reveal-line">The Runaway Student</h3>
-                        <p class="text-slate-600 leading-relaxed text-lg">
-                            At age 12, Amlaku Yaregal made a choice that would change Baregota forever. He ran away to pursue an education, living on the streets and doing whatever it took to learn. He eventually secured a place at university to study <strong>Plant Science</strong>.
-                        </p>
-                    </div>
-                    <div class="order-1 md:order-2 rounded-2xl overflow-hidden h-64 shadow-xl">
-                        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800" class="w-full h-full object-cover" alt="Ethiopia Education">
-                    </div>
+            <div class="grid md:grid-cols-2 gap-20 items-center" data-aos="fade-up">
+                <div class="order-2 md:order-1 rounded-[40px] overflow-hidden shadow-2xl -rotate-3 hover:rotate-0 transition-transform duration-700">
+                    <img src="https://images.unsplash.com/photo-1523348830342-d0187cf0c28d?q=80&w=800" class="w-full h-full object-cover" alt="Agriculture">
                 </div>
-
-                <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up">
-                    <div class="rounded-2xl overflow-hidden h-64 shadow-xl">
-                        <img src="https://images.unsplash.com/photo-1523348830342-d0187cf0c28d?q=80&w=800" class="w-full h-full object-cover" alt="Agriculture">
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold mb-4 reveal-line">The Homecoming</h3>
-                        <p class="text-slate-600 leading-relaxed text-lg">
-                            Rather than seeking a life of comfort elsewhere, Amlaku returned to his village. He realized that the "hunger gap" (seasonal food shortages) could be solved with the right "bricks"—the foundations of modern farming and water management.
-                        </p>
-                    </div>
+                <div class="order-1 md:order-2">
+                    <h3 class="text-3xl font-bold mb-6 reveal-line italic serif">Closing the Hunger Gap</h3>
+                    <p class="text-xl text-slate-600 leading-relaxed">
+                        Amlaku identified that Baregota’s poverty wasn't a lack of effort, but a lack of infrastructure. By introducing <strong>row-planting</strong> and <strong>efficient irrigation</strong>, he turned subsistence into surplus.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="outcomes" class="py-32 px-6 max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+    <section id="outcomes" class="py-40 px-6 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-24 gap-12 text-center md:text-left">
             <div class="max-w-2xl" data-aos="fade-right">
-                <h2 class="text-5xl font-extrabold mb-6">Concrete <span class="text-[#f26522]">Outcomes.</span></h2>
-                <p class="text-xl text-slate-500">How your support translates into tangible change in the village of Baregota.</p>
+                <h2 class="text-6xl font-black mb-6 tracking-tight">Impact in <span class="text-[#f26522]">Action.</span></h2>
+                <p class="text-2xl text-slate-400 font-medium">Tangible bricks of a new foundation.</p>
             </div>
-            <div class="bg-[#f26522] text-white p-8 rounded-3xl shadow-xl shadow-orange-200" data-aos="fade-left">
-                <div class="text-5xl font-black mb-2">~500</div>
-                <div class="uppercase tracking-widest font-bold text-xs opacity-80">Villagers Impacted</div>
+            <div class="bg-slate-900 text-white p-12 rounded-[3rem] shadow-2xl relative overflow-hidden group" data-aos="zoom-in">
+                <div class="absolute inset-0 bg-[#f26522] translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500"></div>
+                <div class="relative z-10">
+                    <div class="text-7xl font-black mb-2 tracking-tighter tabular-nums">500+</div>
+                    <div class="uppercase tracking-[0.3em] font-bold text-xs opacity-70">Lives Transformed</div>
+                </div>
             </div>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="p-10 border border-slate-100 rounded-[2.5rem] bg-white hover:border-orange-200 transition-all group" data-aos="fade-up" data-aos-delay="100">
-                <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-8 group-hover:scale-110 transition-transform">
-                    <i data-lucide="droplet" class="w-8 h-8"></i>
+        <div class="grid md:grid-cols-3 gap-10">
+            <div class="impact-card p-12 rounded-[3.5rem] bg-white group" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-20 h-20 bg-blue-50 rounded-[2rem] flex items-center justify-center text-blue-600 mb-10 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
+                    <i data-lucide="droplet" class="w-10 h-10"></i>
                 </div>
-                <h4 class="text-2xl font-bold mb-4">Water Security</h4>
-                <p class="text-slate-500 leading-relaxed">Installed concrete piping and 5000L water tanks. By moving water through pipes instead of open ditches, we stop 30% loss from evaporation.</p>
+                <h4 class="text-2xl font-black mb-6">Zero-Waste <br>Irrigation</h4>
+                <p class="text-slate-500 text-lg leading-relaxed font-medium">Redirecting water via concrete piping to eliminate 30% evaporation loss.</p>
             </div>
-            <div class="p-10 border border-slate-100 rounded-[2.5rem] bg-white hover:border-orange-200 transition-all group" data-aos="fade-up" data-aos-delay="200">
-                <div class="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center text-green-600 mb-8 group-hover:scale-110 transition-transform">
-                    <i data-lucide="leaf" class="w-8 h-8"></i>
+            <div class="impact-card p-12 rounded-[3.5rem] bg-white group" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-20 h-20 bg-green-50 rounded-[2rem] flex items-center justify-center text-green-600 mb-10 group-hover:bg-green-600 group-hover:text-white transition-all duration-500">
+                    <i data-lucide="leaf" class="w-10 h-10"></i>
                 </div>
-                <h4 class="text-2xl font-bold mb-4">Crop Science</h4>
-                <p class="text-slate-500 leading-relaxed">Transitioned from "broadcasting" seeds to row-planting. This increases yields significantly and ensures food is available year-round.</p>
+                <h4 class="text-2xl font-black mb-6">Advanced <br>Agronomy</h4>
+                <p class="text-slate-500 text-lg leading-relaxed font-medium">Modernizing the planting process to triple seasonal yields.</p>
             </div>
-            <div class="p-10 border border-slate-100 rounded-[2.5rem] bg-white hover:border-orange-200 transition-all group" data-aos="fade-up" data-aos-delay="300">
-                <div class="w-14 h-14 bg-purple-50 rounded-2xl flex items-center justify-center text-purple-600 mb-8 group-hover:scale-110 transition-transform">
-                    <i data-lucide="users" class="w-8 h-8"></i>
+            <div class="impact-card p-12 rounded-[3.5rem] bg-white group" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-20 h-20 bg-purple-50 rounded-[2rem] flex items-center justify-center text-purple-600 mb-10 group-hover:bg-purple-600 group-hover:text-white transition-all duration-500">
+                    <i data-lucide="gem" class="w-10 h-10"></i>
                 </div>
-                <h4 class="text-2xl font-bold mb-4">Economic Agency</h4>
-                <p class="text-slate-500 leading-relaxed">Villagers now have a 'surplus' to sell. They aren't just surviving; they are entering the local economy as suppliers.</p>
+                <h4 class="text-2xl font-black mb-6">Sustainable <br>Agency</h4>
+                <p class="text-slate-500 text-lg leading-relaxed font-medium">Transitioning a whole village from aid-dependency to market-participation.</p>
             </div>
         </div>
     </section>
 
-    <section id="soap" class="py-32 bg-slate-900 text-white overflow-hidden relative">
-        <div class="absolute right-0 top-0 w-1/3 h-full bg-orange-600/10 skew-x-12 translate-x-20"></div>
-        
-        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center relative z-10">
+    <section id="soap" class="py-40 dark-grad text-white overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-24 items-center relative z-10">
             <div data-aos="fade-right">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-orange-400 font-bold text-xs uppercase mb-8">
-                    <span class="relative flex h-2 w-2">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
-                    </span>
-                    New Enterprise Launch
+                <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#f26522]/20 text-[#f26522] font-black text-[10px] uppercase tracking-[0.2em] mb-10 border border-[#f26522]/30">
+                    Enterprise Spotlight
                 </div>
-                <h2 class="text-5xl md:text-7xl font-extrabold mb-8 leading-tight">The Baregota <br><span class="text-[#f26522] italic">Soap Initiative.</span></h2>
-                <p class="text-xl text-slate-400 mb-8 leading-relaxed">
-                    Amlaku isn't stopping at food. He is launching a local soap-making business to address two critical needs: **Hygiene and Women’s Empowerment.**
+                <h2 class="text-7xl font-black mb-10 leading-tight tracking-tighter serif italic text-gradient">The Soap <br>Project.</h2>
+                <p class="text-2xl text-slate-300 mb-12 leading-relaxed font-light">
+                    Amlaku’s vision extends to the household. By creating a <strong>local soap industry</strong>, he is empowering women and creating a closed-loop economy.
                 </p>
-                <div class="space-y-6 mb-12">
-                    <div class="flex gap-4">
-                        <div class="w-12 h-12 rounded-full bg-orange-600/20 flex items-center justify-center text-orange-500 shrink-0"><i data-lucide="sparkles"></i></div>
+                <div class="space-y-10">
+                    <div class="flex gap-6 group">
+                        <div class="w-16 h-16 rounded-3xl bg-white/5 flex items-center justify-center text-[#f26522] group-hover:bg-[#f26522] group-hover:text-white transition-all duration-500 shrink-0 shadow-2xl"><i data-lucide="shield-check"></i></div>
                         <div>
-                            <h5 class="font-bold text-lg text-white">Hygiene Access</h5>
-                            <p class="text-slate-500">Reducing disease and promoting feminine health through affordable, locally-made soap.</p>
+                            <h5 class="font-bold text-xl text-white mb-2 tracking-tight">Sanitation First</h5>
+                            <p class="text-slate-400 text-lg">Directly reducing water-borne and contact diseases in the community.</p>
                         </div>
                     </div>
-                    <div class="flex gap-4">
-                        <div class="w-12 h-12 rounded-full bg-orange-600/20 flex items-center justify-center text-orange-500 shrink-0"><i data-lucide="trending-up"></i></div>
+                    <div class="flex gap-6 group">
+                        <div class="w-16 h-16 rounded-3xl bg-white/5 flex items-center justify-center text-[#f26522] group-hover:bg-[#f26522] group-hover:text-white transition-all duration-500 shrink-0 shadow-2xl"><i data-lucide="coins"></i></div>
                         <div>
-                            <h5 class="font-bold text-lg text-white">Sustainable Revenue</h5>
-                            <p class="text-slate-500">Profits from soap sales are reinvested into the community's agricultural funds.</p>
+                            <h5 class="font-bold text-xl text-white mb-2 tracking-tight">Economic Growth</h5>
+                            <p class="text-slate-400 text-lg">Every bar of soap sold funds the next bag of seeds for the community garden.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="relative" data-aos="fade-left">
-                <div class="soap-card p-4 rounded-[2rem] relative z-10">
-                    <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?q=80&w=800" class="rounded-[1.5rem] w-full shadow-2xl" alt="Handmade Soap">
-                    <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl text-slate-900 hidden md:block">
-                        <p class="font-black text-[#f26522]">Enterprise Goal</p>
-                        <p class="text-sm font-bold">100% Locally Sourced</p>
+                <div class="soap-card p-6 rounded-[3rem] relative z-10 shadow-2xl overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?q=80&w=800" class="rounded-[2rem] w-full shadow-2xl group-hover:scale-110 transition-transform duration-[2s]" alt="Handmade Soap">
+                    <div class="absolute bottom-10 left-10 right-10 glass rounded-3xl p-8 backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl">
+                        <p class="font-black text-[#f26522] uppercase tracking-widest text-xs mb-2">Impact Goal</p>
+                        <p class="text-xl font-bold italic serif">100% Locally-led Empowerment</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-32 text-center px-6">
-        <div class="max-w-3xl mx-auto" data-aos="zoom-in">
-            <h2 class="text-5xl md:text-7xl font-extrabold mb-8">Ready to <span class="text-[#f26522] underline decoration-orange-200 underline-offset-8">build?</span></h2>
-            <p class="text-xl text-slate-500 mb-12">Every dollar helps buy the "bricks"—the seeds, pipes, and soap-making tools—that build a life of dignity.</p>
-            <div class="flex flex-col sm:flex-row justify-center gap-6">
-                <a href="https://anglicanmissions.org.nz/donate" class="px-12 py-6 bg-[#f26522] text-white rounded-2xl font-black text-2xl hover:bg-orange-700 hover:scale-105 transition-all shadow-2xl shadow-orange-200">DONATE NOW</a>
-            </div>
-            <p class="mt-8 text-sm text-slate-400">90% of your donation goes directly to the project in Ethiopia.</p>
+    <section class="py-48 text-center px-6 relative">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-orange-50/50 -z-10 blur-3xl"></div>
+        <div class="max-w-4xl mx-auto" data-aos="zoom-in">
+            <h2 class="text-7xl md:text-9xl font-black mb-12 tracking-tighter leading-none">Your turn <br>to <span class="text-[#f26522] italic serif">build.</span></h2>
+            <p class="text-2xl text-slate-500 mb-16 font-medium leading-relaxed">Each donation is a literal brick in the foundation of Baregota’s future independence.</p>
+            <a href="https://anglicanmissions.org.nz/donate" class="inline-block px-16 py-8 bg-[#f26522] text-white rounded-[2rem] font-black text-3xl hover:shadow-[0_25px_50px_-12px_rgba(242,101,34,0.5)] hover:-translate-y-2 transition-all duration-500 active:scale-95">DONATE NOW</a>
+            <p class="mt-12 text-slate-400 font-bold tracking-widest text-sm uppercase">A Project of Anglican Missions (AWA)</p>
         </div>
     </section>
 
-    <footer class="py-12 bg-slate-50 border-t border-slate-100 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="font-black text-xl tracking-tighter uppercase">Bricks<span class="text-[#f26522]">Life</span></div>
-            <div class="text-slate-400 text-sm">© 2026 A Project of Anglican Missions (AWA). Registered Charity in NZ.</div>
+    <footer class="py-16 bg-white border-t border-slate-100 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white font-black italic">B</div>
+                <span class="font-extrabold text-xl tracking-tighter uppercase">Bricks<span class="text-[#f26522]">Life</span></span>
+            </div>
+            <div class="text-slate-400 text-sm font-medium">© 2026 Anglican Missions Ethiopia. Registered NZ Charity.</div>
         </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1200, once: true, easing: 'ease-out-cubic' });
+        AOS.init({ 
+            duration: 1000, 
+            once: true, 
+            easing: 'ease-out-quint',
+            anchorPlacement: 'top-bottom'
+        });
         lucide.createIcons();
+        
+        // Dynamic Nav Color Change on Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('py-3', 'shadow-xl');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.remove('py-3', 'shadow-xl');
+                nav.classList.add('py-4');
+            }
+        });
     </script>
 </body>
 </html>
