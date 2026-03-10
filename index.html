@@ -12,62 +12,56 @@
         
         :root { --brand-orange: #f26522; --bg-intensity: 255; }
         
-        /* Smooth Scroll behavior */
-        html { scroll-behavior: smooth; overflow-y: scroll; }
+        html { scroll-behavior: smooth; }
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             overflow-x: hidden; 
             background-color: rgb(var(--bg-intensity), var(--bg-intensity), var(--bg-intensity));
-            transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.4s ease;
         }
 
-        /* Responsive Typography Clamp */
-        h1 { font-size: clamp(3.5rem, 10vw, 8.5rem) !important; line-height: 0.9 !important; }
-
-        /* Navigation */
-        .nav-blur { transition: all 0.5s ease; padding: 2rem 2rem; }
-        .nav-scrolled { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); padding: 1rem 2rem; border-bottom: 1px solid #f1f5f9; }
-        .nav-link { position: relative; color: #64748b; transition: color 0.3s ease; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em; }
+        /* Fixed Navigation from stable version */
+        .nav-blur { transition: all 0.4s ease; background: rgba(255, 255, 255, 0); }
+        .nav-scrolled { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid #f1f5f9; padding-top: 1rem; padding-bottom: 1rem; }
+        .nav-link { position: relative; color: #64748b; transition: color 0.3s ease; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; }
         .nav-link.active { color: var(--brand-orange); }
 
-        /* Hero Architecture */
-        .hero-container { height: 350vh; position: relative; }
-        .hero-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        /* Hero Logic: Height tightened to 200vh to remove dead space */
+        .hero-container { height: 200vh; position: relative; }
+        .hero-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         
         .card-img {
             position: absolute; border-radius: 1.5rem; object-fit: cover;
             box-shadow: 0 40px 80px rgba(0,0,0,0.15);
             transition: transform 0.1s linear; z-index: 10;
-            border: 8px solid white;
-            width: clamp(200px, 25vw, 320px);
-            height: clamp(280px, 35vw, 420px);
+            border: 6px solid white;
+            width: clamp(180px, 20vw, 300px);
+            height: clamp(240px, 30vw, 400px);
         }
 
-        .hero-text-overlay { z-index: 50; pointer-events: none; width: 100%; max-width: 90vw; }
+        /* Spacing Fix: Title and Reveal Zone */
+        .hero-text-overlay { z-index: 50; pointer-events: none; text-align: center; }
+        .hero-title { font-[900] tracking-tighter leading-[0.85] text-slate-950; font-size: clamp(3rem, 10vw, 8rem); margin-bottom: 2rem; }
         
-        /* Spacing Fix: Prevent descender intrusion */
         .hero-discovery { 
-            opacity: 0; transform: translateY(40px); transition: all 0.8s ease; 
-            pointer-events: none; margin-top: 4rem; 
+            opacity: 0; transform: translateY(20px); transition: all 0.6s ease; 
+            pointer-events: none; display: flex; flex-direction: column; align-items: center;
         }
         .hero-discovery.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
-        /* Cinematic Theater Transition */
-        #video-section { position: relative; transition: padding 0.8s ease; }
+        /* Smooth Video Theater */
         #video-trigger { 
-            transform: scale(0.9); opacity: 0.5;
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); 
-            max-width: 1200px; margin: 0 auto; border-radius: 3rem; overflow: hidden;
+            transform: scale(0.9); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
+            max-width: 1100px; margin: 0 auto; border-radius: 2rem; overflow: hidden;
         }
-        .video-active #video-trigger { transform: scale(1); opacity: 1; border-radius: 0.5rem; }
+        .video-active #video-trigger { transform: scale(1); border-radius: 0.5rem; }
 
         .big-number { font-size: clamp(8rem, 20vw, 15rem); font-weight: 900; color: #f1f5f9; position: absolute; z-index: -1; top: -5rem; left: -2rem; }
     </style>
 </head>
 <body class="antialiased text-slate-900">
 
-    <nav id="main-nav" class="fixed w-full z-[100] nav-blur">
+    <nav id="main-nav" class="fixed w-full z-[100] px-8 py-8 nav-blur">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
                 <span class="font-[900] text-2xl tracking-tighter uppercase">Bricks <span class="text-[#f26522]">For Life</span></span>
@@ -77,7 +71,7 @@
                 <a href="#story" class="nav-link">Story</a>
                 <a href="#impact" class="nav-link">Impact</a>
                 <a href="#soap" class="nav-link">Enterprise</a>
-                <a href="https://anglicanmissions.org.nz/donate" class="bg-slate-950 text-white px-8 py-3 rounded-full hover:bg-[#f26522] transition-all ml-4 text-[10px] font-black uppercase">Donate</a>
+                <a href="https://anglicanmissions.org.nz/donate" class="bg-slate-950 text-white px-8 py-3 rounded-full hover:bg-[#f26522] transition-all ml-4 text-[10px] font-black uppercase tracking-widest">Donate</a>
             </div>
         </div>
     </nav>
@@ -85,46 +79,44 @@
     <div class="hero-container">
         <div class="hero-sticky">
             
-            <img src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?q=80&w=1000" id="c1" class="card-img" style="transform: rotate(-4deg) translate(20px, 10px);" alt="Landscape">
-            <img src="https://images.unsplash.com/photo-1523741543316-dbc7fc146394?q=80&w=1000" id="c2" class="card-img" style="transform: rotate(2deg) translate(-15px, -10px);" alt="Agriculture">
-            <img src="https://images.unsplash.com/photo-1516211697506-8360bd7734b7?q=80&w=1000" id="c3" class="card-img" style="transform: rotate(-6deg) translate(-25px, 30px);" alt="Community">
-            <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=1000" id="c4" class="card-img" style="transform: rotate(5deg) translate(30px, -25px);" alt="Farming">
+            <img src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?q=80&w=1000" id="c1" class="card-img" style="transform: rotate(-4deg);" alt="Landscape">
+            <img src="https://images.unsplash.com/photo-1523741543316-dbc7fc146394?q=80&w=1000" id="c2" class="card-img" style="transform: rotate(2deg);" alt="Agri">
+            <img src="https://images.unsplash.com/photo-1516211697506-8360bd7734b7?q=80&w=1000" id="c3" class="card-img" style="transform: rotate(-6deg);" alt="People">
+            <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=1000" id="c4" class="card-img" style="transform: rotate(5deg);" alt="Farming">
 
-            <div class="hero-text-overlay text-center">
-                <h1 id="hero-title" class="font-[900] tracking-tighter text-slate-950 drop-shadow-sm">
+            <div class="hero-text-overlay">
+                <h1 id="hero-title" class="hero-title">
                     Sustaining <br><span class="text-[#f26522]">Independence.</span>
                 </h1>
                 
                 <div id="hero-reveal-zone" class="hero-discovery">
-                    <p class="text-xl md:text-2xl text-slate-500 font-medium max-w-2xl mx-auto mb-10">
+                    <p class="text-xl text-slate-500 font-medium max-w-xl mx-auto mb-10">
                         A locally-led initiative supported by AWA to transform the Highlands through crop science and enterprise.
                     </p>
-                    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                        <a href="https://anglicanmissions.org.nz/donate" class="bg-slate-950 text-white px-12 py-5 rounded-2xl font-bold shadow-2xl hover:bg-[#f26522] transition-all uppercase tracking-widest text-xs">Support the Mission</a>
+                    <div class="flex flex-col sm:flex-row gap-6 items-center">
+                        <a href="https://anglicanmissions.org.nz/donate" class="bg-slate-950 text-white px-10 py-4 rounded-2xl font-bold hover:bg-[#f26522] transition-all">Support Now</a>
                         <a href="#video-section" class="flex items-center gap-3 font-bold text-slate-900 group">
-                            <span class="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center group-hover:bg-slate-50 transition-all">
-                                <i data-lucide="play" class="w-4 h-4 fill-slate-900"></i>
-                            </span>
-                            <span class="uppercase tracking-widest text-[10px]">Watch the Story</span>
+                            <span class="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center group-hover:bg-slate-50 transition-all"><i data-lucide="play" class="w-4 h-4 fill-slate-900"></i></span>
+                            <span class="text-xs uppercase tracking-widest">Watch Story</span>
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div id="hero-hint" class="absolute bottom-12 flex flex-col items-center gap-4 text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">
-                <span class="animate-pulse">Begin the Story</span>
-                <div class="w-[1px] h-12 bg-slate-200"></div>
+            <div id="hero-hint" class="absolute bottom-12 flex flex-col items-center gap-3 text-[9px] font-black uppercase tracking-[0.4em] text-slate-400">
+                <span>Begin</span>
+                <div class="w-[1px] h-10 bg-slate-200"></div>
             </div>
         </div>
     </div>
 
     <section id="context" class="py-48 px-8 section-anchor bg-white relative z-[60]">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-32 items-center">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
             <div class="relative" data-aos="fade-right">
                 <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1200" class="rounded-[3rem] shadow-2xl" alt="Impact">
                 <div class="absolute -bottom-10 -right-10 bg-[#f26522] text-white p-12 rounded-[2.5rem] shadow-2xl">
-                    <p class="text-4xl font-black mb-1 tabular-nums">500+</p>
-                    <p class="uppercase font-bold text-[10px] tracking-widest opacity-80">Villagers Empowered</p>
+                    <p class="text-4xl font-black">500+</p>
+                    <p class="uppercase font-bold text-[10px] tracking-widest opacity-80">Empowered</p>
                 </div>
             </div>
             <div data-aos="fade-up">
@@ -134,7 +126,7 @@
         </div>
     </section>
 
-    <section id="video-section" class="py-64 section-anchor relative z-50">
+    <section id="video-section" class="py-48 section-anchor relative z-50 transition-colors duration-700">
         <div class="max-w-7xl mx-auto px-8 relative">
             <div id="video-trigger" class="shadow-3xl bg-black">
                 <div class="relative w-full aspect-video">
@@ -148,17 +140,17 @@
         <div class="max-w-5xl mx-auto space-y-64">
             <div class="relative grid md:grid-cols-2 gap-24 items-center" data-aos="fade-up">
                 <span class="big-number text-slate-100">01</span>
-                <div><h3 class="text-4xl font-black mb-8 uppercase tracking-tighter">The Student.</h3><p class="text-xl text-slate-500 leading-relaxed font-medium">Amlaku Yaregal fled homelessness at age 12 to earn a degree in Plant Science. His return home marks the beginning of a community-wide transformation.</p></div>
-                <img src="https://images.unsplash.com/photo-1523741543316-dbc7fc146394?auto=format&fit=crop&q=80&w=800" class="rounded-[3rem] shadow-xl grayscale" alt="History">
+                <div><h3 class="text-4xl font-black mb-8 uppercase tracking-tighter">The Student.</h3><p class="text-xl text-slate-500 leading-relaxed font-medium">Amlaku Yaregal fled homelessness at age 12 to earn a degree in Plant Science. His success is the spark that transformed Baregota.</p></div>
+                <img src="https://images.unsplash.com/photo-1523741543316-dbc7fc146394?auto=format&fit=crop&q=80&w=800" class="rounded-[3rem] shadow-xl grayscale" alt="Education">
             </div>
             <div class="relative grid md:grid-cols-2 gap-24 items-center" data-aos="fade-up">
                 <span class="big-number text-slate-100">02</span>
-                <img src="https://images.unsplash.com/photo-1523348830342-d0187cf0c28d?auto=format&fit=crop&q=80&w=800" class="rounded-[3rem] shadow-xl order-last md:order-first grayscale" alt="Method">
+                <img src="https://images.unsplash.com/photo-1523348830342-d0187cf0c28d?auto=format&fit=crop&q=80&w=800" class="rounded-[3rem] shadow-xl order-last md:order-first grayscale" alt="Farming">
                 <div><h3 class="text-4xl font-black mb-8 uppercase tracking-tighter text-[#f26522]">The Science.</h3><p class="text-xl text-slate-500 leading-relaxed font-medium">Row-planting and water storage foundations converted seasonal hunger into year-round independence.</p></div>
             </div>
             <div class="relative grid md:grid-cols-2 gap-24 items-center" data-aos="fade-up">
                 <span class="big-number text-slate-100">03</span>
-                <div><h3 class="text-4xl font-black mb-8 uppercase tracking-tighter text-slate-900">The Ripple.</h3><p class="text-xl text-slate-500 leading-relaxed font-medium">Knowledge scales. Amlaku now mentors farmers from surrounding districts, creating a regional success model.</p></div>
+                <div><h3 class="text-4xl font-black mb-8 uppercase tracking-tighter">The Ripple.</h3><p class="text-xl text-slate-500 leading-relaxed font-medium">Knowledge scales. Amlaku now mentors farmers from surrounding districts, creating a regional success model.</p></div>
                 <img src="https://images.unsplash.com/photo-1516211697506-8360bd7734b7?q=80&w=800" class="rounded-[3rem] shadow-xl grayscale" alt="Expansion">
             </div>
         </div>
@@ -169,46 +161,45 @@
             <div class="p-14 border border-slate-100 rounded-[3.5rem] bg-white group hover:border-[#f26522] transition-all">
                 <i data-lucide="droplets" class="text-[#f26522] mb-10 w-12 h-12"></i>
                 <h4 class="text-2xl font-black mb-6 uppercase">Irrigation</h4>
-                <p class="text-slate-500 leading-relaxed font-medium">Concrete piping foundations that stop water loss and enable year-round farming.</p>
+                <p class="text-slate-500 leading-relaxed font-medium">Concrete piping foundations stopping water loss.</p>
             </div>
             <div class="p-14 border border-slate-100 rounded-[3.5rem] bg-white group hover:border-[#f26522] transition-all">
                 <i data-lucide="sprout" class="text-[#f26522] mb-10 w-12 h-12"></i>
                 <h4 class="text-2xl font-black mb-6 uppercase">Agronomy</h4>
-                <p class="text-slate-500 leading-relaxed font-medium">Precision row-planting and crop science that triples yield compared to traditional methods.</p>
+                <p class="text-slate-500 leading-relaxed font-medium">Precision row-planting tripling seasonal yields.</p>
             </div>
             <div class="p-14 border border-slate-100 rounded-[3.5rem] bg-white group hover:border-[#f26522] transition-all">
                 <i data-lucide="users" class="text-[#f26522] mb-10 w-12 h-12"></i>
                 <h4 class="text-2xl font-black mb-6 uppercase">Agency</h4>
-                <p class="text-slate-500 leading-relaxed font-medium">Self-sufficiency models that allow the community to enter the market as suppliers.</p>
+                <p class="text-slate-500 leading-relaxed font-medium">Self-sufficiency models for the local market.</p>
             </div>
         </div>
     </section>
 
     <section id="soap" class="py-64 bg-slate-950 text-white px-8 rounded-[5rem] mx-4 section-anchor overflow-hidden relative">
-        <div class="absolute top-0 right-0 w-96 h-96 bg-[#f26522]/10 blur-[150px]"></div>
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
             <div data-aos="fade-right">
-                <h2 class="text-6xl md:text-8xl font-black tracking-tighter mb-10 leading-[0.9]">The Soap <br>Initiative.</h2>
-                <p class="text-2xl text-slate-400 font-medium leading-relaxed mb-12">Beyond agriculture, Amlaku is launching a local soap enterprise to tackle hygiene and provide economic agency to the women of Baregota.</p>
+                <h2 class="text-7xl md:text-8xl font-black tracking-tighter mb-10 leading-[0.9]">The Soap <br>Initiative.</h2>
+                <p class="text-2xl text-slate-400 font-medium leading-relaxed mb-12">Launching a local soap enterprise to tackle hygiene and provide economic agency to the women of Baregota.</p>
                 <div class="flex gap-12 font-bold text-[#f26522] uppercase tracking-widest text-[10px]">
                     <span>01 Sanitation</span>
                     <span>02 Independence</span>
                 </div>
             </div>
-            <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?q=80&w=1000" class="rounded-[4rem] shadow-2xl" alt="Soap Making">
+            <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&q=80&w=1000" class="rounded-[4rem] shadow-2xl" alt="Soap Making">
         </div>
     </section>
 
-    <section class="py-64 bg-white text-center px-8">
+    <section class="py-64 bg-white text-center px-8 border-t border-slate-100">
         <div class="max-w-4xl mx-auto" data-aos="zoom-in">
-            <h2 class="text-7xl md:text-[90px] font-black tracking-tighter leading-[0.85] mb-16 uppercase">The next <br>foundation <br><span class="text-[#f26522]">is yours.</span></h2>
-            <a href="https://anglicanmissions.org.nz/donate" class="inline-block px-16 py-8 bg-slate-950 text-white rounded-[2.5rem] font-black text-2xl hover:bg-[#f26522] transition-all shadow-2xl">Support the Project</a>
+            <h2 class="text-7xl md:text-[90px] font-black tracking-tighter leading-[0.85] mb-16 uppercase">Support the <br><span class="text-[#f26522]">Foundation.</span></h2>
+            <a href="https://anglicanmissions.org.nz/donate" class="inline-block px-16 py-8 bg-slate-950 text-white rounded-[2rem] font-black text-2xl hover:bg-[#f26522] transition-all shadow-2xl">Donate Now</a>
         </div>
     </section>
 
     <footer class="py-16 border-t border-slate-100 text-center bg-white">
         <div class="font-[900] text-2xl tracking-tighter uppercase mb-4 italic">Bricks <span class="text-[#f26522]">For Life</span></div>
-        <div class="text-slate-400 text-[10px] font-bold uppercase tracking-[0.3em]">© 2026 Anglican Missions AWA Global Development.</div>
+        <div class="text-slate-400 text-[10px] font-bold uppercase tracking-[0.3em]">© 2026 Anglican Missions AWA.</div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -216,39 +207,25 @@
         AOS.init({ duration: 1200, once: true, easing: 'ease-out-quint' });
         lucide.createIcons();
 
-        // ELEMENT SELECTORS
         const nav = document.getElementById('main-nav');
-        const heroTitle = document.getElementById('hero-title');
         const heroDiscovery = document.getElementById('hero-reveal-zone');
         const heroHint = document.getElementById('hero-hint');
         const videoSection = document.getElementById('video-section');
         const videoCard = document.getElementById('video-trigger');
-        
-        const cards = [
-            document.getElementById('c1'),
-            document.getElementById('c2'),
-            document.getElementById('c3'),
-            document.getElementById('c4')
-        ];
+        const cards = [document.getElementById('c1'), document.getElementById('c2'), document.getElementById('c3'), document.getElementById('c4')];
 
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             const viewH = window.innerHeight;
-            const scrollPercent = Math.min(scrollY / viewH, 1.8);
+            const scrollPercent = Math.min(scrollY / viewH, 1.2);
             
-            // 1. HERO LOGIC (Scaling & Scattering)
-            // Desender spacing fix: Text grows but is offset to maintain margin
-            const scaleVal = 1 + (scrollPercent * 0.15);
-            heroTitle.style.transform = `scale(${scaleVal})`;
-            
-            // Scatter inward to outward
-            cards[0].style.transform = `translate(${-scrollPercent * 600}px, ${-scrollPercent * 500}px) rotate(${-4 - scrollPercent * 20}deg)`;
-            cards[1].style.transform = `translate(${scrollPercent * 600}px, ${-scrollPercent * 600}px) rotate(${2 + scrollPercent * 25}deg)`;
-            cards[2].style.transform = `translate(${-scrollPercent * 500}px, ${scrollPercent * 600}px) rotate(${-6 - scrollPercent * 15}deg)`;
-            cards[3].style.transform = `translate(${scrollPercent * 500}px, ${scrollPercent * 500}px) rotate(${5 + scrollPercent * 30}deg)`;
+            // Hero scattering (Tightened distance)
+            cards[0].style.transform = `translate(${-scrollPercent * 500}px, ${-scrollPercent * 400}px) rotate(${-4 - scrollPercent * 20}deg)`;
+            cards[1].style.transform = `translate(${scrollPercent * 500}px, ${-scrollPercent * 500}px) rotate(${2 + scrollPercent * 25}deg)`;
+            cards[2].style.transform = `translate(${-scrollPercent * 400}px, ${scrollPercent * 500}px) rotate(${-6 - scrollPercent * 15}deg)`;
+            cards[3].style.transform = `translate(${scrollPercent * 500}px, ${scrollPercent * 400}px) rotate(${5 + scrollPercent * 30}deg)`;
 
-            // Content Visibility Logic
-            if (scrollPercent > 0.4) {
+            if (scrollPercent > 0.3) {
                 heroDiscovery.classList.add('visible');
                 heroHint.style.opacity = 0;
             } else {
@@ -256,29 +233,25 @@
                 heroHint.style.opacity = 0.4;
             }
 
-            // 2. POLISHED THEATER LOGIC
+            // Polished Theater Transition (Starts later, feels smoother)
             const videoRect = videoSection.getBoundingClientRect();
             const sectionMiddle = videoRect.top + (videoRect.height / 2);
-            const screenMiddle = viewH / 2;
-            const distance = Math.abs(screenMiddle - sectionMiddle);
+            const distance = Math.abs((viewH / 2) - sectionMiddle);
             
-            // Background Fade (Clamped to prevent fading during Context section)
-            // Starts fading only when Context is nearly gone (videoRect.top < viewH/3)
-            if (videoRect.top < viewH * 0.4 && videoRect.bottom > viewH * 0.2) {
-                let progress = Math.max(0, 1 - (distance / 400));
+            if (videoRect.top < viewH * 0.5 && videoRect.bottom > viewH * 0.2) {
+                let progress = Math.max(0, 1 - (distance / 500));
                 let intensity = Math.floor(255 - (progress * 253));
                 document.documentElement.style.setProperty('--bg-intensity', intensity);
-                
-                if (distance < 300) videoCard.classList.add('video-active');
+                if (distance < 250) videoCard.classList.add('video-active');
                 else videoCard.classList.remove('video-active');
             } else {
                 document.documentElement.style.setProperty('--bg-intensity', 255);
             }
 
-            // 3. NAV LOGIC
+            // Stable Nav
             if (scrollY > 100) nav.classList.add('nav-scrolled');
             else nav.classList.remove('nav-scrolled');
-            
+
             // ScrollSpy
             const anchors = document.querySelectorAll('.section-anchor');
             const links = document.querySelectorAll('.nav-link');
