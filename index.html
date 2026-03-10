@@ -11,41 +11,31 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap');
         
         :root { --brand-orange: #f26522; --brand-charcoal: #020617; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; overflow-x: hidden; background-color: #ffffff; transition: background-color 0.8s ease; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; overflow-x: hidden; background-color: #ffffff; }
         
-        /* Navigation Logic */
+        /* Navigation */
         .nav-scrolled { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px); border-bottom: 1px solid #f1f5f9; padding-top: 1rem; padding-bottom: 1rem; }
         .nav-link { position: relative; color: #64748b; transition: color 0.3s ease; }
         .nav-link.active { color: var(--brand-orange); font-weight: 800; }
         .nav-link.active::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 2px; background: var(--brand-orange); }
 
-        /* Theater Mode Elements */
-        #theater-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #020617; opacity: 0; pointer-events: none; z-index: 40;
-            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        /* HERO DEPTH STYLING */
+        .hero-bg-text { font-size: clamp(5rem, 15vw, 12rem); line-height: 0.8; font-weight: 900; letter-spacing: -0.05em; color: #f1f5f9; position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); z-index: 1; pointer-events: none; width: 100%; text-align: center; }
+        .hero-image-main { width: 45%; height: 65vh; border-radius: 2rem; position: relative; z-index: 2; object-fit: cover; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.2); }
+        .hero-image-sub { width: 250px; height: 320px; border-radius: 1.5rem; position: absolute; z-index: 3; bottom: -10%; left: -15%; border: 12px solid white; box-shadow: 0 30px 60px rgba(0,0,0,0.15); object-fit: cover; }
+
+        /* Theater Mode */
+        #theater-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #020617; opacity: 0; pointer-events: none; z-index: 40; transition: opacity 1s ease; }
         .theater-active #theater-overlay { opacity: 1; }
         #video-trigger { position: relative; z-index: 50; transition: all 0.8s ease; transform: scale(0.9); }
         .video-active #video-trigger { transform: scale(1); }
-        
-        /* Parallax & Accents */
-        .parallax-hero { background-attachment: fixed; background-position: center; background-size: cover; }
-        .big-number { font-size: clamp(8rem, 15vw, 14rem); font-weight: 900; color: #f1f5f9; position: absolute; z-index: -1; top: -4rem; left: -2rem; }
-        .image-card-overlap { position: absolute; bottom: -10%; right: -5%; width: 50%; border: 12px solid white; border-radius: 2rem; box-shadow: 0 40px 80px rgba(0,0,0,0.1); }
-        
-        #scroll-hint { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 60; color: white; opacity: 0; transition: opacity 0.5s ease; }
-        .theater-active #scroll-hint { opacity: 0.6; animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);} 40% {transform: translateY(-10px) translateX(-50%);} 60% {transform: translateY(-5px) translateX(-50%);} }
+
+        .big-number { font-size: 14rem; font-weight: 900; color: #f1f5f9; position: absolute; z-index: -1; top: -4rem; left: -2rem; }
     </style>
 </head>
 <body class="antialiased">
 
     <div id="theater-overlay"></div>
-    <div id="scroll-hint" class="text-center font-black tracking-widest text-[9px] uppercase">
-        <p class="mb-2">Keep Exploring</p>
-        <i data-lucide="chevron-down" class="mx-auto w-4"></i>
-    </div>
 
     <nav id="main-nav" class="fixed w-full z-[100] px-8 py-8 transition-all duration-500">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
@@ -55,33 +45,33 @@
             <div class="hidden md:flex items-center gap-10 text-[10px] font-black uppercase tracking-[0.25em]">
                 <a href="#context" class="nav-link px-2">Context</a>
                 <a href="#story" class="nav-link px-2">Story</a>
-                <a href="#soap" class="nav-link px-2 font-bold text-[#f26522]">Enterprise</a>
+                <a href="#soap" class="nav-link px-2">Enterprise</a>
                 <a href="#impact" class="nav-link px-2">Impact</a>
                 <a href="https://anglicanmissions.org.nz/donate" class="bg-slate-950 text-white px-8 py-3 rounded-full hover:bg-[#f26522] transition-all ml-4">Donate</a>
             </div>
         </div>
     </nav>
 
-    <section class="relative min-h-screen flex items-center bg-white overflow-hidden">
-        <div class="absolute right-0 top-0 w-full lg:w-1/2 h-full hidden lg:block">
-            <img src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?auto=format&fit=crop&q=80&w=1500" class="w-full h-full object-cover" alt="Ethiopian Highlands">
+    <section class="relative min-h-screen flex flex-col items-center justify-center pt-20 overflow-hidden bg-white">
+        <div class="hero-bg-text" data-aos="fade-up" data-aos-duration="1500">
+            SUSTAINING<br>ETHIOPIA
         </div>
-        <div class="max-w-7xl mx-auto px-8 w-full relative z-10">
-            <div class="max-w-xl lg:max-w-2xl" data-aos="fade-right" data-aos-duration="1500">
-                <div class="flex items-center gap-3 mb-10">
-                    <span class="w-12 h-[3px] bg-[#f26522]"></span>
-                    <span class="uppercase tracking-[0.4em] text-[11px] font-[800] text-[#f26522]">Baregota 2026 Initiative</span>
-                </div>
-                <h1 class="text-7xl md:text-[110px] font-[900] leading-[0.82] tracking-tighter mb-10 text-slate-950">
-                    Sustaining <br>Highland <br><span class="text-[#f26522]">Agency.</span>
-                </h1>
-                <p class="text-2xl text-slate-500 font-medium leading-relaxed mb-12">
-                    A locally-led initiative supported by AWA to transform the highlands through crop science and female enterprise.
+
+        <div class="relative flex flex-col items-center">
+            <div class="relative" data-aos="zoom-out" data-aos-duration="2000">
+                <img src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?auto=format&fit=crop&q=80&w=1200" class="hero-image-main" alt="Highland Context">
+                <img src="https://images.unsplash.com/photo-1523348830342-d0187cf0c28d?auto=format&fit=crop&q=80&w=600" class="hero-image-sub hidden md:block" alt="Sprout detail">
+            </div>
+
+            <div class="text-center mt-16 relative z-10 max-w-2xl px-6" data-aos="fade-up" data-aos-delay="400">
+                <h2 class="text-[#f26522] font-black uppercase tracking-[0.4em] text-xs mb-6">A Project of Anglican Missions (AWA)</h2>
+                <p class="text-2xl text-slate-500 font-medium leading-relaxed mb-10">
+                    Transforming the Highlands of Baregota through locally-led crop science and the building of self-sufficient foundations.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-8 items-center">
-                    <a href="https://anglicanmissions.org.nz/donate" class="w-full sm:w-auto bg-slate-950 text-white px-12 py-5 rounded-2xl font-bold shadow-2xl hover:bg-[#f26522] transition-all text-center">Support Now</a>
-                    <a href="#video-section" class="group flex items-center gap-3 font-bold">
-                        <span class="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center group-hover:bg-slate-50 transition-all"><i data-lucide="play" class="w-4 h-4 fill-current"></i></span>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                    <a href="https://anglicanmissions.org.nz/donate" class="bg-slate-950 text-white px-10 py-5 rounded-2xl font-bold shadow-2xl hover:bg-[#f26522] transition-all">Support the Project</a>
+                    <a href="#video-section" class="flex items-center gap-3 font-bold text-slate-900 group">
+                        <span class="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center group-hover:bg-slate-50"><i data-lucide="play" class="w-4 h-4"></i></span>
                         Watch Story
                     </a>
                 </div>
@@ -89,25 +79,26 @@
         </div>
     </section>
 
-    <section id="context" class="py-48 px-8 section-anchor">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid lg:grid-cols-2 gap-32 items-center">
-                <div class="relative" data-aos="zoom-out">
-                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=1200" class="rounded-[3rem] shadow-2xl" alt="Community">
-                    <img src="https://images.unsplash.com/photo-1523348830342-d0187cf0c28d?auto=format&fit=crop&q=80&w=600" class="image-card-overlap" alt="Agriculture Detail">
+    <section id="context" class="py-48 px-8 section-anchor bg-slate-50/50">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-32 items-center">
+            <div class="relative" data-aos="zoom-out">
+                <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=1200" class="rounded-[3rem] shadow-2xl" alt="Community">
+                <div class="absolute -bottom-10 -right-10 bg-[#f26522] text-white p-12 rounded-[2.5rem] shadow-2xl hidden md:block">
+                    <p class="text-4xl font-black mb-1">500+</p>
+                    <p class="uppercase font-bold text-[10px] tracking-widest opacity-80">Villagers Empowered</p>
                 </div>
-                <div data-aos="fade-up">
-                    <h2 class="text-5xl md:text-6xl font-black tracking-tight leading-tight mb-8">Rooted in <br><span class="text-[#f26522]">Highland Soil.</span></h2>
-                    <p class="text-xl text-slate-500 font-medium leading-relaxed mb-10">Baregota’s altitude requires a specific architecture of farming. We blend ancestral respect with modern water conservation to triple seasonal yields.</p>
-                    <div class="grid grid-cols-2 gap-10">
-                        <div class="border-l-4 border-slate-100 pl-6">
-                            <h4 class="text-3xl font-black">2,400m</h4>
-                            <p class="text-xs uppercase font-bold text-slate-400 mt-2">Elevation</p>
-                        </div>
-                        <div class="border-l-4 border-slate-100 pl-6">
-                            <h4 class="text-3xl font-black">100%</h4>
-                            <p class="text-xs uppercase font-bold text-slate-400 mt-2">Locally Led</p>
-                        </div>
+            </div>
+            <div data-aos="fade-up">
+                <h2 class="text-5xl font-[900] tracking-tight mb-8 leading-tight">Rooted in <br><span class="text-[#f26522]">Highland Soil.</span></h2>
+                <p class="text-xl text-slate-500 font-medium leading-relaxed mb-10">Baregota’s altitude requires a specific architecture of farming. We blend ancestral respect with modern water conservation to triple seasonal yields.</p>
+                <div class="grid grid-cols-2 gap-10">
+                    <div class="border-l-4 border-[#f26522] pl-6">
+                        <h4 class="text-3xl font-black">2,400m</h4>
+                        <p class="text-xs uppercase font-bold text-slate-400 mt-2">Altitude</p>
+                    </div>
+                    <div class="border-l-4 border-[#f26522] pl-6">
+                        <h4 class="text-3xl font-black">100%</h4>
+                        <p class="text-xs uppercase font-bold text-slate-400 mt-2">Local Agency</p>
                     </div>
                 </div>
             </div>
@@ -124,53 +115,35 @@
         </div>
     </section>
 
-    <section id="story" class="py-48 px-8 section-anchor overflow-hidden">
+    <section id="story" class="py-48 px-8 section-anchor">
         <div class="max-w-5xl mx-auto space-y-64">
             <div class="relative grid md:grid-cols-2 gap-24 items-center" data-aos="fade-up">
                 <span class="big-number">01</span>
-                <div>
-                    <h3 class="text-4xl font-black mb-8 uppercase tracking-tighter">The Student.</h3>
-                    <p class="text-xl text-slate-500 leading-relaxed font-medium">Amlaku Yaregal fled homelessness at age 12 to earn a degree in Plant Science. His success is the spark that transformed Baregota.</p>
-                </div>
+                <div><h3 class="text-4xl font-black mb-8 uppercase tracking-tighter">The Student.</h3><p class="text-xl text-slate-500 leading-relaxed font-medium">Amlaku Yaregal fled homelessness at age 12 to earn a degree in Plant Science. His success is the spark that transformed Baregota.</p></div>
                 <img src="https://images.unsplash.com/photo-1523741543316-dbc7fc146394?auto=format&fit=crop&q=80&w=800" class="rounded-[3rem] shadow-xl grayscale hover:grayscale-0 transition-all duration-700" alt="Education">
             </div>
             <div class="relative grid md:grid-cols-2 gap-24 items-center" data-aos="fade-up">
                 <span class="big-number">02</span>
                 <img src="https://images.unsplash.com/photo-1523348830342-d0187cf0c28d?auto=format&fit=crop&q=80&w=800" class="rounded-[3rem] shadow-xl order-last md:order-first grayscale hover:grayscale-0 transition-all duration-700" alt="Farming">
-                <div>
-                    <h3 class="text-4xl font-black mb-8 uppercase tracking-tighter text-[#f26522]">The Science.</h3>
-                    <p class="text-xl text-slate-500 leading-relaxed font-medium">Row-planting and water storage foundations converted seasonal hunger into year-round independence.</p>
-                </div>
+                <div><h3 class="text-4xl font-black mb-8 uppercase tracking-tighter text-[#f26522]">The Science.</h3><p class="text-xl text-slate-500 leading-relaxed font-medium">Row-planting and water storage foundations converted seasonal hunger into year-round independence.</p></div>
             </div>
             <div class="relative grid md:grid-cols-2 gap-24 items-center" data-aos="fade-up">
                 <span class="big-number">03</span>
-                <div>
-                    <h3 class="text-4xl font-black mb-8 uppercase tracking-tighter text-slate-900">The Ripple.</h3>
-                    <p class="text-xl text-slate-500 leading-relaxed font-medium">Knowledge scales. Amlaku now mentors farmers from surrounding districts, creating a region-wide model of success.</p>
-                </div>
-                <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&q=80&w=800" class="rounded-[3rem] shadow-xl grayscale hover:grayscale-0 transition-all duration-700" alt="Scale">
+                <div><h3 class="text-4xl font-black mb-8 uppercase tracking-tighter">The Ripple.</h3><p class="text-xl text-slate-500 leading-relaxed font-medium">Knowledge scales. Amlaku now mentors farmers from surrounding districts, creating a regional success model.</p></div>
+                <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&q=80&w=800" class="rounded-[3rem] shadow-xl grayscale hover:grayscale-0 transition-all duration-700" alt="Scaling">
             </div>
         </div>
     </section>
 
-    <section id="soap" class="py-64 bg-slate-950 text-white px-8 section-anchor relative overflow-hidden rounded-[5rem] mx-4">
-        <div class="absolute top-0 left-0 w-full h-full opacity-10">
-            <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover" alt="Soap Background">
-        </div>
+    <section id="soap" class="py-64 bg-slate-950 text-white px-8 rounded-[5rem] mx-4 section-anchor overflow-hidden relative">
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center relative z-10">
             <div data-aos="fade-right">
                 <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 text-[#f26522] text-[11px] font-black uppercase tracking-[0.2em] mb-12">Enterprise Spotlight</div>
                 <h2 class="text-7xl md:text-8xl font-black tracking-tighter mb-10 leading-[0.9]">The Soap <br>Initiative.</h2>
                 <p class="text-2xl text-slate-400 font-medium leading-relaxed mb-12">Addressing hygiene and providing economic agency to the women of Baregota through local manufacturing.</p>
                 <div class="grid grid-cols-2 gap-12">
-                    <div>
-                        <h4 class="text-[#f26522] font-black text-3xl mb-3 uppercase">Sanitation</h4>
-                        <p class="text-slate-500 text-sm leading-relaxed">Directly reducing disease through access to affordable, locally-made hygiene products.</p>
-                    </div>
-                    <div>
-                        <h4 class="text-[#f26522] font-black text-3xl mb-3 uppercase">Revenue</h4>
-                        <p class="text-slate-500 text-sm leading-relaxed">A sustainable revenue model that reinvests in community agricultural tools.</p>
-                    </div>
+                    <div><h4 class="text-[#f26522] font-black text-3xl mb-3">Hygiene</h4><p class="text-slate-500 text-sm">Reducing disease through locally-made products.</p></div>
+                    <div><h4 class="text-[#f26522] font-black text-3xl mb-3">Revenue</h4><p class="text-slate-500 text-sm">A model that reinvests in community tools.</p></div>
                 </div>
             </div>
             <div class="relative" data-aos="fade-left">
@@ -180,50 +153,28 @@
     </section>
 
     <section id="impact" class="py-48 px-8 section-anchor">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-end mb-32 gap-12">
-            <div data-aos="fade-right">
-                <h2 class="text-6xl font-black tracking-tighter mb-6">Proven <br><span class="text-[#f26522]">Impact.</span></h2>
-                <p class="text-slate-400 text-xl font-medium max-w-sm">Quantifiable progress in the Ethiopian Highlands.</p>
-            </div>
-            <div class="p-16 bg-slate-50 rounded-[4rem] border border-slate-100 shadow-sm" data-aos="zoom-in">
-                <div class="text-8xl font-black text-[#f26522] tracking-tighter mb-4">500+</div>
-                <div class="uppercase tracking-[0.4em] font-black text-[10px] text-slate-400">Villagers Empowered</div>
-            </div>
-        </div>
-        <div class="grid md:grid-cols-3 gap-12">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-12">
             <div class="p-14 border border-slate-100 rounded-[3.5rem] bg-white group hover:border-[#f26522] transition-colors duration-500">
-                <i data-lucide="droplets" class="text-[#f26522] mb-10 w-12 h-12 group-hover:scale-110 transition-transform"></i>
-                <h4 class="text-2xl font-black mb-6 uppercase tracking-tight">Irrigation</h4>
-                <p class="text-slate-500 leading-relaxed font-medium">Concrete piping and storage tanks that stop water loss and enable year-round farming.</p>
+                <i data-lucide="droplets" class="text-[#f26522] mb-10 w-12 h-12"></i>
+                <h4 class="text-2xl font-black mb-6 uppercase">Irrigation</h4>
+                <p class="text-slate-500 leading-relaxed font-medium">Concrete piping foundations that stop water loss and enable year-round farming.</p>
             </div>
             <div class="p-14 border border-slate-100 rounded-[3.5rem] bg-white group hover:border-[#f26522] transition-colors duration-500">
-                <i data-lucide="sprout" class="text-[#f26522] mb-10 w-12 h-12 group-hover:scale-110 transition-transform"></i>
-                <h4 class="text-2xl font-black mb-6 uppercase tracking-tight">Agronomy</h4>
+                <i data-lucide="sprout" class="text-[#f26522] mb-10 w-12 h-12"></i>
+                <h4 class="text-2xl font-black mb-6 uppercase">Agronomy</h4>
                 <p class="text-slate-500 leading-relaxed font-medium">Precision row-planting and crop science that triples yield compared to traditional methods.</p>
             </div>
             <div class="p-14 border border-slate-100 rounded-[3.5rem] bg-white group hover:border-[#f26522] transition-colors duration-500">
-                <i data-lucide="users" class="text-[#f26522] mb-10 w-12 h-12 group-hover:scale-110 transition-transform"></i>
-                <h4 class="text-2xl font-black mb-6 uppercase tracking-tight">Economic Agency</h4>
-                <p class="text-slate-500 leading-relaxed font-medium">Self-sufficiency models that allow the community to enter the market as suppliers, not just receivers.</p>
+                <i data-lucide="users" class="text-[#f26522] mb-10 w-12 h-12"></i>
+                <h4 class="text-2xl font-black mb-6 uppercase">Agency</h4>
+                <p class="text-slate-500 leading-relaxed font-medium">Self-sufficiency models that allow the community to enter the market as suppliers.</p>
             </div>
         </div>
     </section>
 
-    <section class="py-64 bg-white text-center px-8 border-t border-slate-50 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-[0.03] pointer-events-none">
-            <img src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover">
-        </div>
-        <div class="max-w-4xl mx-auto relative z-10" data-aos="zoom-in">
-            <h2 class="text-7xl md:text-[100px] font-black tracking-tighter leading-[0.85] mb-16">The next <br>foundation <br><span class="text-[#f26522]">is yours.</span></h2>
-            <a href="https://anglicanmissions.org.nz/donate" class="inline-block px-16 py-8 bg-slate-950 text-white rounded-[2rem] font-black text-2xl hover:bg-[#f26522] transition-all shadow-2xl active:scale-95">Support the Project</a>
-        </div>
-    </section>
-
-    <footer class="py-20 border-t border-slate-100 px-8 bg-white">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
-            <div class="font-[900] text-2xl tracking-tighter uppercase">Bricks <span class="text-[#f26522]">For Life</span></div>
-            <div class="text-slate-400 text-[11px] font-bold uppercase tracking-[0.4em]">© 2026 Anglican Missions AWA Global Development.</div>
-        </div>
+    <footer class="py-24 border-t border-slate-100 px-8 text-center bg-white">
+        <div class="font-[900] text-2xl tracking-tighter uppercase mb-6">Bricks <span class="text-[#f26522]">For Life</span></div>
+        <p class="text-slate-400 text-[11px] font-bold uppercase tracking-[0.4em]">© 2026 Anglican Missions AWA Global Development.</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -249,11 +200,11 @@
                 if (link.getAttribute('href').includes(current) && current !== "") { link.classList.add('active'); }
             });
 
-            // Nav Shrink
+            // Nav State
             if (window.scrollY > 50) nav.classList.add('nav-scrolled');
             else nav.classList.remove('nav-scrolled');
 
-            // CINEMATIC THEATER LOGIC
+            // Cinematic Video Logic
             const rect = videoSection.getBoundingClientRect();
             const viewHeight = window.innerHeight;
             if (rect.top < viewHeight * 0.7 && rect.bottom > viewHeight * 0.3) {
