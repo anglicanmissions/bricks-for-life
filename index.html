@@ -12,157 +12,165 @@
         
         :root { 
             --brand-orange: #f26522; 
-            --bg-dynamic: 252, 252, 252;
+            --bg-color: 252, 252, 252;
+            --text-color: 10, 10, 10;
         }
         
         html { scroll-behavior: smooth; }
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: rgb(var(--bg-dynamic));
+            background-color: rgb(var(--bg-color));
+            color: rgb(var(--text-color));
             overflow-x: hidden;
-            transition: background-color 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: background-color 0.8s cubic-bezier(0.23, 1, 0.32, 1), color 0.8s ease;
         }
 
-        /* Nav: Kinetic Inversion */
+        /* Paper Texture Overlay */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            opacity: 0.05; pointer-events: none; z-index: 9999;
+        }
+
+        /* Nav Island - Restored & Improved for visibility */
         .nav-island {
-            position: fixed; top: 1.5rem; left: 50%; transform: translateX(-50%);
+            position: fixed; top: 2rem; left: 50%; transform: translateX(-50%);
             width: 95%; max-width: 1100px;
-            padding: 0.8rem 2.5rem;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 100px;
+            padding: 1rem 2.5rem;
             z-index: 1000;
             display: flex; justify-content: space-between; align-items: center;
-            mix-blend-difference: exclusion; /* Ensures visibility over any color */
-            color: white; /* Inverts to black on white BG */
+            transition: all 0.5s ease;
         }
-        .nav-island svg, .nav-island a, .nav-island span { color: white; fill: white; }
-        .nav-scrolled { max-width: 800px; padding: 0.5rem 1.5rem; }
+        .nav-scrolled { max-width: 850px; top: 1rem; padding: 0.7rem 2rem; background: rgba(10, 10, 10, 0.9); color: white; border-color: rgba(255,255,255,0.1); }
+        .nav-scrolled a { color: white; }
+        .nav-scrolled svg rect { fill: white; }
 
-        /* Hero Variable Reveal */
-        .hero-title-scroll {
+        /* Headline Style */
+        .hero-title-block {
             font-family: 'Inter', sans-serif;
             font-weight: 950;
-            line-height: 0.8;
+            line-height: 0.72;
             letter-spacing: -0.06em;
-            font-size: clamp(3.5rem, 16vw, 13rem);
+            font-size: clamp(3.5rem, 16vw, 14rem);
             text-transform: uppercase;
             text-align: center;
-            color: #0f172a;
         }
 
+        /* Quote Fix */
+        .quote-block {
+            font-family: 'Inter', sans-serif;
+            font-weight: 950;
+            line-height: clamp(0.75, 0.82, 0.85);
+            letter-spacing: -0.05em;
+            font-size: clamp(2.5rem, 11vw, 9.5rem);
+            text-transform: uppercase;
+        }
+
+        /* Hero Image Parallax */
         .hero-viewport { height: 280vh; position: relative; }
         .hero-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        
         .brick-img { position: absolute !important; border-radius: 0.2rem; object-fit: cover; box-shadow: 0 40px 100px rgba(0,0,0,0.2); transition: transform 0.1s linear; z-index: 10; filter: grayscale(100%); }
         #b1 { width: 30vw; height: 45vh; bottom: -45%; left: -5%; }
         #b2 { width: 25vw; height: 35vh; bottom: -55%; right: -5%; }
         #b3 { width: 35vw; height: 50vh; bottom: -70%; left: 35%; }
 
-        /* Focal Story */
-        .story-section { position: relative; background: #020617; }
-        .story-bg-sticky { position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden; z-index: 1; }
-        .story-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; filter: brightness(0.4); }
-        .story-img.active { opacity: 1; }
+        /* FOCAL STORY: Restored logic */
+        .focal-beat { 
+            opacity: 0.05;
+            transform: scale(0.98);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            max-width: 900px;
+            margin: 0 auto;
+            color: #fff;
+        }
+        .focal-beat.active { opacity: 1; transform: scale(1); }
+        .focal-beat span { color: var(--brand-orange); }
 
-        .story-beat { height: 100vh; display: flex; align-items: center; justify-content: center; padding: 0 10%; opacity: 0.1; transition: 0.8s ease; transform: scale(0.98); color: white; }
-        .story-beat.active { opacity: 1; transform: scale(1); }
-
-        /* Word Reveal */
-        .word { display: inline-block; opacity: 0.1; transform: translateY(15px); transition: all 0.5s ease; color: #0f172a; }
-        .word.active { opacity: 1; transform: translateY(0); color: var(--brand-orange); }
-
-        #back-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 50px; height: 50px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; cursor: pointer; opacity: 0; transition: 0.4s; border: 1px solid #eee; mix-blend-difference: exclusion; }
+        #back-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 50px; height: 50px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; cursor: pointer; opacity: 0; transition: 0.4s; box-shadow: 0 10px 30px rgba(0,0,0,0.1); color: #000; }
+        #back-to-top.visible { opacity: 1; }
     </style>
 </head>
 <body class="antialiased">
 
     <nav class="nav-island" id="main-nav">
         <div class="flex items-center gap-3">
-            <svg width="24" height="24" viewBox="0 0 24 24"><rect x="2" y="14" width="12" height="6" rx="1" fill="currentColor"/><rect x="15" y="14" width="7" height="6" rx="1" fill="currentColor" opacity="0.5"/><rect x="2" y="6" width="7" height="6" rx="1" fill="currentColor" opacity="0.5"/><rect x="10" y="6" width="12" height="6" rx="1" fill="currentColor"/></svg>
-            <span class="font-black text-xs uppercase tracking-tighter hidden md:block">Bricks for Life</span>
+            <svg id="nav-logo" width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="2" y="14" width="12" height="6" rx="1" fill="#f26522"/><rect x="15" y="14" width="7" height="6" rx="1" fill="#f26522" opacity="0.5"/><rect x="2" y="6" width="7" height="6" rx="1" fill="#f26522" opacity="0.5"/><rect x="10" y="6" width="12" height="6" rx="1" fill="#f26522"/></svg>
+            <span class="font-black text-sm uppercase tracking-tighter hidden md:block">Bricks for Life</span>
         </div>
-        <div class="flex gap-4 sm:gap-10 text-[8px] font-black uppercase tracking-[0.25em] items-center">
-            <a href="#vision">Origins</a>
-            <a href="#story">Narrative</a>
-            <a href="#strategy">Strategy</a>
-            <a href="#video-section" class="hidden sm:block">Film</a>
-            <a href="https://anglicanmissions.org.nz/donate" class="bg-white text-black px-5 py-2.5 rounded-full">Support</a>
+        <div class="flex gap-4 sm:gap-8 text-[8px] font-black uppercase tracking-[0.25em] items-center">
+            <a href="#vision" class="hover:text-[#f26522] transition-colors">Vision</a>
+            <a href="#story" class="hover:text-[#f26522] transition-colors">Story</a>
+            <a href="#strategy" class="hover:text-[#f26522] transition-colors">Strategy</a>
+            <a href="#video-section" class="hover:text-[#f26522] transition-colors">Film</a>
+            <a href="https://anglicanmissions.org.nz/donate" class="bg-black text-white px-5 py-2.5 rounded-full hover:bg-[#f26522] transition-all">Donate</a>
         </div>
     </nav>
 
     <div class="hero-viewport">
         <div class="hero-sticky">
-            <h1 class="hero-title-scroll" id="hero-reveal">Bricks<br>For<br><span class="text-[#f26522]">Life.</span></h1>
-            <div class="mt-12 flex gap-4 z-[110]">
-                <a href="https://anglicanmissions.org.nz/donate" class="bg-black text-white px-10 py-4 rounded-full font-black uppercase text-[10px] tracking-widest hover:bg-[#f26522] transition-all">Donate Now</a>
-                <button onclick="document.getElementById('story').scrollIntoView({behavior: 'smooth'})" class="bg-white/50 backdrop-blur px-10 py-4 rounded-full font-black uppercase text-[10px] tracking-widest border border-black/10 hover:bg-white transition-all">Watch Narrative</button>
+            <h1 class="hero-title-block">Bricks<br>For<br><span class="text-[#f26522]">Life.</span></h1>
+            
+            <div class="mt-12 flex flex-wrap justify-center gap-4 z-[110]">
+                <a href="https://anglicanmissions.org.nz/donate" class="bg-black text-white px-10 py-4 rounded-full font-black uppercase text-[10px] tracking-widest hover:bg-[#f26522] transition-all shadow-2xl">Support Now</a>
+                <button onclick="document.getElementById('story').scrollIntoView({behavior: 'smooth'})" class="bg-white/50 backdrop-blur px-10 py-4 rounded-full font-black uppercase text-[10px] tracking-widest border border-black/10 hover:bg-white transition-all flex items-center gap-2"><i data-lucide="play" class="w-3 h-3 fill-current"></i> Watch Narrative</button>
             </div>
+
             <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life_banner_1232x864px-1.png" id="b1" class="brick-img" alt="">
             <img src="https://images.unsplash.com/photo-1523741543316-dbc7fc146394?q=80&w=1200" id="b2" class="brick-img" alt="">
             <img src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?q=80&w=1200" id="b3" class="brick-img" alt="">
         </div>
     </div>
 
-    <section id="vision" class="py-96 px-8 bg-white relative z-20">
+    <section id="vision" class="py-64 px-8 bg-white relative z-20">
         <div class="max-w-6xl mx-auto text-center">
-            <h2 id="quote-reveal" class="text-4xl md:text-[9rem] font-[950] tracking-tighter leading-[0.8] uppercase"></h2>
+            <blockquote class="quote-block mb-20" data-aos="fade-up">
+                “PLEASE SIR,<br>I WANT TO GO<br><span class="text-[#f26522]">TO UNIVERSITY.”</span>
+            </blockquote>
         </div>
     </section>
 
-    <div id="story" class="story-section">
-        <div class="story-bg-sticky">
-            <img src="https://images.unsplash.com/photo-1516211697506-8360bd7734b7?q=80&w=2000" class="story-img" id="s-img-1" alt="">
-            <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2000" class="story-img" id="s-img-2" alt="">
-            <img src="https://images.unsplash.com/photo-1523348830342-d0187cf0c28d?q=80&w=2000" class="story-img" id="s-img-3" alt="">
-            <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=2000" class="story-img" id="s-img-4" alt="">
-        </div>
-        <div class="story-content">
-            <div class="story-beat" data-beat="1">
-                <p class="text-3xl md:text-5xl font-bold leading-tight text-center max-w-4xl">Amlaku lost his mother at birth and was raised by his sister. At 12, <span class="text-[#f26522]">he ran away to seek education.</span></p>
+    <section id="story" class="py-[50vh] px-8 relative z-20 transition-all duration-1000">
+        <div class="max-w-4xl mx-auto space-y-[60vh] text-center">
+            <div class="focal-beat">
+                <p class="text-3xl md:text-5xl font-bold leading-tight">Amlaku Yaregal lost his mother at birth and was raised by his sister. At 12, <span>he ran away to seek education</span>, surviving on the streets of Lalibela.</p>
             </div>
-            <div class="story-beat" data-beat="2">
-                <p class="text-3xl md:text-5xl font-bold leading-tight text-center max-w-4xl">Living on the streets, he eventually became a guide. Meeting Ric Foxley, his <span class="text-[#f26522]">faith-filled question</span> became the seed for Bricks for Life.</p>
+            <div class="focal-beat">
+                <p class="text-3xl md:text-5xl font-bold leading-tight">Living in the streets, he eventually became a guide. In the rock churches, he met Ric Foxley. His <span>faith-filled question</span> became the seed for Bricks for Life.</p>
             </div>
-            <div class="story-beat" data-beat="3">
-                <p class="text-3xl md:text-5xl font-bold leading-tight text-center max-w-4xl">Funded for a <span class="text-[#f26522]">Plant Science</span> degree, Amlaku returned home to teach vital agriculture and irrigation skills.</p>
+            <div class="focal-beat">
+                <p class="text-2xl md:text-4xl font-medium leading-relaxed">Ric and others funded Amlaku’s tertiary studies in <span>Plant Science</span>, so that Amlaku could return home to Baregota and teach vital agricultural skills.</p>
             </div>
-            <div class="story-beat" data-beat="4">
-                <p class="text-3xl md:text-5xl font-bold leading-tight text-center max-w-4xl">Today, he trains farmers in neighbouring villages, <span class="text-[#f26522]">scaling the impact</span> across the region.</p>
+            <div class="focal-beat">
+                <p class="text-2xl md:text-4xl font-medium leading-relaxed">Today, the community has committed to his techniques. He is now <span>training farmers in neighbouring villages</span>, scaling impact across the Highlands.</p>
             </div>
         </div>
-    </div>
+    </section>
 
-    <section id="strategy" class="py-64 px-8 bg-white relative z-20">
+    <section id="strategy" class="py-64 px-8 bg-white border-t border-black/5 relative z-20">
         <div class="max-w-7xl mx-auto">
-            <div class="grid lg:grid-cols-2 gap-24 items-center mb-40">
-                <div data-aos="fade-right">
-                    <h2 class="text-7xl font-black tracking-tighter uppercase leading-[0.8] mb-12">Operational<br><span class="text-[#f26522]">Architecture.</span></h2>
-                    <p class="text-xl opacity-60 font-medium">Sustainable infrastructure for highland resilience.</p>
-                </div>
-                <div class="bg-slate-50 p-12 rounded-2xl border border-slate-100 shadow-inner" data-aos="zoom-in">
-                    
-                    <div class="mt-4 flex justify-between text-[10px] font-black uppercase tracking-widest text-slate-400">
-                        <span>Regional Context</span>
-                        <span>Altitude: 2,400m</span>
-                    </div>
-                </div>
-            </div>
+            <h2 class="text-7xl font-black tracking-tighter uppercase leading-[0.8] mb-32">Operational<br><span class="text-[#f26522]">Architecture.</span></h2>
             <div class="grid lg:grid-cols-3 gap-12">
                 <div class="relative" data-aos="fade-up">
                     <h4 class="font-black text-4xl mb-8 text-[#f26522]">01</h4>
                     <h5 class="text-2xl font-black uppercase mb-6">Agronomy</h5>
-                    <p class="opacity-60 font-medium leading-relaxed">Precision row-planting replacing traditional scattering to triple seasonal yields.</p>
-                    <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-5_img_content-992x784px.png" class="w-full h-[500px] object-cover rounded-sm grayscale mt-12 shadow-xl" alt="">
+                    <p class="font-medium leading-relaxed mb-10 opacity-70">Precision row-planting replacing traditional scattering to triple seasonal yields.</p>
+                    <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-5_img_content-992x784px.png" class="w-full h-[500px] object-cover rounded-sm grayscale shadow-xl" alt="">
                 </div>
                 <div class="relative lg:mt-32" data-aos="fade-up" data-aos-delay="150">
                     <h4 class="font-black text-4xl mb-8 text-[#f26522]">02</h4>
                     <h5 class="text-2xl font-black uppercase mb-6">Hydrology</h5>
-                    <p class="opacity-60 font-medium leading-relaxed">Construction of 3.5km concrete canal networks to eliminate water seepage and evaporation.</p>
-                    <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-3_img_content-992x784px.png" class="w-full h-[500px] object-cover rounded-sm grayscale mt-12 shadow-xl" alt="">
+                    <p class="font-medium leading-relaxed mb-10 opacity-70">Establishing 3.5km of concrete canals to eliminate evaporation in Highlands conditions.</p>
+                    <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-3_img_content-992x784px.png" class="w-full h-[500px] object-cover rounded-sm grayscale shadow-xl" alt="">
                 </div>
                 <div class="relative" data-aos="fade-up" data-aos-delay="300">
                     <h4 class="font-black text-4xl mb-8 text-[#f26522]">03</h4>
                     <h5 class="text-2xl font-black uppercase mb-6">Enterprise</h5>
-                    <p class="opacity-60 font-medium leading-relaxed">Establishing localized manufacturing hubs to build independent supply chains.</p>
-                    <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?q=80&w=1400" class="w-full h-[500px] object-cover rounded-sm grayscale mt-12 shadow-xl" alt="">
+                    <p class="font-medium leading-relaxed mb-10 opacity-70">Establishing localized manufacturing hubs to build regional supply chains.</p>
+                    <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?q=80&w=1000" class="w-full h-[500px] object-cover rounded-sm grayscale shadow-xl" alt="">
                 </div>
             </div>
         </div>
@@ -176,89 +184,89 @@
 
     <section class="py-64 bg-black text-white text-center px-8 relative overflow-hidden">
         <div class="max-w-5xl mx-auto relative z-10" data-aos="zoom-in">
-            <h2 class="text-7xl md:text-[11rem] font-black tracking-tighter leading-[0.75] uppercase mb-16 italic text-white">BUILD.</h2>
-            <a href="https://anglicanmissions.org.nz/donate" class="inline-block px-20 py-8 bg-[#f26522] text-white rounded-full font-black text-3xl uppercase tracking-widest shadow-3xl hover:scale-105 transition-transform">Donate Now</a>
+            <h2 class="text-7xl md:text-[11rem] font-black tracking-tighter leading-[0.75] uppercase mb-16 italic">BUILD.</h2>
+            <a href="https://anglicanmissions.org.nz/donate" class="inline-block px-20 py-8 bg-[#f26522] text-white rounded-full font-black text-3xl uppercase tracking-widest shadow-3xl hover:scale-105 transition-transform duration-500">Donate Now</a>
         </div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] border border-white/5 rounded-full animate-pulse"></div>
     </section>
 
-    <footer class="py-24 text-center bg-white border-t border-black/5 relative z-20">
+    <footer class="py-24 text-center border-t border-black/5 bg-white relative z-20">
         <div class="font-[950] text-3xl tracking-tighter uppercase italic mb-6">Bricks <span class="text-[#f26522]">For Life</span></div>
-        <p class="text-[9px] font-bold uppercase tracking-[0.4em] opacity-40 text-black">© 2026 Anglican Missions AWA Global Development</p>
+        <p class="text-[9px] font-bold uppercase tracking-[0.4em] opacity-40">© 2026 Anglican Missions AWA Global Development</p>
     </footer>
 
-    <div id="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'})"><i data-lucide="arrow-up" class="w-5 h-5"></i></div>
+    <div id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"><i data-lucide="arrow-up" class="w-5 h-5"></i></div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
         lucide.createIcons();
 
-        const quoteText = "“Please sir, I want to go to university.”";
-        const quoteContainer = document.getElementById('quote-reveal');
-        quoteText.split(" ").forEach(word => {
-            const span = document.createElement('span');
-            span.className = 'word';
-            span.textContent = word + "\u00A0";
-            quoteContainer.appendChild(span);
-        });
-
         const bricks = [document.getElementById('b1'), document.getElementById('b2'), document.getElementById('b3')];
-        const heroTitle = document.getElementById('hero-reveal');
-        const storyBeats = document.querySelectorAll('.story-beat');
-        const storyImages = document.querySelectorAll('.story-img');
-        const words = document.querySelectorAll('.word');
+        const focalBeats = document.querySelectorAll('.focal-beat');
+        const mainNav = document.getElementById('main-nav');
 
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             const viewH = window.innerHeight;
             const scrollPercent = scrollY / viewH;
 
-            // Hero
-            if (scrollPercent < 2) {
-                const trackingValue = -0.06 + (scrollPercent * 0.08);
-                heroTitle.style.letterSpacing = `${trackingValue}em`;
-                bricks.forEach((b, i) => {
-                    const multipliers = [0.8, 1.2, 0.6];
-                    b.style.transform = `translateY(${-scrollY * multipliers[i]}px) rotate(${i===1?4:i===0?-3:8}deg)`;
-                });
+            // 1. Hero Construction
+            if (scrollPercent < 2.5) {
+                bricks[0].style.transform = `translateY(${-scrollY * 0.8}px) rotate(-3deg)`;
+                bricks[1].style.transform = `translateY(${-scrollY * 1.2}px) rotate(4deg)`;
+                bricks[2].style.transform = `translateY(${-scrollY * 0.6}px) rotate(8deg)`;
+                bricks.forEach(b => b.style.filter = `grayscale(${Math.max(0, 100 - (scrollPercent * 150))}%)`);
             }
 
-            // Word Reveal Contrast Logic
-            const qRect = document.getElementById('vision').getBoundingClientRect();
-            if (qRect.top < viewH && qRect.bottom > 0) {
-                const progress = Math.min(Math.max((viewH - qRect.top) / (viewH * 0.8), 0), 1);
-                words.forEach((w, i) => i < Math.floor(progress * words.length) ? w.classList.add('active') : w.classList.remove('active'));
-            }
-
-            // Stable Background Dimming (Story & Video)
+            // 2. Story Focal Readability (Center Highlighting)
             const storySec = document.getElementById('story');
-            const videoSec = document.getElementById('video-section');
             const storyRect = storySec.getBoundingClientRect();
-            const videoRect = videoSec.getBoundingClientRect();
-
-            if (storyRect.top < viewH * 0.5 && storyRect.bottom > viewH * 0.5) {
-                document.documentElement.style.setProperty('--bg-dynamic', '10, 10, 10');
-            } else if (videoRect.top < viewH * 0.7 && videoRect.bottom > viewH * 0.3) {
-                const centerDist = Math.abs((videoRect.top + videoRect.height / 2) - viewH / 2);
-                const intensity = Math.floor(252 - (Math.max(0, 1 - (centerDist / 600)) * 242));
-                document.documentElement.style.setProperty('--bg-dynamic', `${intensity}, ${intensity}, ${intensity}`);
+            
+            if (storyRect.top < viewH * 0.6 && storyRect.bottom > viewH * 0.4) {
+                document.body.style.backgroundColor = "#020617";
+                document.body.style.color = "#fff";
+                
+                focalBeats.forEach(beat => {
+                    const beatRect = beat.getBoundingClientRect();
+                    const beatCenter = beatRect.top + (beatRect.height / 2);
+                    const distance = Math.abs(beatCenter - viewH / 2);
+                    
+                    if (distance < (viewH * 0.15)) {
+                        beat.classList.add('active');
+                    } else {
+                        beat.classList.remove('active');
+                    }
+                });
             } else {
-                document.documentElement.style.setProperty('--bg-dynamic', '252, 252, 252');
+                document.body.style.backgroundColor = "#fcfcfc";
+                document.body.style.color = "#0a0a0a";
             }
 
-            // Story Images
-            storyBeats.forEach((beat, i) => {
-                const rect = beat.getBoundingClientRect();
-                if (rect.top < viewH * 0.6 && rect.bottom > viewH * 0.4) {
-                    beat.classList.add('active');
-                    storyImages.forEach((img, idx) => idx === i ? img.classList.add('active') : img.classList.remove('active'));
-                } else { beat.classList.remove('active'); }
-            });
+            // 3. Theater Dimming for Video
+            const videoSec = document.getElementById('video-section');
+            if (videoSec) {
+                const rect = videoSec.getBoundingClientRect();
+                if (rect.top < viewH * 0.6 && rect.bottom > viewH * 0.2) {
+                    const distance = Math.abs(viewH / 2 - (rect.top + rect.height / 2));
+                    const intensity = Math.floor(255 - (Math.pow(Math.max(0, 1 - (distance / 500)), 2.5) * 253));
+                    // Only dim if not in story mode
+                    if (storyRect.top > viewH || storyRect.bottom < 0) {
+                        document.body.style.backgroundColor = `rgb(${intensity},${intensity},${intensity})`;
+                    }
+                    if (distance < 300) document.getElementById('video-wrapper').classList.add('video-active');
+                    else document.getElementById('video-wrapper').classList.remove('video-active');
+                }
+            }
 
-            if (scrollY > viewH) document.getElementById('back-to-top').classList.add('visible');
-            else document.getElementById('back-to-top').classList.remove('visible');
-            if (scrollY > 100) document.getElementById('main-nav').classList.add('nav-scrolled');
-            else document.getElementById('main-nav').classList.remove('nav-scrolled');
+            // 4. Back to Top & Nav State
+            if (scrollY > viewH) {
+                document.getElementById('back-to-top').classList.add('visible');
+                mainNav.classList.add('nav-scrolled');
+            } else {
+                document.getElementById('back-to-top').classList.remove('visible');
+                mainNav.classList.remove('nav-scrolled');
+            }
         });
     </script>
 </body>
