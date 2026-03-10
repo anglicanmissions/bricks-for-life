@@ -10,202 +10,175 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
         
-        :root { --brand-orange: #f26522; --bg-main: 255, 255, 255; }
+        :root { 
+            --brand-orange: #f26522; 
+            --bg-color: 255, 255, 255;
+            --text-color: 2, 6, 23;
+        }
         
+        html { scroll-behavior: smooth; }
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: rgb(var(--bg-main));
-            color: #020617;
+            background-color: rgb(var(--bg-color));
+            color: rgb(var(--text-color));
             overflow-x: hidden;
-            transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: background-color 0.8s cubic-bezier(0.22, 1, 0.36, 1), color 0.8s ease;
         }
 
-        /* Million Dollar Texture: Animated Noise */
-        .noise {
-            position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+        /* Artisanal Texture: Static + Grain */
+        .noise-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-            opacity: 0.08; pointer-events: none; z-index: 9999;
-            animation: noise-move 0.2s steps(4) infinite;
-        }
-        @keyframes noise-move {
-            0% { transform: translate(0,0); }
-            10% { transform: translate(-5%,-5%); }
-            20% { transform: translate(-10%,5%); }
-            30% { transform: translate(5%,-10%); }
-            100% { transform: translate(0,0); }
+            opacity: 0.05; pointer-events: none; z-index: 9999;
         }
 
-        /* Hero Reveal Logic */
-        .hero-container { height: 400vh; position: relative; background: #fff; }
-        .hero-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        /* Hero: The Fluid Shutter */
+        .hero-viewport { height: 350vh; position: relative; }
+        .hero-fixed { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
         
-        .hero-text {
+        .mega-headline {
             font-family: 'Inter', sans-serif;
-            font-weight: 900;
-            line-height: 0.72;
-            letter-spacing: -0.08em;
+            font-[950] leading-[0.72] letter-spacing: -0.06em;
+            font-size: clamp(4rem, 18vw, 15rem);
             text-transform: uppercase;
-            font-size: clamp(5rem, 18vw, 15rem);
             text-align: center;
-            z-index: 1; /* Sits behind the shutters */
-            color: #020617;
-            transition: letter-spacing 0.2s ease-out;
+            z-index: 1;
+            transition: transform 0.2s ease-out;
         }
 
-        .shutter {
-            position: absolute; width: 50%; height: 100%; 
+        .shutter-panel {
+            position: absolute; width: 50.5%; height: 100%; 
             background: #fff; z-index: 10; overflow: hidden;
-            display: flex; align-items: center; justify-content: center;
             transition: transform 0.1s linear;
         }
-        .shutter.left { left: 0; border-right: 1px solid #eee; }
-        .shutter.right { right: 0; border-left: 1px solid #eee; }
+        .shutter-panel img { width: 100vw; height: 100vh; object-fit: cover; filter: grayscale(100%) brightness(0.9); }
+        .left-p { left: 0; }
+        .right-p { right: 0; }
+        .right-p img { transform: translateX(-50%); }
 
-        .shutter-img {
-            width: 100vw; height: 100vh; object-fit: cover;
-            filter: grayscale(100%) brightness(0.9);
-            position: absolute;
+        /* The Portal Frame: Bespoke masking */
+        .video-container { 
+            width: 100%; min-height: 120vh; display: flex; align-items: center; justify-content: center; 
+            background: transparent;
         }
-        .left .shutter-img { left: 0; }
-        .right .shutter-img { right: 0; }
-
-        /* The "Portal" Video effect */
-        #video-portal {
-            width: 100%; height: 120vh; position: relative;
-            clip-path: circle(30% at 50% 50%);
-            transition: clip-path 0.1s linear;
+        #video-mask { 
+            width: 90%; max-width: 1400px; aspect-ratio: 16/9; 
+            border-radius: 2rem; overflow: hidden;
+            transform: scale(0.85); opacity: 0;
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        .mask-active #video-mask { transform: scale(1); opacity: 1; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5); }
 
-        /* Bio Grid */
-        .bio-section { display: grid; grid-template-columns: repeat(12, 1fr); align-items: center; }
+        /* High-End Grid UI */
+        .editorial-grid { border-top: 1px solid rgba(var(--text-color), 0.1); }
+        .grid-cell { border-right: 1px solid rgba(var(--text-color), 0.1); padding: 4rem 2rem; transition: background 0.4s ease; }
+        .grid-cell:last-child { border-right: none; }
+
+        /* Magnet Button Interaction */
+        .btn-magnet {
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            display: inline-block;
+        }
+        .btn-magnet:hover { transform: scale(1.05) translateY(-2px); }
 
     </style>
 </head>
 <body class="antialiased">
 
-    <div class="noise"></div>
+    <div class="noise-canvas"></div>
 
-    <nav class="fixed top-0 w-full z-[100] p-10 flex justify-between items-center mix-blend-difference text-white">
-        <span class="font-black text-2xl tracking-tighter uppercase">Bricks/Life</span>
-        <div class="flex gap-12 text-[10px] font-black uppercase tracking-[0.3em]">
-            <a href="#bio" class="hover:text-[#f26522] transition-all">Story</a>
-            <a href="#video-portal" class="hover:text-[#f26522] transition-all">Film</a>
-            <a href="https://anglicanmissions.org.nz/donate" class="bg-white text-black px-8 py-3 rounded-full hover:invert transition-all">Support</a>
+    <nav class="fixed top-0 w-full z-[100] px-10 py-8 flex justify-between items-center mix-blend-difference">
+        <div class="flex items-center gap-4">
+            <span class="font-black text-xl tracking-tighter uppercase text-white">Bricks/Life</span>
+        </div>
+        <div class="flex gap-10 text-[9px] font-black uppercase tracking-[0.3em] text-white">
+            <a href="#origins" class="hover:text-[#f26522] transition-colors">Origins</a>
+            <a href="#impact" class="hover:text-[#f26522] transition-colors">Impact</a>
+            <a href="https://anglicanmissions.org.nz/donate" class="bg-white text-black px-6 py-2 rounded-full hover:invert transition-all">Donate</a>
         </div>
     </nav>
 
-    <div class="hero-container">
-        <div class="hero-sticky">
-            <div class="hero-text" id="mega-title">
-                Bricks<br>For<br><span class="text-[#f26522]">Life.</span>
+    <div class="hero-viewport">
+        <div class="hero-fixed">
+            <div class="mega-headline" id="title-anim">
+                BRICKS<br>FOR<br><span class="text-[#f26522]">LIFE.</span>
             </div>
 
-            <div class="shutter left" id="left-shutter">
-                <img src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?q=80&w=1400" class="shutter-img" alt="">
+            <div class="shutter-panel left-p" id="l-shutter">
+                <img src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?q=80&w=1600" alt="">
             </div>
-            <div class="shutter right" id="right-shutter">
-                <img src="https://images.unsplash.com/photo-1523348830342-d0187cf0c28d?q=80&w=1400" class="shutter-img" alt="">
+            <div class="shutter-panel right-p" id="r-shutter">
+                <img src="https://images.unsplash.com/photo-1523741543316-dbc7fc146394?q=80&w=1600" alt="">
             </div>
 
-            <div class="absolute bottom-10 z-20 text-[10px] font-black uppercase tracking-[0.5em] text-slate-400">
-                Scroll to Open
+            <div class="absolute bottom-10 z-20 flex flex-col items-center gap-2">
+                <span class="text-[8px] font-black uppercase tracking-[0.6em] text-slate-400">Scroll Journey</span>
+                <div class="w-[1px] h-10 bg-slate-200"></div>
             </div>
         </div>
     </div>
 
-    <section id="spark" class="py-64 px-10 bg-white relative z-30">
+    <section id="origins" class="py-64 px-10 bg-white relative z-30">
         <div class="max-w-6xl mx-auto">
-            <span class="text-[#f26522] font-black text-xs uppercase tracking-[0.6em] mb-16 block">The Encounter</span>
-            <h2 class="text-6xl md:text-[11rem] font-black leading-[0.75] tracking-tighter mb-20" data-aos="fade-right">
-                “PLEASE SIR,<br>I WANT TO GO<br><span class="text-[#f26522]">TO UNIVERSITY.”</span>
+            <h2 class="text-6xl md:text-[10rem] font-black leading-[0.8] tracking-tighter mb-24 uppercase" data-aos="fade-up">
+                “I want to go<br><span class="text-[#f26522]">to university.”</span>
             </h2>
-            <div class="grid lg:grid-cols-2 gap-20 items-start">
-                <p class="text-3xl font-medium text-slate-500 leading-tight">
-                    In the rock churches of Lalibela, a faith-filled question from Amlaku Yaregal changed Baregota forever.
-                </p>
-                <div class="pt-2 text-slate-400 font-medium">
-                    Ric Foxley and his friends funded Amlaku’s studies in Plant Science, enabling him to return to his village not as a student, but as a leader of their economic recovery.
+            <div class="grid lg:grid-cols-2 gap-20">
+                <div class="space-y-8">
+                    <p class="text-3xl font-medium leading-tight text-slate-700">Amlaku Yaregal's prayerful request to Ric Foxley changed Baregota village forever.</p>
+                    <div class="w-20 h-[2px] bg-[#f26522]"></div>
                 </div>
+                <p class="text-xl text-slate-400 leading-relaxed font-medium">
+                    Ric Foxley and his friends funded Amlaku’s studies in Plant Science. Amlaku returned to Baregota not as a student, but as the architect of an entire community's economic and agricultural recovery.
+                </p>
             </div>
         </div>
     </section>
 
-    <section id="bio" class="py-48 px-10 bg-[#020617] text-white">
-        <div class="bio-section max-w-7xl mx-auto">
-            <div class="col-span-12 lg:col-span-5 mb-20 lg:mb-0" data-aos="fade-up">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200" class="w-full grayscale hover:grayscale-0 transition-all duration-1000" alt="Amlaku">
-            </div>
-            <div class="col-span-12 lg:col-span-6 lg:offset-1 px-0 lg:px-20" data-aos="fade-left">
-                <span class="text-[#f26522] font-black text-[10px] uppercase tracking-[0.5em] mb-10 block">The Leader</span>
-                <h3 class="text-7xl md:text-9xl font-black tracking-tighter leading-none mb-12 uppercase">Amlaku<br>Yaregal.</h3>
-                <p class="text-2xl text-slate-400 font-medium leading-relaxed mb-10">
-                    A former street boy with a Plant Science degree, Amlaku returned home to Baregota to turn vital agricultural knowledge into the "bricks" of a community recovery.
-                </p>
-                <div class="h-[1px] w-full bg-white/10 mb-10"></div>
-                <div class="flex gap-12 font-black text-[10px] uppercase tracking-widest text-[#f26522]">
-                    <span>Plant Science Degree</span>
-                    <span>Lalibela Roots</span>
-                </div>
-            </div>
+    <section id="portal-section" class="video-container">
+        <div id="video-mask">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/twtHTajsx50?rel=0" allowfullscreen></iframe>
         </div>
     </section>
 
-    <div class="bg-[#020617] py-32">
-        <section id="video-portal" class="bg-black">
-            <iframe class="w-full h-full" src="https://www.youtube.com/embed/twtHTajsx50?rel=0&autoplay=0" allowfullscreen></iframe>
-        </section>
-    </div>
-
-    <section class="py-64 bg-white px-10">
+    <section id="impact" class="py-64 bg-white px-10">
         <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-start gap-20 mb-32">
-                <h2 class="text-7xl font-black tracking-tighter uppercase leading-none">The<br>Outcomes.</h2>
-                <p class="text-3xl max-w-xl text-slate-500 font-medium leading-tight">By architecting local agency, we moved Baregota from subsistence to surplus.</p>
+            <div class="mb-32">
+                <span class="text-[#f26522] font-black text-xs uppercase tracking-[0.5em] mb-6 block">Measurement</span>
+                <h2 class="text-7xl font-black tracking-tighter uppercase leading-none">The<br>Metrics.</h2>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-1px bg-slate-200 border border-slate-200">
-                <div class="bg-white p-16 hover:bg-slate-50 transition-colors">
-                    <span class="text-[#f26522] font-black text-4xl block mb-10">3x</span>
-                    <h4 class="font-black text-xl uppercase mb-4 tracking-tighter">Yield Growth</h4>
-                    <p class="text-slate-500">Row-planting science replaced random scattering, tripling seasonal productivity.</p>
+            <div class="editorial-grid grid md:grid-cols-3">
+                <div class="grid-cell group hover:bg-slate-50">
+                    <span class="text-6xl font-black text-[#f26522] mb-12 block">3X</span>
+                    <h4 class="font-black text-xl uppercase mb-6 tracking-tighter">Agronomy</h4>
+                    <p class="text-slate-500 font-medium leading-relaxed">Precision row-planting replacing traditional broadcasting. Engineering the land to sustain itself.</p>
                 </div>
-                <div class="bg-white p-16 hover:bg-slate-50 transition-colors">
-                    <span class="text-[#f26522] font-black text-4xl block mb-10">3.5k</span>
-                    <h4 class="font-black text-xl uppercase mb-4 tracking-tighter">Meters Piped</h4>
-                    <h5 class="text-slate-500">Concrete canal systems eliminate water loss in the harsh Highland heat.</h5>
+                <div class="grid-cell group hover:bg-slate-50">
+                    <span class="text-6xl font-black text-[#f26522] mb-12 block">3.5K</span>
+                    <h4 class="font-black text-xl uppercase mb-6 tracking-tighter">Irrigation</h4>
+                    <p class="text-slate-500 font-medium leading-relaxed">Concrete canal architecture protecting water from evaporation in the Highland heat.</p>
                 </div>
-                <div class="bg-white p-16 hover:bg-slate-50 transition-colors">
-                    <span class="text-[#f26522] font-black text-4xl block mb-10">500+</span>
-                    <h4 class="font-black text-xl uppercase mb-4 tracking-tighter">Agency</h4>
-                    <p class="text-slate-500">Farmers have transitioned to regional suppliers, building economic dignity.</p>
+                <div class="grid-cell group hover:bg-slate-50">
+                    <span class="text-6xl font-black text-[#f26522] mb-12 block">500+</span>
+                    <h4 class="font-black text-xl uppercase mb-6 tracking-tighter">Dignity</h4>
+                    <p class="text-slate-500 font-medium leading-relaxed">Local agency and the Soap Initiative providing a foundation for economic independence.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="soap" class="py-64 bg-[#f26522] text-white px-10 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-32 items-center">
-            <div data-aos="fade-right">
-                <span class="text-white font-black text-[10px] uppercase tracking-[0.5em] mb-10 block opacity-70">Scaling Sustainability</span>
-                <h2 class="text-7xl md:text-[11rem] font-black tracking-tighter leading-[0.75] uppercase mb-16">The Soap<br>Initiative.</h2>
-                <p class="text-3xl font-medium leading-tight mb-12">Building economic power for women through locally manufactured hygiene products.</p>
-                <a href="https://anglicanmissions.org.nz/donate" class="inline-block bg-white text-[#f26522] px-12 py-5 font-black uppercase text-[11px] tracking-widest hover:bg-black hover:text-white transition-all">Support Enterprise</a>
-            </div>
-            <div class="relative">
-                <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?q=80&w=1200" class="w-full grayscale brightness-75 rounded-sm" alt="Soap">
-            </div>
-        </div>
-    </section>
-
-    <section class="py-64 bg-white text-center px-10">
+    <section class="py-64 bg-[#f26522] text-white text-center px-10 rounded-[4rem] mx-4 mb-4">
         <div class="max-w-5xl mx-auto" data-aos="zoom-in">
-            <h2 class="text-7xl md:text-[13rem] font-black tracking-tighter leading-[0.75] uppercase mb-20 italic">Foundation.</h2>
-            <a href="https://anglicanmissions.org.nz/donate" class="inline-block bg-black text-white px-20 py-8 rounded-full font-black text-4xl hover:bg-[#f26522] transition-all shadow-3xl">Donate Now</a>
+            <h2 class="text-7xl md:text-[12rem] font-black tracking-tighter leading-[0.75] uppercase mb-20 italic">Foundation.</h2>
+            <a href="https://anglicanmissions.org.nz/donate" class="btn-magnet bg-white text-black px-20 py-8 rounded-full font-black text-2xl uppercase tracking-tighter shadow-3xl hover:bg-black hover:text-white transition-all">
+                Donate Now
+            </a>
         </div>
     </section>
 
-    <footer class="p-16 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-10 bg-white">
-        <span class="font-black uppercase tracking-tighter text-2xl italic">Bricks/Life</span>
+    <footer class="p-16 flex flex-col md:flex-row justify-between items-center gap-10 bg-white">
+        <span class="font-black uppercase tracking-tighter text-2xl">Bricks/Life</span>
         <span class="text-[9px] font-bold uppercase tracking-[0.4em] text-slate-400 text-center">© 2026 Anglican Missions AWA Global Development</span>
     </footer>
 
@@ -214,42 +187,37 @@
         AOS.init({ duration: 1000, once: true });
         lucide.createIcons();
 
-        const leftShutter = document.getElementById('left-shutter');
-        const rightShutter = document.getElementById('right-shutter');
-        const megaTitle = document.getElementById('mega-title');
-        const videoPortal = document.getElementById('video-portal');
+        const lShutter = document.getElementById('l-shutter');
+        const rShutter = document.getElementById('r-shutter');
+        const titleAnim = document.getElementById('title-anim');
+        const portalSection = document.getElementById('portal-section');
 
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             const viewH = window.innerHeight;
             const scrollPercent = scrollY / viewH;
 
-            // 1. Shutter Logic (Million Dollar Reveal)
-            // As user scrolls, shutters slide out to the sides
+            // 1. Shutter Interpolation
             if (scrollPercent < 2) {
-                const moveAmount = scrollPercent * 60; // Up to 60% movement
-                leftShutter.style.transform = `translateX(${-moveAmount}%)`;
-                rightShutter.style.transform = `translateX(${moveAmount}%)`;
+                const move = Math.min(scrollPercent * 60, 100);
+                lShutter.style.transform = `translateX(${-move}%)`;
+                rShutter.style.transform = `translateX(${move}%)`;
                 
-                // Tighten typography tracking on scroll
-                const tracking = -0.08 - (scrollPercent * 0.05);
-                megaTitle.style.letterSpacing = `${tracking}em`;
+                // Subtle scale for the title as it's revealed
+                titleAnim.style.transform = `scale(${0.9 + (scrollPercent * 0.1)})`;
             }
 
-            // 2. Video Portal Mask Logic
-            const videoRect = videoPortal.getBoundingClientRect();
-            const videoProgress = Math.min(Math.max((viewH - videoRect.top) / viewH, 0), 1);
-            
-            // Starts as a circle, expands to full screen
-            if (videoRect.top < viewH && videoRect.bottom > 0) {
-                const radius = 30 + (videoProgress * 70); // From 30% to 100%
-                videoPortal.style.clipPath = `circle(${radius}% at 50% 50%)`;
-                
-                if (videoProgress > 0.8) {
-                    document.body.style.backgroundColor = "#000";
-                } else {
-                    document.body.style.backgroundColor = "#fff";
-                }
+            // 2. Video Portal Logic
+            const portalRect = portalSection.getBoundingClientRect();
+            if (portalRect.top < viewH * 0.6 && portalRect.bottom > viewH * 0.2) {
+                portalSection.classList.add('mask-active');
+                // Fluid background change
+                document.body.style.setProperty('--bg-color', '2, 6, 23');
+                document.body.style.setProperty('--text-color', '255, 255, 255');
+            } else {
+                portalSection.classList.remove('mask-active');
+                document.body.style.setProperty('--bg-color', '255, 255, 255');
+                document.body.style.setProperty('--text-color', '2, 6, 23');
             }
         });
     </script>
