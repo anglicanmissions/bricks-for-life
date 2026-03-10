@@ -17,83 +17,77 @@
             font-family: 'Plus Jakarta Sans', sans-serif; 
             overflow-x: hidden; 
             background-color: rgb(var(--bg-intensity), var(--bg-intensity), var(--bg-intensity));
-            transition: background-color 0.2s linear;
+            transition: background-color 0.15s ease-out;
         }
 
-        /* Texture Overlay */
+        /* Micro-Texture Grain */
         body::after {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
             opacity: 0.04; pointer-events: none; z-index: 9999;
         }
 
-        /* Typography Master */
+        /* HERO TYPOGRAPHY: THE FIX */
         .hero-title { 
-            font-[950] tracking-[-0.07em] leading-[0.78] text-slate-950 text-wrap: balance;
-            font-size: clamp(4rem, 15vw, 12rem);
-            filter: drop-shadow(0 0 60px rgba(255,255,255,1));
+            font-[950] tracking-[-0.08em] leading-[0.72] text-slate-950;
+            font-size: clamp(4.5rem, 18vw, 14rem);
             text-transform: uppercase;
+            z-index: 100 !important; /* Forces text to front */
+            position: relative;
+            filter: drop-shadow(0 0 40px rgba(255,255,255,0.8));
         }
 
-        /* Hero Image Stack */
         .hero-container { height: 280vh; position: relative; }
-        .hero-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .hero-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         
         .card-img {
             position: absolute !important; border-radius: 0.5rem; object-fit: cover;
-            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.3);
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.4);
             transition: transform 0.1s linear, filter 0.5s ease; 
-            z-index: 10; border: 1px solid rgba(255,255,255,0.2);
+            z-index: 10; /* Lower than text */
+            border: 1px solid rgba(255,255,255,0.3);
             width: clamp(280px, 35vw, 550px);
             height: clamp(350px, 45vw, 700px);
-            filter: grayscale(100%) brightness(0.8);
+            filter: grayscale(100%);
         }
-
-        /* Blueprint Outlines */
-        .outline-text {
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(15, 23, 42, 0.1);
-            font-size: clamp(10rem, 30vw, 40rem);
-            font-weight: 900;
-            line-height: 1;
-            position: absolute;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* Cinematic Theater Transition */
-        #video-section { min-height: 140vh; display: flex; align-items: center; justify-content: center; position: relative; }
-        #video-trigger { 
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); 
-            width: 95%; max-width: 1440px; border-radius: 1rem; overflow: hidden;
-            transform: scale(0.9); opacity: 0.5;
-        }
-        .video-active #video-trigger { transform: scale(1); opacity: 1; box-shadow: 0 0 120px rgba(0,0,0,0.8); }
 
         .hero-discovery { 
-            opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
-            pointer-events: none; margin-top: 4rem; z-index: 110;
+            opacity: 0; transform: translateY(50px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); 
+            pointer-events: none; margin-top: 5rem; z-index: 110;
         }
         .hero-discovery.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+        /* THEATER: VIDEO ISOLATION */
+        #video-section { min-height: 150vh; display: flex; align-items: center; justify-content: center; position: relative; }
+        #video-wrapper { 
+            width: 95%; max-width: 1440px; aspect-ratio: 16/9; border-radius: 0.5rem; overflow: hidden;
+            background: #000; transform: scale(0.9); opacity: 0.4;
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: brightness(1) saturate(1) !important; /* Fix: Ignores parent dimming */
+        }
+        .video-active #video-wrapper { transform: scale(1); opacity: 1; box-shadow: 0 0 150px rgba(0,0,0,0.9); }
+
+        .outline-text { color: transparent; -webkit-text-stroke: 1px rgba(15, 23, 42, 0.08); font-size: clamp(10rem, 30vw, 40rem); font-weight: 900; position: absolute; z-index: -1; pointer-events: none; }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased text-slate-900">
 
-    <nav id="main-nav" class="fixed w-full z-[100] px-8 py-8 transition-all duration-500 flex justify-center">
+    <nav id="main-nav" class="fixed w-full z-[1000] px-8 py-8 transition-all duration-500 flex justify-center">
         <div class="max-w-7xl w-full flex justify-between items-center">
             <div class="flex items-center gap-2">
-                <span class="font-[900] text-2xl tracking-tighter uppercase">Bricks <span class="text-[#f26522]">For Life</span></span>
+                <span class="font-[950] text-2xl tracking-tighter uppercase italic">Bricks <span class="text-[#f26522]">For Life</span></span>
             </div>
             <div class="hidden md:flex items-center gap-10">
-                <a href="#spark" class="nav-link text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-950">The Narrative</a>
-                <a href="#soap" class="nav-link text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-950">Future</a>
-                <a href="https://anglicanmissions.org.nz/donate" class="bg-slate-950 text-white px-8 py-3 rounded-full hover:bg-[#f26522] transition-all ml-4 text-[9px] font-black uppercase tracking-widest">Donate</a>
+                <a href="#spark" class="nav-link text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 hover:text-slate-950">Narrative</a>
+                <a href="#soap" class="nav-link text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 hover:text-slate-950">Future</a>
+                <a href="https://anglicanmissions.org.nz/donate" class="bg-slate-950 text-white px-8 py-3 rounded-full hover:bg-[#f26522] transition-all ml-4 text-[9px] font-black uppercase tracking-[0.2em]">Donate</a>
             </div>
         </div>
     </nav>
 
     <div class="hero-container">
         <div class="hero-sticky">
+            
             <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life_banner_1232x864px-1.png" id="c1" class="card-img" alt="">
             <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-5_img_content-992x784px.png" id="c2" class="card-img" alt="">
             <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-3_img_content-992x784px.png" id="c3" class="card-img" alt="">
@@ -101,104 +95,89 @@
 
             <div class="hero-text-overlay">
                 <h1 id="hero-title" class="hero-title">
-                    Bricks for<br><span class="text-[#f26522]">Life.</span>
+                    Bricks for<br><span class="text-[#f26522]">Life</span>
                 </h1>
                 <div id="hero-reveal-zone" class="hero-discovery">
-                    <p class="text-xl md:text-2xl text-slate-500 font-medium max-w-xl mx-auto mb-10 leading-snug">
-                        Architecting sustainable agency through plant science and locally-led infrastructure.
+                    <p class="text-xl md:text-3xl text-slate-500 font-medium max-w-2xl mx-auto mb-10 tracking-tight leading-tight">
+                        Ending the highland hunger gap through locally-led crop science.
                     </p>
-                    <a href="#spark" class="inline-block bg-slate-950 text-white px-12 py-5 rounded-full font-black hover:bg-[#f26522] transition-all uppercase tracking-widest text-[11px] shadow-2xl">Begin Journey</a>
+                    <a href="#spark" class="inline-block bg-slate-950 text-white px-16 py-6 rounded-full font-[900] hover:bg-[#f26522] transition-all uppercase tracking-widest text-[11px] shadow-3xl">Begin Journey</a>
                 </div>
             </div>
 
-            <div class="absolute bottom-12 flex flex-col items-center gap-3 opacity-30">
-                <span class="text-[8px] font-black uppercase tracking-[0.6em]">Momentum</span>
-                <div class="w-[1px] h-12 bg-slate-950"></div>
-            </div>
+            <button onclick="document.getElementById('spark').scrollIntoView({behavior: 'smooth'})" class="absolute bottom-12 text-[9px] font-black uppercase tracking-[0.5em] opacity-30 hover:opacity-100 transition-opacity">
+                Start Scrolling
+            </button>
         </div>
     </div>
 
     <section id="spark" class="py-64 px-8 bg-white relative z-20 overflow-hidden">
         <div class="outline-text left-0 -top-20">01</div>
-        <div class="max-w-5xl mx-auto text-center" data-aos="fade-up">
-            <span class="text-[#f26522] font-black uppercase tracking-[0.5em] text-[10px] mb-12 block">The Inflection Point</span>
-            <blockquote class="text-5xl md:text-8xl font-[950] tracking-tighter leading-[0.8] text-slate-950 mb-16 uppercase">
-                “Please sir, <br>I want to go <br><span class="text-[#f26522]">to university.”</span>
-            </blockquote>
-            <p class="text-2xl text-slate-500 font-medium max-w-2xl mx-auto leading-relaxed">
-                In 2011, this request from Amlaku Yaregal to Ric Foxley sparked a multi-generational shift in Baregota.
-            </p>
+        <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
+            <div data-aos="fade-right">
+                <blockquote class="text-6xl md:text-[9rem] font-[950] tracking-tighter leading-[0.75] text-slate-950 uppercase">
+                    “Please sir, <br>I want to go <br><span class="text-[#f26522]">to university.”</span>
+                </blockquote>
+            </div>
+            <div data-aos="fade-up" class="lg:pt-40">
+                <p class="text-3xl text-slate-500 font-bold leading-tight mb-8">The question that changed Baregota village forever.</p>
+                <p class="text-xl text-slate-400 leading-relaxed font-medium">In the rock churches of Lalibela, Amlaku Yaregal met Ric Foxley. That encounter became the seed of a regional agricultural recovery.</p>
+            </div>
         </div>
     </section>
 
     <section class="bg-white relative z-20">
         <div class="grid lg:grid-cols-2">
-            <div class="lg:sticky lg:top-0 h-screen overflow-hidden hidden lg:block">
-                <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life_banner_1232x864px-1.png" class="w-full h-full object-cover" alt="">
-                <div class="absolute inset-0 bg-slate-950/20"></div>
+            <div class="lg:sticky lg:top-0 h-screen hidden lg:block">
+                <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life_banner_1232x864px-1.png" class="w-full h-full object-cover grayscale" alt="">
+                <div class="absolute inset-0 bg-slate-950/40"></div>
             </div>
-            
-            <div class="py-32 px-12 lg:px-24 space-y-96 bg-slate-50/50">
+            <div class="py-32 px-12 lg:px-24 space-y-96 bg-slate-50">
                 <div data-aos="fade-up">
-                    <span class="text-[#f26522] font-black uppercase tracking-[0.4em] text-[10px] mb-8 block">Rooted Soil</span>
-                    <h2 class="text-6xl font-[900] tracking-tighter mb-8 leading-none">HIGH-ALTITUDE <br>AGRONOMY.</h2>
-                    <p class="text-xl text-slate-500 leading-relaxed mb-12">Baregota’s 2,400m altitude requires precision. By switching from broadcasting to row-planting, we have tripled seasonal harvests.</p>
-                    <div class="grid grid-cols-2 gap-8 border-t border-slate-200 pt-12">
-                        <div><p class="text-4xl font-black text-[#f26522]">3x</p><p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Yield Increase</p></div>
-                        <div><p class="text-4xl font-black text-slate-950">500+</p><p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Locals Fed</p></div>
-                    </div>
+                    <span class="text-[#f26522] font-black uppercase tracking-[0.4em] text-[10px] mb-8 block">Methodology</span>
+                    <h2 class="text-7xl font-[950] tracking-tighter mb-8 leading-none uppercase">Triple <br>Yields.</h2>
+                    <p class="text-2xl text-slate-500 font-medium leading-tight">Switching from random broadcasting to row-planting science. We engineer the land to feed itself.</p>
                 </div>
-
                 <div data-aos="fade-up">
-                    <span class="text-[#f26522] font-black uppercase tracking-[0.4em] text-[10px] mb-8 block">Resource Care</span>
-                    <h2 class="text-6xl font-[900] tracking-tighter mb-8 leading-none">CONCRETE <br>WATERWAYS.</h2>
-                    <p class="text-xl text-slate-500 leading-relaxed mb-12">Water is life, but Highland heat steals it through evaporation. 3.5km of piping ensures every drop reaches the roots.</p>
-                    <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-3_img_content-992x784px.png" class="rounded-xl shadow-2xl mb-12" alt="">
-                </div>
-
-                <div data-aos="fade-up">
-                    <span class="text-[#f26522] font-black uppercase tracking-[0.4em] text-[10px] mb-8 block">Economic Future</span>
-                    <h2 class="text-6xl font-[900] tracking-tighter mb-8 leading-none">SUBSISTENCE <br>TO AGENCY.</h2>
-                    <p class="text-xl text-slate-500 leading-relaxed mb-12">The goal isn't charity; it's market participation. Baregota is now a supplier, providing surplus crops to neighboring districts.</p>
+                    <span class="text-[#f26522] font-black uppercase tracking-[0.4em] text-[10px] mb-8 block">Infrastructure</span>
+                    <h2 class="text-7xl font-[950] tracking-tighter mb-8 leading-none uppercase">Water <br>Security.</h2>
+                    <p class="text-2xl text-slate-500 font-medium leading-tight">3.5km of concrete canals. Eliminating evaporation loss to ensure the highlands remain fertile through the dry season.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="video-section" class="section-anchor">
-        <div class="max-w-7xl mx-auto w-full">
-            <div id="video-trigger" class="shadow-3xl bg-black aspect-video relative">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/twtHTajsx50?rel=0" allowfullscreen></iframe>
-            </div>
+        <div id="video-wrapper">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/twtHTajsx50?rel=0" allowfullscreen></iframe>
         </div>
     </section>
 
     <section id="soap" class="py-64 bg-slate-950 text-white px-8 section-anchor overflow-hidden relative">
-        <div class="outline-text right-0 bottom-0 opacity-20" style="-webkit-text-stroke: 1px white;">02</div>
+        <div class="outline-text right-0 bottom-0 opacity-10" style="-webkit-text-stroke: 1px white;">02</div>
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-32 items-center relative z-10">
             <div data-aos="fade-right">
-                <span class="text-[#f26522] font-black uppercase tracking-[0.5em] text-[10px] mb-8 block">Local Enterprise</span>
-                <h2 class="text-7xl md:text-9xl font-[950] tracking-tighter mb-12 leading-[0.8] uppercase">The Soap <br>Initiative.</h2>
-                <p class="text-2xl text-slate-400 font-medium leading-relaxed mb-12">Creating hygiene security and economic agency for women through a scalable Highland manufacturing hub.</p>
-                <div class="flex gap-12 font-black uppercase tracking-[0.2em] text-[11px]">
-                    <span class="text-[#f26522]">Sanitation</span>
-                    <span class="text-white">Revenue</span>
+                <h2 class="text-7xl md:text-[10rem] font-[950] tracking-tighter mb-12 leading-[0.75] uppercase">The Soap <br>Initiative.</h2>
+                <p class="text-2xl text-slate-400 font-medium leading-relaxed mb-12 max-w-lg">Hygiene security meets economic agency. Creating a scalable manufacturing hub for the women of the highlands.</p>
+                <div class="flex gap-12 font-black uppercase tracking-[0.2em] text-[11px] text-[#f26522]">
+                    <span>Sanitation</span>
+                    <span>Independence</span>
                 </div>
             </div>
-            <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&q=80&w=1000" class="rounded-xl shadow-2xl border border-white/10" alt="">
+            <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&q=80&w=1000" class="rounded-xl grayscale hover:grayscale-0 transition-all duration-1000 border border-white/20" alt="">
         </div>
     </section>
 
     <section class="py-64 bg-white text-center px-8 border-t border-slate-100 relative z-20">
         <div class="max-w-4xl mx-auto" data-aos="zoom-in">
-            <h2 class="text-7xl md:text-[110px] font-[950] tracking-tighter leading-[0.8] mb-16 uppercase">SUPPORT THE <br><span class="text-[#f26522]">FOUNDATION.</span></h2>
-            <a href="https://anglicanmissions.org.nz/donate" class="inline-block px-20 py-8 bg-slate-950 text-white rounded-full font-black text-2xl hover:bg-[#f26522] transition-all shadow-3xl uppercase tracking-tighter">Donate Now</a>
+            <h2 class="text-7xl md:text-[10rem] font-[950] tracking-tighter leading-[0.75] mb-16 uppercase">Support the <br><span class="text-[#f26522]">Foundation.</span></h2>
+            <a href="https://anglicanmissions.org.nz/donate" class="inline-block px-20 py-8 bg-slate-950 text-white rounded-full font-black text-2xl hover:bg-[#f26522] transition-all shadow-3xl uppercase tracking-widest">Donate Now</a>
         </div>
     </section>
 
     <footer class="py-24 bg-white text-center border-t border-slate-100 relative z-20">
-        <div class="font-[900] text-2xl tracking-tighter uppercase italic">Bricks <span class="text-[#f26522]">For Life</span></div>
-        <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.5em] mt-6">© 2026 Anglican Missions Aotearoa</p>
+        <div class="font-[950] text-3xl tracking-tighter uppercase italic">Bricks <span class="text-[#f26522]">For Life</span></div>
+        <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.5em] mt-8">© 2026 Anglican Missions Aotearoa</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -210,22 +189,23 @@
         const heroTitle = document.getElementById('hero-title');
         const heroDiscovery = document.getElementById('hero-reveal-zone');
         const videoSection = document.getElementById('video-section');
-        const videoCard = document.getElementById('video-trigger');
+        const videoWrapper = document.getElementById('video-wrapper');
         const cards = [document.getElementById('c1'), document.getElementById('c2'), document.getElementById('c3'), document.getElementById('c4')];
 
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             const viewH = window.innerHeight;
-            const scrollPercent = Math.min(scrollY / (viewH * 1.3), 1.5);
+            const scrollPercent = Math.min(scrollY / (viewH * 1.2), 1.5);
             
-            // Hero Explosion Logic
+            // 1. HERO SCATTER
             cards.forEach((card, i) => {
                 if(!card) return;
-                const offsets = [{x:-1100,y:-900,r:-40},{x:1200,y:-1000,r:30},{x:-1000,y:1100,r:-25},{x:1100,y:900,r:40}];
+                const offsets = [{x:-1200,y:-1000,r:-40},{x:1300,y:-1100,r:30},{x:-1100,y:1200,r:-25},{x:1200,y:1000,r:40}];
                 card.style.transform = `translate(${scrollPercent * offsets[i].x}px, ${scrollPercent * offsets[i].y}px) rotate(${offsets[i].r}deg) scale(1.1)`;
-                card.style.filter = `grayscale(${Math.max(0, 100 - scrollPercent * 200)}%) brightness(${0.7 + (scrollPercent * 0.3)})`;
+                card.style.filter = `grayscale(${100 - (scrollPercent * 150)}%)`;
             });
 
+            // Headline Zoom
             if (window.innerWidth >= 768) {
                 heroTitle.style.transform = `scale(${1 + scrollPercent * 0.15})`;
             }
@@ -233,20 +213,20 @@
             if (scrollPercent > 0.4) heroDiscovery.classList.add('visible');
             else heroDiscovery.classList.remove('visible');
 
-            // CINEMATIC THEATER LOGIC (Smoothed LERP)
-            if (videoSection && videoCard) {
+            // 2. ISOLATED THEATER TRANSITION
+            if (videoSection && videoWrapper) {
                 const videoRect = videoSection.getBoundingClientRect();
                 const sectionMiddle = videoRect.top + (videoRect.height / 2);
                 const distance = Math.abs(viewH / 2 - sectionMiddle);
                 
-                // Only begin dimming when context section is mostly scrolled past
+                // Dim the background only
                 if (videoRect.top < viewH * 0.6 && videoRect.bottom > viewH * 0.1) {
                     let progress = Math.max(0, 1 - (distance / 600));
-                    let intensity = Math.floor(255 - (Math.pow(progress, 2.8) * 253));
+                    let intensity = Math.floor(255 - (Math.pow(progress, 2.5) * 253));
                     document.documentElement.style.setProperty('--bg-intensity', intensity);
                     
-                    if (distance < 250) videoCard.classList.add('video-active');
-                    else videoCard.classList.remove('video-active');
+                    if (distance < 300) videoSection.classList.add('video-active');
+                    else videoSection.classList.remove('video-active');
                 } else {
                     document.documentElement.style.setProperty('--bg-intensity', 255);
                 }
