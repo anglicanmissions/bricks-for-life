@@ -10,15 +10,19 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
         
-        :root { --brand-orange: #f26522; --bg-main: 252, 252, 252; }
+        :root { 
+            --brand-orange: #f26522; 
+            --bg-dynamic: 252, 252, 252;
+            --text-dynamic: 15, 23, 42;
+        }
         
         html { scroll-behavior: smooth; }
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: var(--bg-main);
-            color: #0f172a;
+            background-color: rgb(var(--bg-dynamic));
+            color: rgb(var(--text-dynamic));
             overflow-x: hidden;
-            transition: background-color 0.8s ease;
+            transition: background-color 0.8s ease, color 0.8s ease;
         }
 
         /* Paper Texture Grain */
@@ -39,8 +43,9 @@
             padding: 0.8rem 2.5rem;
             z-index: 1000;
             display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.5s ease;
         }
-        .nav-scrolled { max-width: 800px; padding: 0.5rem 1.5rem; }
+        .nav-scrolled { max-width: 800px; padding: 0.5rem 1.5rem; background: rgba(255,255,255,0.95); }
 
         /* HERO REVEAL */
         .hero-title-scroll {
@@ -48,7 +53,7 @@
             font-weight: 950;
             line-height: 0.8;
             letter-spacing: -0.06em;
-            font-size: clamp(3.5rem, 16vw, 13rem);
+            font-size: clamp(3rem, 15vw, 11rem);
             text-transform: uppercase;
             text-align: center;
             transition: letter-spacing 0.3s ease-out;
@@ -58,9 +63,9 @@
         .hero-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         
         .brick-img { position: absolute !important; border-radius: 0.2rem; object-fit: cover; box-shadow: 0 40px 100px rgba(0,0,0,0.2); transition: transform 0.1s linear; z-index: 10; filter: grayscale(100%); }
-        #b1 { width: 30vw; height: 45vh; bottom: -45%; left: -5%; }
-        #b2 { width: 25vw; height: 35vh; bottom: -55%; right: -5%; }
-        #b3 { width: 35vw; height: 50vh; bottom: -70%; left: 35%; }
+        #b1 { width: clamp(150px, 30vw, 400px); height: 45vh; bottom: -45%; left: -5%; }
+        #b2 { width: clamp(120px, 25vw, 350px); height: 35vh; bottom: -55%; right: -5%; }
+        #b3 { width: clamp(180px, 35vw, 450px); height: 50vh; bottom: -70%; left: 35%; }
 
         /* WORD-BY-WORD QUOTE */
         .word { display: inline-block; opacity: 0.1; transform: translateY(15px); transition: all 0.5s ease; }
@@ -83,8 +88,11 @@
         .faq-icon { transition: transform 0.4s ease; }
         .faq-item.active .faq-icon { transform: rotate(45deg); color: var(--brand-orange); }
 
-        #back-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 50px; height: 50px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; cursor: pointer; opacity: 0; transition: 0.4s; border: 1px solid #eee; }
+        #back-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 50px; height: 50px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; cursor: pointer; opacity: 0; transition: 0.4s; border: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         #back-to-top.visible { opacity: 1; }
+
+        #video-wrapper { transition: transform 1s ease, box-shadow 1s ease; }
+        .video-active #video-wrapper { transform: scale(1.02); box-shadow: 0 0 100px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body class="antialiased">
@@ -94,25 +102,22 @@
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="14" width="12" height="6" rx="1" fill="#f26522"/><rect x="15" y="14" width="7" height="6" rx="1" fill="#f26522" opacity="0.5"/><rect x="2" y="6" width="7" height="6" rx="1" fill="#f26522" opacity="0.5"/><rect x="10" y="6" width="12" height="6" rx="1" fill="#f26522"/></svg>
             <span class="font-black text-xs uppercase tracking-tighter hidden md:block">Bricks for Life</span>
         </div>
-        <div class="flex gap-4 sm:gap-10 text-[8px] font-black uppercase tracking-[0.25em] items-center">
+        <div class="flex gap-3 sm:gap-8 text-[7px] sm:text-[9px] font-black uppercase tracking-widest items-center">
             <a href="#vision" class="hover:text-[#f26522]">Origins</a>
-            <a href="#story" class="hover:text-[#f26522]">Narrative</a>
-            <a href="#strategy" class="hover:text-[#f26522]">Strategy</a>
-            <a href="#video-section" class="hover:text-[#f26522] hidden sm:block">Film</a>
+            <a href="#story" class="hover:text-[#f26522]">Story</a>
+            <a href="#strategy" class="hover:text-[#f26522] hidden sm:block">Strategy</a>
             <a href="#faq" class="hover:text-[#f26522]">FAQ</a>
-            <a href="https://anglicanmissions.org.nz/donate" class="bg-black text-white px-5 py-2.5 rounded-full hover:bg-[#f26522] transition-all">Support</a>
+            <a href="https://anglicanmissions.org.nz/donate" class="bg-black text-white px-4 py-2 rounded-full hover:bg-[#f26522] transition-all">Support</a>
         </div>
     </nav>
 
     <div class="hero-viewport">
         <div class="hero-sticky">
-            <h1 class="hero-title-scroll" id="hero-reveal">
-                Bricks<br>For<br><span class="text-[#f26522]">Life.</span>
-            </h1>
+            <h1 class="hero-title-scroll" id="hero-reveal">Bricks<br>For<br><span class="text-[#f26522]">Life.</span></h1>
             
-            <div class="mt-12 flex gap-4 z-[110]">
-                <a href="https://anglicanmissions.org.nz/donate" class="bg-black text-white px-10 py-4 rounded-full font-black uppercase text-[10px] tracking-widest hover:bg-[#f26522] transition-all shadow-2xl">Donate Now</a>
-                <button onclick="document.getElementById('story').scrollIntoView({behavior: 'smooth'})" class="bg-white/50 backdrop-blur px-10 py-4 rounded-full font-black uppercase text-[10px] tracking-widest border border-black/10 hover:bg-white transition-all">Watch Narrative</button>
+            <div class="mt-8 sm:mt-12 flex gap-4 z-[110]">
+                <a href="https://anglicanmissions.org.nz/donate" class="bg-black text-white px-6 sm:px-10 py-3 sm:py-4 rounded-full font-black uppercase text-[9px] sm:text-[10px] tracking-widest hover:bg-[#f26522] transition-all shadow-2xl">Donate Now</a>
+                <button onclick="document.getElementById('story').scrollIntoView({behavior: 'smooth'})" class="bg-white/50 backdrop-blur px-6 sm:px-10 py-3 sm:py-4 rounded-full font-black uppercase text-[9px] sm:text-[10px] tracking-widest border border-black/10 hover:bg-white transition-all">Watch Story</button>
             </div>
 
             <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life_banner_1232x864px-1.png" id="b1" class="brick-img" alt="">
@@ -120,16 +125,15 @@
             <img src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?q=80&w=1200" id="b3" class="brick-img" alt="">
 
             <div class="absolute bottom-10 flex flex-col items-center gap-4 opacity-40">
-                <div class="w-[1px] h-16 bg-black"></div>
-                <span class="text-[8px] font-black uppercase tracking-[0.4em]">Scroll Journey</span>
+                <div class="w-[1px] h-12 bg-black"></div>
+                <span class="text-[8px] font-black uppercase tracking-[0.4em]">Scroll to Build</span>
             </div>
         </div>
     </div>
 
-    <section id="vision" class="py-96 px-8 bg-white relative z-20">
+    <section id="vision" class="py-64 sm:py-96 px-8 bg-white relative z-20">
         <div class="max-w-6xl mx-auto text-center">
-            <h2 id="quote-reveal" class="text-4xl md:text-[9rem] font-[950] tracking-tighter leading-[0.8] uppercase">
-                </h2>
+            <h2 id="quote-reveal" class="text-3xl md:text-[9rem] font-[950] tracking-tighter leading-[0.8] uppercase"></h2>
         </div>
     </section>
 
@@ -142,92 +146,103 @@
         </div>
         <div class="story-content">
             <div class="story-beat" data-beat="1">
-                <p class="text-white text-3xl md:text-5xl font-bold leading-tight text-center max-w-4xl">Amlaku lost his mother at birth and was raised by his sister. At 12, <span class="text-[#f26522]">he ran away to seek education.</span></p>
+                <p class="text-white text-2xl md:text-5xl font-bold leading-tight text-center max-w-4xl">Amlaku lost his mother at birth and was raised by his sister. At 12, <span class="text-[#f26522]">he ran away to seek education.</span></p>
             </div>
             <div class="story-beat" data-beat="2">
-                <p class="text-white text-3xl md:text-5xl font-bold leading-tight text-center max-w-4xl">Living on the streets, he eventually became a guide in Lalibela. Meeting Ric Foxley, his <span class="text-[#f26522]">faith-filled question</span> became the seed for Bricks for Life.</p>
+                <p class="text-white text-2xl md:text-5xl font-bold leading-tight text-center max-w-4xl">Living on the streets, he eventually became a guide in Lalibela. Meeting Ric Foxley, his <span class="text-[#f26522]">faith-filled question</span> became the seed for Bricks for Life.</p>
             </div>
             <div class="story-beat" data-beat="3">
-                <p class="text-white text-3xl md:text-5xl font-bold leading-tight text-center max-w-4xl">Funded for a <span class="text-[#f26522]">Plant Science</span> degree, Amlaku returned home to teach vital agriculture and irrigation skills.</p>
+                <p class="text-white text-2xl md:text-5xl font-bold leading-tight text-center max-w-4xl">Funded for a <span class="text-[#f26522]">Plant Science</span> degree, Amlaku returned home to teach vital agriculture and irrigation skills.</p>
             </div>
             <div class="story-beat" data-beat="4">
-                <p class="text-white text-3xl md:text-5xl font-bold leading-tight text-center max-w-4xl">Today, he trains farmers in neighbouring villages, <span class="text-[#f26522]">scaling the impact</span> across the region.</p>
+                <p class="text-white text-2xl md:text-5xl font-bold leading-tight text-center max-w-4xl">Today, he trains farmers in neighbouring villages, <span class="text-[#f26522]">scaling the impact</span> across the region.</p>
             </div>
         </div>
     </div>
 
-    <section id="strategy" class="py-64 px-8 bg-white relative z-20 border-t border-black/5">
+    <section id="strategy" class="py-32 sm:py-64 px-8 bg-white relative z-20 border-t border-black/5">
         <div class="max-w-7xl mx-auto">
-            <div class="grid lg:grid-cols-2 gap-24 items-center mb-40">
+            <div class="grid lg:grid-cols-2 gap-12 sm:gap-24 items-center mb-20 sm:mb-40">
                 <div data-aos="fade-right">
-                    <h2 class="text-7xl font-black tracking-tighter uppercase leading-[0.8] mb-12">Operational<br><span class="text-[#f26522]">Architecture.</span></h2>
-                    <p class="text-xl text-slate-500 font-medium leading-relaxed">By architecting local agency, we move from subsistence to surplus. Our work spans the Tigray region, providing a model for highland resilience.</p>
+                    <h2 class="text-5xl sm:text-7xl font-black tracking-tighter uppercase leading-[0.8] mb-8 sm:mb-12">Operational<br><span class="text-[#f26522]">Architecture.</span></h2>
+                    <p class="text-lg sm:text-xl text-slate-500 font-medium leading-relaxed">Sustainable infrastructure for highland resilience. Moving the Northern Highlands from subsistence to surplus through technical agency.</p>
                 </div>
-                <div class="border border-slate-100 rounded-2xl p-8 bg-slate-50 shadow-inner" data-aos="zoom-in">
-                    
-                    <div class="mt-4 flex justify-between text-[10px] font-black uppercase tracking-widest text-slate-400">
-                        <span>Regional Context</span>
-                        <span>Altitude: 2,400m</span>
+                <div class="border border-slate-100 rounded-2xl p-6 sm:p-12 bg-slate-50 shadow-inner" data-aos="zoom-in">
+                    <div class="w-full aspect-square border border-black/5 rounded-full flex items-center justify-center p-8 bg-white">
+                        
+                    </div>
+                    <div class="mt-6 flex justify-between text-[10px] font-black uppercase tracking-widest text-slate-400">
+                        <span>Highlands Context</span>
+                        <span>Alt: 2,400m</span>
                     </div>
                 </div>
             </div>
-            
-            <div class="grid lg:grid-cols-3 gap-16">
-                <div class="relative" data-aos="fade-up">
-                    <h4 class="font-black text-4xl mb-8 text-[#f26522]">01</h4>
-                    <h5 class="text-2xl font-black uppercase mb-6">Agronomy</h5>
-                    <p class="opacity-60 font-medium leading-relaxed mb-12">Precision row-planting and high-yield seed selection to stabilize local food supply.</p>
-                    <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-5_img_content-992x784px.png" class="w-full h-[500px] object-cover rounded-sm grayscale shadow-xl" alt="">
+            <div class="grid lg:grid-cols-3 gap-8 sm:gap-12">
+                <div class="p-8 sm:p-10 border border-slate-100 rounded-xl hover:shadow-2xl transition-all" data-aos="fade-up">
+                    <h4 class="font-black text-4xl mb-6 text-[#f26522]">01</h4>
+                    <h5 class="text-2xl font-black uppercase mb-4">Agronomy</h5>
+                    <p class="opacity-60 font-medium text-sm sm:text-base">Precision row-planting replacing random scattering to triple seasonal yields.</p>
+                    <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-5_img_content-992x784px.png" class="w-full aspect-[4/5] object-cover rounded-sm mt-8 shadow-lg" alt="">
                 </div>
-                <div class="relative lg:mt-32" data-aos="fade-up" data-aos-delay="150">
-                    <h4 class="font-black text-4xl mb-8 text-[#f26522]">02</h4>
-                    <h5 class="text-2xl font-black uppercase mb-6">Hydrology</h5>
-                    <p class="opacity-60 font-medium leading-relaxed mb-12">Construction of 3.5km concrete canal networks to eliminate water seepage and evaporation.</p>
-                    <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-3_img_content-992x784px.png" class="w-full h-[500px] object-cover rounded-sm grayscale shadow-xl" alt="">
+                <div class="p-8 sm:p-10 border border-slate-100 rounded-xl hover:shadow-2xl transition-all lg:mt-32" data-aos="fade-up" data-aos-delay="100">
+                    <h4 class="font-black text-4xl mb-6 text-[#f26522]">02</h4>
+                    <h5 class="text-2xl font-black uppercase mb-4">Hydrology</h5>
+                    <p class="opacity-60 font-medium text-sm sm:text-base">Establishing 3.5km of concrete canals to eliminate evaporation in Highland conditions.</p>
+                    <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-3_img_content-992x784px.png" class="w-full aspect-[4/5] object-cover rounded-sm mt-8 shadow-lg" alt="">
                 </div>
-                <div class="relative" data-aos="fade-up" data-aos-delay="300">
-                    <h4 class="font-black text-4xl mb-8 text-[#f26522]">03</h4>
-                    <h5 class="text-2xl font-black uppercase mb-6">Revenue</h5>
-                    <p class="opacity-60 font-medium leading-relaxed mb-12">Establishing localized manufacturing hubs to build independent supply chains.</p>
-                    <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?q=80&w=1400" class="w-full h-[500px] object-cover rounded-sm grayscale shadow-xl" alt="">
+                <div class="p-8 sm:p-10 border border-slate-100 rounded-xl hover:shadow-2xl transition-all" data-aos="fade-up" data-aos-delay="200">
+                    <h4 class="font-black text-4xl mb-6 text-[#f26522]">03</h4>
+                    <h5 class="text-2xl font-black uppercase mb-4">Enterprise</h5>
+                    <p class="opacity-60 font-medium text-sm sm:text-base">Localized manufacturing hubs for women to build independent supply chains.</p>
+                    <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?q=80&w=1000" class="w-full aspect-[4/5] object-cover rounded-sm mt-8 shadow-lg" alt="">
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="video-section" class="py-64 bg-slate-50 relative z-20">
-        <div class="max-w-7xl mx-auto aspect-video rounded-sm overflow-hidden bg-black shadow-3xl">
+    <section id="video-section" class="py-64 relative z-20 transition-all duration-1000">
+        <div id="video-wrapper" class="max-w-7xl mx-auto aspect-video rounded-sm overflow-hidden bg-black shadow-3xl">
             <iframe class="w-full h-full" src="https://www.youtube.com/embed/twtHTajsx50?rel=0" allowfullscreen></iframe>
         </div>
     </section>
 
-    <section id="faq" class="py-64 bg-white px-8 border-t border-black/10 relative z-20">
+    <section id="faq" class="py-32 sm:py-64 bg-white px-8 border-t border-black/10 relative z-20">
         <div class="max-w-4xl mx-auto">
-            <h2 class="text-7xl font-black uppercase tracking-tighter mb-20 leading-[0.8] uppercase">Strategic <br><span class="text-[#f26522]">FAQ.</span></h2>
+            <h2 class="text-5xl sm:text-7xl font-black tracking-tighter mb-12 sm:mb-20 leading-[0.8] uppercase">Strategic <br><span class="text-[#f26522]">FAQ.</span></h2>
             <div class="faq-item" onclick="this.classList.toggle('active')">
-                <div class="flex justify-between items-center"><h5 class="text-2xl font-black uppercase tracking-tight">Are donations tax deductible?</h5><i data-lucide="plus" class="faq-icon"></i></div>
-                <p class="faq-answer text-lg font-medium opacity-70">Yes. Bricks for Life is managed by AWA (Aid & Development), making it eligible for tax credits. Receipts are generated automatically.</p>
+                <div class="flex justify-between items-center"><h5 class="text-xl sm:text-2xl font-black uppercase tracking-tight">Tax Deductibility</h5><i data-lucide="plus" class="faq-icon w-6 sm:w-8 h-6 sm:h-8"></i></div>
+                <p class="faq-answer text-base sm:text-lg font-medium opacity-70">Yes. Managed by AWA (Aid & Development), all contributions are eligible for official tax credits. Receipts are generated automatically.</p>
             </div>
             <div class="faq-item" onclick="this.classList.toggle('active')">
-                <div class="flex justify-between items-center"><h5 class="text-2xl font-black uppercase tracking-tight">Deployment of Funds</h5><i data-lucide="plus" class="faq-icon"></i></div>
-                <p class="faq-answer text-lg font-medium opacity-70">90% of funds reach project infrastructure and local labor. 10% is retained strictly for management and operational oversight.</p>
+                <div class="flex justify-between items-center"><h5 class="text-xl sm:text-2xl font-black uppercase tracking-tight">Deployment of Funds</h5><i data-lucide="plus" class="faq-icon w-6 sm:w-8 h-6 sm:h-8"></i></div>
+                <p class="faq-answer text-base sm:text-lg font-medium opacity-70">90% of funds reach project infrastructure and local labor. 10% is retained strictly for management and operational oversight.</p>
             </div>
         </div>
     </section>
 
-    <footer class="py-24 text-center bg-white relative z-20 border-t border-black/5">
+    <section class="py-64 bg-black text-white text-center px-8 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto relative z-10" data-aos="zoom-in">
+            <h2 class="text-6xl sm:text-[11rem] font-black tracking-tighter leading-[0.75] uppercase mb-16 italic">BUILD.</h2>
+            <a href="https://anglicanmissions.org.nz/donate" class="inline-block px-12 sm:px-20 py-6 sm:py-8 bg-[#f26522] text-white rounded-full font-black text-xl sm:text-3xl uppercase tracking-widest shadow-3xl hover:scale-105 transition-transform duration-500">Donate Now</a>
+        </div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[120vw] sm:w-[80vw] h-[80vw] border border-white/5 rounded-full animate-pulse"></div>
+    </section>
+
+    <footer class="py-24 text-center bg-white border-t border-black/5 relative z-20">
         <div class="font-[950] text-3xl tracking-tighter uppercase italic mb-6">Bricks <span class="text-[#f26522]">For Life</span></div>
         <p class="text-[9px] font-bold uppercase tracking-[0.4em] opacity-40">© 2026 Anglican Missions AWA Global Development</p>
     </footer>
 
-    <div id="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'})"><i data-lucide="arrow-up" class="w-5 h-5 text-black"></i></div>
+    <div id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="shadow-xl">
+        <i data-lucide="arrow-up" class="w-5 h-5 text-black"></i>
+    </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
         lucide.createIcons();
 
-        // Populate Quote Words
+        // Quote build
         const quoteText = "“Please sir, I want to go to university.”";
         const quoteContainer = document.getElementById('quote-reveal');
         quoteText.split(" ").forEach(word => {
@@ -248,48 +263,61 @@
             const viewH = window.innerHeight;
             const scrollPercent = scrollY / viewH;
 
-            // 1. Hero Reveal (Variable Tracking)
-            if (scrollPercent < 2) {
-                const trackingValue = -0.06 + (scrollPercent * 0.08); // Starts tight, tracks out
+            // 1. Hero tracking + bricks
+            if (scrollPercent < 2.5) {
+                const trackingValue = -0.06 + (scrollPercent * 0.08);
                 heroTitle.style.letterSpacing = `${trackingValue}em`;
-                heroTitle.style.opacity = Math.max(0, 1 - (scrollPercent * 0.5));
                 
                 bricks[0].style.transform = `translateY(${-scrollY * 0.8}px) rotate(-3deg)`;
                 bricks[1].style.transform = `translateY(${-scrollY * 1.2}px) rotate(4deg)`;
                 bricks[2].style.transform = `translateY(${-scrollY * 0.6}px) rotate(8deg)`;
+                bricks.forEach(b => b.style.filter = `grayscale(${Math.max(0, 100 - (scrollPercent * 150))}%)`);
             }
 
-            // 2. Quote Reveal
+            // 2. Quote reveal
             const qRect = document.getElementById('vision').getBoundingClientRect();
             if (qRect.top < viewH && qRect.bottom > 0) {
                 const progress = Math.min(Math.max((viewH - qRect.top) / (viewH * 0.8), 0), 1);
-                const wordCount = Math.floor(progress * words.length);
-                words.forEach((w, i) => i < wordCount ? w.classList.add('active') : w.classList.remove('active'));
+                words.forEach((w, i) => i < Math.floor(progress * words.length) ? w.classList.add('active') : w.classList.remove('active'));
             }
 
-            // 3. Focal Story Reveal Style
+            // 3. Story logic + Dimming
+            const storySec = document.getElementById('story');
+            const storyRect = storySec.getBoundingClientRect();
+            if (storyRect.top < viewH * 0.5 && storyRect.bottom > viewH * 0.5) {
+                document.documentElement.style.setProperty('--bg-dynamic', '2, 6, 23');
+                document.documentElement.style.setProperty('--text-dynamic', '255, 255, 255');
+            } else {
+                document.documentElement.style.setProperty('--bg-dynamic', '252, 252, 252');
+                document.documentElement.style.setProperty('--text-dynamic', '15, 23, 42');
+            }
+
             storyBeats.forEach((beat, i) => {
                 const rect = beat.getBoundingClientRect();
-                const beatCenter = rect.top + (rect.height / 2);
-                const distToCenter = Math.abs(beatCenter - (viewH / 2));
-                
-                // Text Opacity Curve
-                const opacity = Math.max(0.1, 1 - (distToCenter / (viewH * 0.4)));
-                beat.style.opacity = opacity;
-
                 if (rect.top < viewH * 0.6 && rect.bottom > viewH * 0.4) {
                     beat.classList.add('active');
                     storyImages.forEach((img, idx) => idx === i ? img.classList.add('active') : img.classList.remove('active'));
-                } else {
-                    beat.classList.remove('active');
-                }
+                } else { beat.classList.remove('active'); }
             });
 
-            // 4. Back to Top
+            // 4. Video Dimming
+            const videoSec = document.getElementById('video-section');
+            if (videoSec) {
+                const rect = videoSec.getBoundingClientRect();
+                const centerDist = Math.abs((rect.top + rect.height / 2) - viewH / 2);
+                if (rect.top < viewH * 0.7 && rect.bottom > viewH * 0.3) {
+                    const intensity = Math.floor(252 - (Math.max(0, 1 - (centerDist / 600)) * 250));
+                    // Prevent override of story mode if scrolling fast
+                    if (storyRect.top > viewH || storyRect.bottom < 0) {
+                        document.documentElement.style.setProperty('--bg-dynamic', `${intensity}, ${intensity}, ${intensity}`);
+                    }
+                    if (distance < 300) videoSec.classList.add('video-active');
+                }
+            }
+
+            // UI helpers
             if (scrollY > viewH) document.getElementById('back-to-top').classList.add('visible');
             else document.getElementById('back-to-top').classList.remove('visible');
-            
-            // 5. Nav Scrolled
             if (scrollY > 100) document.getElementById('main-nav').classList.add('nav-scrolled');
             else document.getElementById('main-nav').classList.remove('nav-scrolled');
         });
