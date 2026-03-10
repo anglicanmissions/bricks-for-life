@@ -18,65 +18,60 @@
             overflow-x: hidden; 
             background-color: rgb(var(--bg-intensity), var(--bg-intensity), var(--bg-intensity));
             transition: background-color 0.4s ease;
+            color: #0f172a;
         }
 
-        /* STUDIO REFINEMENT: MICRO-TEXTURE */
+        /* PREMIUM TEXTURE */
         body::after {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-            opacity: 0.04; pointer-events: none; z-index: 9999;
+            opacity: 0.05; pointer-events: none; z-index: 9999;
         }
 
-        /* Navigation */
-        .nav-scrolled { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid #f1f5f9; padding: 1rem 2rem; }
-        .nav-link { position: relative; color: #64748b; transition: color 0.3s ease; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; }
+        /* Editorial Navigation */
+        .nav-scrolled { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px); border-bottom: 1px solid #e2e8f0; padding: 1rem 2rem; }
+        .nav-link { position: relative; color: #64748b; transition: all 0.3s ease; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
         .nav-link.active { color: var(--brand-orange); }
 
-        /* Hero Architecture */
+        /* Hero Logic */
         .hero-container { height: 280vh; position: relative; }
         .hero-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         
         .card-img {
-            position: absolute !important; border-radius: 1rem; object-fit: cover;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.25);
+            position: absolute !important; border-radius: 0.5rem; object-fit: cover;
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.3);
             transition: transform 0.1s linear, filter 0.5s ease; 
-            z-index: 10;
-            border: 6px solid white;
-            width: clamp(240px, 35vw, 500px);
-            height: clamp(320px, 45vw, 650px);
-            filter: grayscale(100%);
+            z-index: 10; border: 1px solid rgba(255,255,255,0.2);
+            width: clamp(280px, 35vw, 550px);
+            height: clamp(350px, 45vw, 700px);
+            filter: grayscale(100%) brightness(0.8);
         }
 
-        /* Headline: NOW ON TOP & BOLDER */
-        .hero-text-overlay { z-index: 100; pointer-events: none; text-align: center; width: 100%; padding: 0 1rem; }
+        /* Headline: The "Bold Studio" Fix */
+        .hero-text-overlay { z-index: 100; pointer-events: none; text-align: center; width: 100%; }
         .hero-title { 
-            font-[950] tracking-[-0.06em] leading-[0.78] text-slate-950; 
-            font-size: clamp(3.5rem, 12vw, 10.5rem);
-            filter: drop-shadow(0 0 50px rgba(255,255,255,1));
+            font-[900] tracking-[-0.07em] leading-[0.75] text-slate-950 text-wrap: balance;
+            font-size: clamp(4rem, 15vw, 12rem);
+            filter: drop-shadow(0 0 60px rgba(255,255,255,1));
+            text-transform: uppercase;
         }
         
-        @media (min-width: 768px) { .zoom-effect { transition: transform 0.1s linear; } }
-
         .hero-discovery { 
-            opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
-            pointer-events: none; margin-top: 3rem;
+            opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
+            pointer-events: none; margin-top: 4rem;
         }
         .hero-discovery.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
+        /* Marks of Mission: Editorial Layout */
+        .mission-row { border-top: 1px solid #e2e8f0; }
+        .mission-number { font-size: 10rem; font-weight: 900; line-height: 0.7; color: #f1f5f9; letter-spacing: -0.05em; }
+
         /* Theater Frame */
-        #video-section { height: 140vh; display: flex; align-items: center; justify-content: center; position: relative; }
         #video-trigger { 
-            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1); 
-            width: 95%; max-width: 1440px; border-radius: 2.5rem; overflow: hidden;
-            box-shadow: 0 0 100px rgba(0,0,0,0);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); 
+            width: 95%; max-width: 1440px; border-radius: 0.5rem; overflow: hidden;
         }
-        .video-active #video-trigger { transform: scale(1.05); }
-
-        /* Section Accents */
-        .section-dark { background-color: #020617; color: #ffffff; }
-        .section-orange { background-color: var(--brand-orange); color: #ffffff; }
-
-        .big-number { font-size: clamp(6rem, 18vw, 15rem); font-weight: 900; color: #f1f5f9; position: absolute; z-index: -1; top: -5rem; left: -2rem; }
+        .video-active #video-trigger { transform: scale(1.02); box-shadow: 0 0 100px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body class="antialiased">
@@ -84,14 +79,13 @@
     <nav id="main-nav" class="fixed w-full z-[100] px-8 py-8 transition-all duration-500 flex justify-center">
         <div class="max-w-7xl w-full flex justify-between items-center">
             <div class="flex items-center gap-2">
-                <span class="font-[900] text-2xl tracking-tighter uppercase italic">Bricks <span class="text-[#f26522]">For Life</span></span>
+                <span class="font-[900] text-2xl tracking-tighter uppercase">Bricks <span class="text-[#f26522]">For Life</span></span>
             </div>
             <div class="hidden md:flex items-center gap-10">
-                <a href="#context" class="nav-link">Context</a>
-                <a href="#bio" class="nav-link">Visionary</a>
-                <a href="#story" class="nav-link">Story</a>
-                <a href="#soap" class="nav-link">Enterprise</a>
-                <a href="https://anglicanmissions.org.nz/donate" class="bg-slate-950 text-white px-8 py-3 rounded-full hover:bg-[#f26522] transition-all ml-4 text-[10px] font-black uppercase tracking-widest">Donate</a>
+                <a href="#spark" class="nav-link">The Mission</a>
+                <a href="#story" class="nav-link">Narrative</a>
+                <a href="#soap" class="nav-link">Future</a>
+                <a href="https://anglicanmissions.org.nz/donate" class="bg-slate-950 text-white px-8 py-3 rounded-full hover:bg-[#f26522] transition-all ml-4 text-[9px] font-black uppercase tracking-[0.2em]">Donate</a>
             </div>
         </div>
     </nav>
@@ -104,141 +98,127 @@
             <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-7_img_content-992x784px.png" id="c4" class="card-img" alt="">
 
             <div class="hero-text-overlay">
-                <h1 id="hero-title" class="hero-title zoom-effect">
-                    Bricks for<br><span class="text-[#f26522]">Life</span>
+                <h1 id="hero-title" class="hero-title">
+                    Bricks for<br><span class="text-[#f26522]">Life.</span>
                 </h1>
                 <div id="hero-reveal-zone" class="hero-discovery">
                     <p class="text-xl md:text-2xl text-slate-500 font-medium max-w-xl mx-auto mb-10 leading-snug">
-                        Transforming Baregota through crop science, irrigation foundations, and community agency.
+                        Building self-sufficiency in Northern Ethiopia through agricultural science and local agency.
                     </p>
-                    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                        <a href="https://anglicanmissions.org.nz/donate" class="bg-slate-950 text-white px-12 py-5 rounded-2xl font-bold shadow-2xl hover:bg-[#f26522] transition-all uppercase tracking-widest text-[11px]">Support Now</a>
-                    </div>
+                    <a href="#spark" class="inline-block bg-slate-950 text-white px-12 py-5 rounded-xl font-black shadow-2xl hover:bg-[#f26522] transition-all uppercase tracking-widest text-[11px]">Begin Narrative</a>
                 </div>
             </div>
 
-            <button onclick="document.getElementById('spark').scrollIntoView({behavior: 'smooth'})" class="absolute bottom-12 bg-white px-8 py-4 rounded-full flex items-center gap-3 text-[10px] font-[900] uppercase tracking-[0.25em] shadow-lg hover:bg-[#f26522] hover:text-white transition-all">
-                The Spark ↓
-            </button>
+            <div class="absolute bottom-12 flex flex-col items-center gap-4 opacity-30">
+                <span class="text-[9px] font-black uppercase tracking-[0.4em]">Scroll</span>
+                <div class="w-[1px] h-12 bg-slate-900"></div>
+            </div>
         </div>
     </div>
 
-    <section id="spark" class="py-64 px-8 bg-white relative overflow-hidden section-anchor z-20">
-        <div class="max-w-5xl mx-auto text-center" data-aos="fade-up">
-            <span class="text-[#f26522] font-black uppercase tracking-[0.4em] text-[10px] mb-12 block">The Spark</span>
-            <blockquote class="text-4xl md:text-8xl font-[900] tracking-tighter leading-none text-slate-950 mb-12">
-                “Please sir, <br><span class="text-[#f26522]">I want to go <br>to university.”</span>
-            </blockquote>
-            <p class="text-xl text-slate-400 font-medium max-w-2xl mx-auto italic">
-                One faith-filled question from Amlaku to Ric Foxley changed the trajectory of Baregota village forever.
-            </p>
-        </div>
-    </section>
-
-    <section id="bio" class="py-48 px-8 section-dark relative overflow-hidden section-anchor z-20">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
-            <div class="relative" data-aos="fade-right">
-                <img src="https://images.unsplash.com/photo-1516211697506-8360bd7734b7?q=80&w=1000" class="rounded-[4rem] shadow-2xl brightness-75" alt="Amlaku Yaregal">
-            </div>
-            <div data-aos="fade-up">
-                <span class="text-[#f26522] font-black uppercase tracking-[0.4em] text-[10px] mb-8 block italic">Meet Amlaku Yaregal</span>
-                <h2 class="text-5xl md:text-7xl font-[900] tracking-tighter mb-10 leading-tight">The Street Boy <br>Who Returned.</h2>
-                <p class="text-xl text-slate-300 font-medium leading-relaxed mb-8">
-                    Raised by his sister after losing his mother at birth, Amlaku ran away at 12 to pursue education, eventually living on the streets of Lalibela. 
-                </p>
-                <p class="text-xl text-slate-300 font-medium leading-relaxed">
-                    Today, with a degree in Plant Science, he is the engine behind Bricks for Life—returning to his village to turn prayers into tangible harvests.
-                </p>
+    <section id="spark" class="py-64 px-8 bg-white relative z-20">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-24 items-center">
+                <div data-aos="fade-right">
+                    <span class="text-[#f26522] font-black uppercase tracking-[0.4em] text-[10px] mb-8 block">Origin Story</span>
+                    <blockquote class="text-5xl md:text-8xl font-[900] tracking-tighter leading-[0.8] text-slate-950 mb-12">
+                        “Please sir, <br>I want to go <br><span class="text-[#f26522]">to university.”</span>
+                    </blockquote>
+                </div>
+                <div data-aos="fade-up" class="lg:pt-24">
+                    <p class="text-2xl text-slate-500 font-medium leading-relaxed mb-8">
+                        In the rock churches of Lalibela, Amlaku Yaregal asked Ric Foxley a question that would transform an entire village.
+                    </p>
+                    <p class="text-lg text-slate-400 leading-relaxed">
+                        Ric and his friends funded Amlaku’s tertiary studies in Plant Science, so that he could return to Baregota to improve the lives of its inhabitants.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="context" class="py-48 px-8 section-anchor bg-slate-50 relative z-20">
+    <section id="mission" class="bg-white relative z-20 overflow-hidden">
+        <div class="mission-row py-32 px-8">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-1 mission-number">01</div>
+                <div class="lg:col-span-5" data-aos="fade-up">
+                    <h3 class="text-5xl font-black uppercase tracking-tighter mb-6">Tend <br><span class="text-[#f26522]">Agriculture.</span></h3>
+                    <p class="text-xl text-slate-500 leading-relaxed">By switching from random scattering to precision row-planting, Baregota has tripled its seasonal output.</p>
+                </div>
+                <div class="lg:col-span-6" data-aos="zoom-in">
+                    <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-5_img_content-992x784px.png" class="w-full aspect-video object-cover rounded-xl shadow-2xl" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="mission-row py-32 px-8">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-1 mission-number">02</div>
+                <div class="lg:col-span-5 order-last lg:order-none" data-aos="fade-up">
+                    <h3 class="text-5xl font-black uppercase tracking-tighter mb-6">Treasure <br><span class="text-[#f26522]">Resources.</span></h3>
+                    <p class="text-xl text-slate-500 leading-relaxed">3.5km of concrete piping now shoring up the water supply, preventing evaporation in the Highland heat.</p>
+                </div>
+                <div class="lg:col-span-6 lg:-order-1" data-aos="zoom-in">
+                    <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-3_img_content-992x784px.png" class="w-full aspect-video object-cover rounded-xl shadow-2xl" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="mission-row py-32 px-8">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-1 mission-number">03</div>
+                <div class="lg:col-span-5" data-aos="fade-up">
+                    <h3 class="text-5xl font-black uppercase tracking-tighter mb-6">Transform <br><span class="text-[#f26522]">Agency.</span></h3>
+                    <p class="text-xl text-slate-500 leading-relaxed">From subsistence to supplier. Baregota is becoming a regional model for economic self-sufficiency.</p>
+                </div>
+                <div class="lg:col-span-6" data-aos="zoom-in">
+                    <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-7_img_content-992x784px.png" class="w-full aspect-video object-cover rounded-xl shadow-2xl" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="video-section" class="py-64 bg-slate-950 relative z-20">
+        <div class="max-w-7xl mx-auto px-8">
+            <div id="video-trigger" class="bg-black aspect-video mx-auto">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/twtHTajsx50?rel=0" allowfullscreen></iframe>
+            </div>
+            <div class="mt-16 text-center">
+                <p class="text-white/40 text-[10px] font-black uppercase tracking-[0.5em]">The Documentary Film</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="soap" class="py-64 bg-white px-8 section-anchor z-20 relative">
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-32 items-center">
-            <div class="relative order-last lg:order-first" data-aos="fade-left">
-                <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life_banner_1232x864px-1.png" class="rounded-[4rem] shadow-2xl" alt="Roots">
-                <div class="absolute -bottom-10 -right-10 bg-[#f26522] text-white p-14 rounded-[3.5rem] shadow-2xl">
-                    <p class="text-5xl font-black mb-1 tabular-nums">500+</p>
-                    <p class="uppercase font-bold text-[10px] tracking-widest opacity-80">Community Members</p>
+            <div class="relative" data-aos="fade-right">
+                <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?q=80&w=1000" class="rounded-xl shadow-3xl" alt="">
+                <div class="absolute -bottom-10 -right-10 bg-[#f26522] text-white p-12 rounded-xl shadow-2xl hidden lg:block">
+                    <h4 class="text-4xl font-black">2026</h4>
+                    <p class="text-[9px] font-black uppercase tracking-widest opacity-70">Scale Goal</p>
                 </div>
             </div>
             <div data-aos="fade-up">
-                <h2 class="text-5xl md:text-7xl font-[900] tracking-tight mb-10 leading-tight">Rooted in <br><span class="text-[#f26522]">Resilience.</span></h2>
-                <p class="text-2xl text-slate-500 font-medium leading-relaxed">Farming is the heartbeat of Baregota. By combining science with ancestral respect, we triple yields and end the "hunger gap."</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="video-section" class="section-anchor z-20">
-        <div id="video-trigger" class="shadow-3xl bg-black aspect-video relative mx-auto">
-            <iframe class="w-full h-full" src="https://www.youtube.com/embed/twtHTajsx50?rel=0" allowfullscreen></iframe>
-        </div>
-    </section>
-
-    <section id="story" class="py-48 px-8 bg-white section-anchor relative z-20">
-        <div class="max-w-5xl mx-auto space-y-80">
-            <div class="relative grid md:grid-cols-2 gap-24 items-center" data-aos="fade-up">
-                <span class="big-number text-slate-50">01</span>
-                <div><h3 class="text-4xl font-black mb-8 uppercase tracking-tighter italic">Precision Education.</h3><p class="text-xl text-slate-500 font-medium">Switching from random scattering to row-planting has alone increased crop productivity by over 40%.</p></div>
-                <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-5_img_content-992x784px.png" class="rounded-[3rem] shadow-xl grayscale" alt="">
-            </div>
-            <div class="relative grid md:grid-cols-2 gap-24 items-center" data-aos="fade-up">
-                <span class="big-number text-slate-50">02</span>
-                <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-7_img_content-992x784px.png" class="rounded-[3rem] shadow-xl order-last md:order-first grayscale" alt="">
-                <div><h3 class="text-4xl font-black mb-8 uppercase tracking-tighter text-[#f26522] italic">The Canal Network.</h3><p class="text-xl text-slate-500 font-medium">3.5km of water canals now service over 70 farms, turning dusty plains into fertile Highland valleys.</p></div>
-            </div>
-            <div class="relative grid md:grid-cols-2 gap-24 items-center" data-aos="fade-up">
-                <span class="big-number text-slate-50">03</span>
-                <div><h3 class="text-4xl font-black mb-8 uppercase tracking-tighter text-slate-900 italic">Regional Training.</h3><p class="text-xl text-slate-500 font-medium">Amlaku now mentors farmers from neighboring districts, scaling the "Bricks" of knowledge across the region.</p></div>
-                <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-3_img_content-992x784px.png" class="rounded-[3rem] shadow-xl grayscale" alt="">
-            </div>
-        </div>
-    </section>
-
-    <section class="py-48 px-8 section-orange section-anchor rounded-[4rem] mx-4 z-20 relative">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 text-white">
-            <div data-aos="fade-up">
-                <h4 class="text-4xl font-black mb-6 uppercase">Tend</h4>
-                <p class="text-white/80 text-lg leading-relaxed">Nurturing the land with high-quality seeds and fertilizer to ensure food security.</p>
-                <i data-lucide="sprout" class="mt-8 w-12 h-12"></i>
-            </div>
-            <div data-aos="fade-up" data-aos-delay="100">
-                <h4 class="text-4xl font-black mb-6 uppercase">Treasure</h4>
-                <p class="text-white/80 text-lg leading-relaxed">Protecting water resources through concrete canals and minimizing loss.</p>
-                <i data-lucide="droplets" class="mt-8 w-12 h-12"></i>
-            </div>
-            <div data-aos="fade-up" data-aos-delay="200">
-                <h4 class="text-4xl font-black mb-6 uppercase">Transform</h4>
-                <p class="text-white/80 text-lg leading-relaxed">Turning subsistence into sustainability by building local economic agency.</p>
-                <i data-lucide="refresh-cw" class="mt-8 w-12 h-12"></i>
-            </div>
-        </div>
-    </section>
-
-    <section id="soap" class="py-64 bg-slate-950 text-white px-8 section-anchor overflow-hidden relative z-20">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
-            <div data-aos="fade-right">
-                <h2 class="text-7xl md:text-9xl font-black tracking-tighter mb-10 leading-[0.8]">The Soap <br>Initiative.</h2>
-                <p class="text-2xl text-slate-400 font-medium leading-relaxed mb-12 max-w-lg">Beyond agriculture, Amlaku is launching a local soap enterprise to tackle hygiene and economic agency.</p>
-                <div class="flex gap-12 font-black text-[#f26522] uppercase tracking-widest text-[11px]">
-                    <span>01. Sanitation</span>
-                    <span>02. Independence</span>
+                <span class="text-[#f26522] font-black uppercase tracking-[0.4em] text-[10px] mb-8 block">Sustainable Enterprise</span>
+                <h2 class="text-6xl md:text-8xl font-black tracking-tighter mb-10 leading-[0.85]">The Soap <br>Startup.</h2>
+                <p class="text-2xl text-slate-500 font-medium leading-relaxed mb-8">Beyond agriculture, Amlaku is launching a local soap enterprise to tackle hygiene and economic agency for women.</p>
+                <div class="flex gap-12 font-black uppercase tracking-widest text-[10px]">
+                    <span class="text-[#f26522]">Sanitation</span>
+                    <span class="text-slate-300">/</span>
+                    <span class="text-slate-900">Revenue</span>
                 </div>
             </div>
-            <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&q=80&w=1000" class="rounded-[4rem] shadow-2xl border-4 border-white/10" alt="Soap Making">
         </div>
     </section>
 
-    <section class="py-64 bg-white text-center px-8 border-t border-slate-100 relative z-20">
+    <section class="py-64 bg-slate-50 text-center px-8 z-20 relative">
         <div class="max-w-4xl mx-auto" data-aos="zoom-in">
-            <h2 class="text-7xl md:text-[110px] font-black tracking-tighter leading-[0.85] mb-16 uppercase text-slate-900">Support the <br><span class="text-[#f26522]">Foundation.</span></h2>
-            <a href="https://anglicanmissions.org.nz/donate" class="inline-block px-16 py-8 bg-slate-950 text-white rounded-[2rem] font-black text-2xl hover:bg-[#f26522] transition-all shadow-2xl active:scale-95">Donate Now</a>
+            <h2 class="text-7xl md:text-[100px] font-black tracking-tighter leading-[0.8] mb-16">SUPPORT THE <br><span class="text-[#f26522]">FOUNDATION.</span></h2>
+            <a href="https://anglicanmissions.org.nz/donate" class="inline-block px-16 py-7 bg-slate-950 text-white rounded-xl font-black text-2xl hover:bg-[#f26522] transition-all shadow-2xl active:scale-95 uppercase tracking-tighter">Donate Now</a>
         </div>
     </section>
 
-    <footer class="py-16 border-t border-slate-100 text-center bg-white relative z-20">
+    <footer class="py-16 border-t border-slate-200 text-center bg-white relative z-20">
         <div class="font-[900] text-2xl tracking-tighter uppercase mb-4 italic">Bricks <span class="text-[#f26522]">For Life</span></div>
-        <p class="text-slate-400 text-[10px] font-bold uppercase tracking-[0.3em]">© 2026 Anglican Missions AWA Global Development.</p>
+        <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em]">© 2026 Anglican Missions AWA Global Development.</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -258,30 +238,32 @@
             const viewH = window.innerHeight;
             const scrollPercent = Math.min(scrollY / (viewH * 1.3), 1.5);
             
-            // 1. HERO LOGIC
-            const saturation = Math.min(100, scrollPercent * 180);
+            // Scatter Cards & Saturation
+            const saturation = Math.min(100, scrollPercent * 200);
             cards.forEach((card, i) => {
                 if(!card) return;
-                const offsets = [{x:-800,y:-600,r:-30},{x:900,y:-700,r:25},{x:-700,y:800,r:-20},{x:800,y:600,r:35}];
+                const offsets = [{x:-1000,y:-800,r:-30},{x:1100,y:-900,r:25},{x:-900,y:1000,r:-20},{x:1000,y:800,r:35}];
                 card.style.transform = `translate(${scrollPercent * offsets[i].x}px, ${scrollPercent * offsets[i].y}px) rotate(${offsets[i].r}deg) scale(1.1)`;
-                card.style.filter = `grayscale(${100 - saturation}%)`;
+                card.style.filter = `grayscale(${100 - saturation}%) brightness(${0.8 + (scrollPercent * 0.2)})`;
             });
             
+            // Headline Zoom
             if (window.innerWidth >= 768) {
-                heroTitle.style.transform = `scale(${1 + scrollPercent * 0.15})`;
+                heroTitle.style.transform = `scale(${1 + scrollPercent * 0.1})`;
             }
 
+            // CTA Reveal
             if (scrollPercent > 0.45) heroDiscovery.classList.add('visible');
             else heroDiscovery.classList.remove('visible');
 
-            // 2. THEATER TRANSITION
+            // Theater Transition (Smooth LERP)
             if (videoSection && videoCard) {
                 const videoRect = videoSection.getBoundingClientRect();
                 const sectionMiddle = videoRect.top + (videoRect.height / 2);
                 const distance = Math.abs(viewH / 2 - sectionMiddle);
                 
-                if (videoRect.top < viewH * 0.45 && videoRect.bottom > viewH * 0.2) {
-                    let progress = Math.max(0, 1 - (distance / 450));
+                if (videoRect.top < viewH * 0.6 && videoRect.bottom > viewH * 0.1) {
+                    let progress = Math.max(0, 1 - (distance / 600));
                     let intensity = Math.floor(255 - (Math.pow(progress, 2.5) * 253));
                     document.documentElement.style.setProperty('--bg-intensity', intensity);
                     if (distance < 300) videoCard.classList.add('video-active');
@@ -291,18 +273,8 @@
                 }
             }
 
-            // 3. NAV & SCROLLSPY
             if (scrollY > 100) nav.classList.add('nav-scrolled');
             else nav.classList.remove('nav-scrolled');
-
-            const anchors = document.querySelectorAll('.section-anchor');
-            const links = document.querySelectorAll('.nav-link');
-            let current = "";
-            anchors.forEach(a => { if (pageYOffset >= a.offsetTop - 500) current = a.getAttribute('id'); });
-            links.forEach(l => {
-                l.classList.remove('active');
-                if (l.getAttribute('href').includes(current) && current !== "") l.classList.add('active');
-            });
         });
     </script>
 </body>
