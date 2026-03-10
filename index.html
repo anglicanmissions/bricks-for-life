@@ -8,248 +8,217 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
         
-        :root { --brand-orange: #f26522; --bg-intensity: 255; }
+        :root { --brand-orange: #f26522; --bg-clay: 255, 255, 255; }
         
-        html { scroll-behavior: smooth; }
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            overflow-x: hidden; 
-            background-color: rgb(var(--bg-intensity), var(--bg-intensity), var(--bg-intensity));
-            transition: background-color 0.2s ease-out;
-            color: #1a1a1a;
+            background-color: rgb(var(--bg-clay));
+            color: #020617;
+            overflow-x: hidden;
+            transition: background-color 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        /* Subtle Micro-Texture */
-        body::after {
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-            opacity: 0.03; pointer-events: none; z-index: 9999;
-        }
-
-        /* Fixed Navigation */
-        .nav-scrolled { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px); border-bottom: 1px solid #eee; padding: 1rem 2rem; }
-        .nav-link { position: relative; color: #666; transition: all 0.3s ease; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
-        .nav-link.active { color: var(--brand-orange); }
-
-        /* HERO TYPOGRAPHY: RAW & BOLD */
-        .hero-text-overlay { z-index: 100 !important; pointer-events: none; text-align: center; width: 100%; position: relative; }
-        .hero-title { 
-            font-[950] tracking-[-0.08em] leading-[0.72] text-slate-950;
-            font-size: clamp(4.5rem, 18vw, 13rem);
+        /* Brutalist Typography */
+        .mega-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            line-height: 0.75;
+            letter-spacing: -0.05em;
             text-transform: uppercase;
-            filter: drop-shadow(0 0 30px rgba(255,255,255,0.8));
+            font-size: clamp(5rem, 20vw, 18rem);
         }
 
-        .hero-container { height: 280vh; position: relative; }
-        .hero-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        /* Construction Hero */
+        .hero-wrap { height: 300vh; position: relative; }
+        .hero-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         
-        .card-img {
-            position: absolute !important; border-radius: 0.25rem; object-fit: cover;
-            box-shadow: 0 40px 100px -20px rgba(0,0,0,0.3);
-            transition: transform 0.1s linear, filter 0.5s ease; 
-            z-index: 10; /* Strictly below text */
-            border: 4px solid white;
-            width: clamp(280px, 35vw, 550px);
-            height: clamp(350px, 45vw, 700px);
-            filter: grayscale(100%);
+        .brick-img {
+            position: absolute;
+            object-fit: cover;
+            border-radius: 0.25rem;
+            filter: grayscale(100%) contrast(1.1);
+            transition: transform 0.1s linear, filter 0.5s ease;
+            z-index: 5;
         }
 
-        .hero-discovery { 
-            opacity: 0; transform: translateY(40px); transition: all 0.8s ease; 
-            pointer-events: none; margin-top: 5rem; z-index: 110;
-        }
-        .hero-discovery.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        /* Image initial positions (stacked at bottom) */
+        #b1 { width: 30vw; height: 40vh; bottom: -50%; left: 5%; }
+        #b2 { width: 25vw; height: 35vh; bottom: -60%; right: 10%; }
+        #b3 { width: 20vw; height: 50vh; bottom: -70%; left: 40%; }
+        #b4 { width: 35vw; height: 30vh; bottom: -40%; right: 30%; }
 
-        /* THEATER */
-        #video-section { min-height: 140vh; display: flex; align-items: center; justify-content: center; position: relative; z-index: 20; }
-        #video-wrapper { 
-            width: 95%; max-width: 1440px; aspect-ratio: 16/9; overflow: hidden;
-            background: #000; transform: scale(0.9); opacity: 0.5;
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: brightness(1) !important;
-        }
-        .video-active #video-wrapper { transform: scale(1); opacity: 1; box-shadow: 0 0 100px rgba(0,0,0,0.7); }
+        .hero-text { z-index: 10; pointer-events: none; text-align: center; mix-blend-mode: difference; color: white; }
 
-        .image-reveal-block { height: 80vh; width: 100%; overflow: hidden; position: relative; }
-        .image-reveal-block img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); }
+        /* Smooth Bio Reveal */
+        .bio-slide-in { transform: translateX(-100%); transition: transform 1s ease-out; }
+        .bio-active .bio-slide-in { transform: translateX(0); }
+
+        /* Video Theater */
+        .theater-wrap { width: 100%; transition: padding 1s ease; }
+        .theater-active { background: #000; padding: 0 !important; }
+        #video-frame { transform: scale(0.9); transition: transform 1s ease; }
+        .theater-active #video-frame { transform: scale(1); border-radius: 0; }
+
     </style>
 </head>
 <body class="antialiased">
 
-    <nav id="main-nav" class="fixed w-full z-[1000] px-8 py-8 transition-all duration-500 flex justify-center">
-        <div class="max-w-7xl w-full flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <span class="font-[950] text-2xl tracking-tighter uppercase italic">Bricks <span class="text-[#f26522]">For Life</span></span>
-            </div>
-            <div class="hidden md:flex items-center gap-10">
-                <a href="#spark" class="nav-link">The Story</a>
-                <a href="#soap" class="nav-link">Enterprise</a>
-                <a href="https://anglicanmissions.org.nz/donate" class="bg-slate-950 text-white px-8 py-3 rounded-full hover:bg-[#f26522] transition-all ml-4 text-[9px] font-black uppercase tracking-[0.2em]">Donate</a>
-            </div>
+    <nav class="fixed top-0 w-full z-[100] p-8 flex justify-between items-center mix-blend-difference text-white">
+        <span class="font-black text-xl tracking-tighter uppercase">Bricks/Life</span>
+        <div class="flex gap-8 text-[10px] font-black uppercase tracking-widest">
+            <a href="#spark" class="hover:text-[#f26522] transition-colors">Origins</a>
+            <a href="#bio" class="hover:text-[#f26522] transition-colors">Amlaku</a>
+            <a href="https://anglicanmissions.org.nz/donate" class="bg-white text-black px-6 py-2 rounded-full hover:bg-[#f26522] hover:text-white transition-all">Donate</a>
         </div>
     </nav>
 
-    <div class="hero-container">
+    <div class="hero-wrap">
         <div class="hero-sticky">
-            <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life_banner_1232x864px-1.png" id="c1" class="card-img" alt="">
-            <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-5_img_content-992x784px.png" id="c2" class="card-img" alt="">
-            <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-3_img_content-992x784px.png" id="c3" class="card-img" alt="">
-            <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life-7_img_content-992x784px.png" id="c4" class="card-img" alt="">
-
-            <div class="hero-text-overlay">
-                <h1 id="hero-title" class="hero-title">
-                    Bricks for<br><span class="text-[#f26522]">Life</span>
-                </h1>
-                <div id="hero-reveal-zone" class="hero-discovery">
-                    <p class="text-xl md:text-2xl text-slate-500 font-bold max-w-xl mx-auto mb-10 tracking-tight leading-tight">
-                        Transforming the Highlands through locally-led crop science and sustainable foundations.
-                    </p>
-                    <a href="#spark" class="inline-block bg-slate-950 text-white px-16 py-6 rounded-full font-black hover:bg-[#f26522] transition-all uppercase tracking-widest text-[11px] shadow-3xl">Enter Story</a>
-                </div>
+            <div class="hero-text">
+                <h1 class="mega-title">BRICKS<br>FOR<br><span class="text-[#f26522]">LIFE.</span></h1>
             </div>
+
+            <img src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?q=80&w=1200" id="b1" class="brick-img" alt="">
+            <img src="https://images.unsplash.com/photo-1523741543316-dbc7fc146394?q=80&w=1200" id="b2" class="brick-img" alt="">
+            <img src="https://images.unsplash.com/photo-1516211697506-8360bd7734b7?q=80&w=1200" id="b3" class="brick-img" alt="">
+            <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=1200" id="b4" class="brick-img" alt="">
         </div>
     </div>
 
-    <section id="spark" class="py-64 px-8 bg-white relative z-20">
-        <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
-            <span class="text-[#f26522] font-black uppercase tracking-[0.5em] text-[10px] mb-12 block">Lalibela, 2011</span>
-            <blockquote class="text-5xl md:text-8xl font-[950] tracking-tighter leading-[0.8] text-slate-950 mb-16 uppercase">
-                “Please sir, <br>I want to go <br><span class="text-[#f26522]">to university.”</span>
-            </blockquote>
-            <p class="text-2xl text-slate-400 font-medium leading-relaxed max-w-2xl mx-auto">
-                One faith-filled question from Amlaku Yaregal to Ric Foxley changed the trajectory of the Highlands forever.
-            </p>
-        </div>
-    </section>
-
-    <section class="py-48 px-8 bg-slate-50 relative z-20">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
-            <img src="https://images.unsplash.com/photo-1516211697506-8360bd7734b7?q=80&w=1000" class="rounded-xl shadow-2xl" alt="Amlaku">
-            <div data-aos="fade-up">
-                <h2 class="text-6xl font-[950] tracking-tighter mb-10 leading-[0.85] uppercase">The visionary. <br><span class="text-[#f26522]">Amlaku Yaregal.</span></h2>
-                <p class="text-xl text-slate-500 font-medium leading-relaxed mb-8">
-                    Raised by his sister after losing his mother at birth, Amlaku ran away at 12 to pursue education. Today, he returns as a plant scientist to lead his village toward self-sufficiency.
-                </p>
-                <p class="text-lg text-slate-400 font-medium">
-                    With help from Ric, he turned vital agricultural knowledge into the "bricks" of a community recovery.
+    <section id="spark" class="min-height-[150vh] flex items-center justify-center bg-white px-8 py-64 relative z-20">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 items-end">
+            <div class="lg:col-span-8">
+                <span class="text-[#f26522] font-black text-xs uppercase tracking-[0.5em] mb-12 block">The Catalyst</span>
+                <h2 class="text-6xl md:text-[10rem] font-black leading-[0.8] tracking-tighter" data-aos="fade-up">
+                    “PLEASE SIR,<br>I WANT TO GO<br><span class="text-[#f26522]">TO UNIVERSITY.”</span>
+                </h2>
+            </div>
+            <div class="lg:col-span-4 pb-4">
+                <p class="text-2xl font-medium text-slate-500 leading-tight">
+                    Amlaku Yaregal's prayerful request to Ric Foxley in the rock churches of Lalibela.
                 </p>
             </div>
         </div>
     </section>
 
-    <section id="video-section" class="section-anchor">
-        <div id="video-wrapper">
+    <section id="bio" class="py-48 px-8 bg-slate-50 relative z-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
+            <div class="relative overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200" class="rounded-sm grayscale hover:grayscale-0 transition-all duration-1000 scale-110 group-hover:scale-100" alt="">
+                <div class="absolute top-8 right-8 bg-[#f26522] text-white p-6 text-[10px] font-black uppercase tracking-widest">
+                    Lead Plant Scientist
+                </div>
+            </div>
+            <div data-aos="fade-left">
+                <h3 class="text-7xl font-black tracking-tighter mb-12 uppercase leading-none">Amlaku<br>Yaregal.</h3>
+                <div class="space-y-8 text-xl text-slate-600 font-medium leading-relaxed">
+                    <p>Raised by his sister in Baregota, Amlaku fled homelessness at 12 to seek an education. He lived on the streets of Lalibela, working as a tour guide until meeting Ric.</p>
+                    <p class="text-slate-400">Today, he is the engine of Bricks for Life—returning to his village with a degree to engineer their independent future.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="video-section" class="py-32 transition-all duration-1000 bg-white">
+        <div id="video-frame" class="max-w-7xl mx-auto aspect-video bg-black shadow-2xl overflow-hidden">
             <iframe class="w-full h-full" src="https://www.youtube.com/embed/twtHTajsx50?rel=0" allowfullscreen></iframe>
         </div>
     </section>
 
-    <section class="py-48 bg-white relative z-20">
-        <div class="max-w-7xl mx-auto px-8">
-            <div class="grid lg:grid-cols-3 gap-16">
-                <div data-aos="fade-up">
-                    <span class="text-4xl font-black text-[#f26522] mb-6 block">01</span>
-                    <h4 class="text-3xl font-[950] tracking-tighter mb-6 uppercase">Agronomy.</h4>
-                    <p class="text-slate-500 leading-relaxed">By switching from broadcasting to row-planting, we have tripled seasonal harvests and ended the local "hunger gap."</p>
+    <section class="py-64 bg-white px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="border-t border-black pt-12 grid md:grid-cols-3 gap-16">
+                <div>
+                    <span class="font-black text-4xl mb-6 block text-[#f26522]">01</span>
+                    <h4 class="font-black text-2xl uppercase mb-4">Precision Agronomy</h4>
+                    <p class="text-slate-500 font-medium">Switching from random scattering to row-planting science to triple yields.</p>
                 </div>
-                <div data-aos="fade-up" data-aos-delay="100">
-                    <span class="text-4xl font-black text-[#f26522] mb-6 block">02</span>
-                    <h4 class="text-3xl font-[950] tracking-tighter mb-6 uppercase">Irrigation.</h4>
-                    <p class="text-slate-500 leading-relaxed">3.5km of concrete canals shoring up the Highland water supply, protecting the land against heat and evaporation.</p>
+                <div>
+                    <span class="font-black text-4xl mb-6 block text-[#f26522]">02</span>
+                    <h4 class="font-black text-2xl uppercase mb-4">Water Architecture</h4>
+                    <p class="text-slate-500 font-medium">3.5km of concrete canals shoring up the Highland supply against evaporation.</p>
                 </div>
-                <div data-aos="fade-up" data-aos-delay="200">
-                    <span class="text-4xl font-black text-[#f26522] mb-6 block">03</span>
-                    <h4 class="text-3xl font-[950] tracking-tighter mb-6 uppercase">Independence.</h4>
-                    <p class="text-slate-500 leading-relaxed">The goal isn't charity; it's agency. Baregota is now a supplier, providing surplus crops to neighboring districts.</p>
+                <div>
+                    <span class="font-black text-4xl mb-6 block text-[#f26522]">03</span>
+                    <h4 class="font-black text-2xl uppercase mb-4">Economic Agency</h4>
+                    <p class="text-slate-500 font-medium">Building local manufacturing foundations so the village becomes a regional supplier.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="image-reveal-block">
-        <img src="https://anglicanmissions.org.nz/wp-content/uploads/2022/12/bricks-for-life_banner_1232x864px-1.png" alt="">
-    </div>
-
-    <section id="soap" class="py-64 bg-slate-950 text-white px-8 section-anchor relative">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-32 items-center">
-            <div data-aos="fade-right">
-                <h2 class="text-7xl md:text-9xl font-[950] tracking-tighter mb-12 leading-[0.75] uppercase italic">The Soap <br>Startup.</h2>
-                <p class="text-2xl text-slate-400 font-medium leading-relaxed mb-12">Building economic agency for women through local manufacturing and hygiene innovation.</p>
-                <div class="flex gap-12 font-black uppercase tracking-widest text-[10px] text-[#f26522]">
-                    <span>Sanitation</span>
-                    <span>Revenue</span>
-                </div>
+    <section id="soap" class="py-48 bg-[#020617] text-white px-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-end gap-12">
+            <div class="max-w-2xl">
+                <span class="text-[#f26522] font-black text-[10px] uppercase tracking-[0.5em] mb-8 block">Scaling Enterprise</span>
+                <h2 class="text-7xl md:text-9xl font-black tracking-tighter leading-[0.8] uppercase mb-12">THE SOAP<br>FACTORY.</h2>
+                <p class="text-2xl text-slate-400 font-medium leading-relaxed">Economic agency for women through sustainable local hygiene manufacturing.</p>
             </div>
-            <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&q=80&w=1000" class="rounded-lg shadow-3xl grayscale hover:grayscale-0 transition-all duration-1000" alt="">
+            <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?q=80&w=800" class="w-full md:w-1/3 aspect-square object-cover grayscale brightness-75 hover:grayscale-0 transition-all duration-1000" alt="">
         </div>
     </section>
 
-    <section class="py-64 bg-white text-center px-8 z-20 relative">
+    <section class="py-64 bg-white text-center px-8">
         <div class="max-w-4xl mx-auto" data-aos="zoom-in">
-            <h2 class="text-7xl md:text-[10rem] font-[950] tracking-tighter leading-[0.8] mb-16 uppercase">Support the <br><span class="text-[#f26522]">Foundation.</span></h2>
-            <a href="https://anglicanmissions.org.nz/donate" class="inline-block px-20 py-8 bg-slate-950 text-white rounded-full font-black text-2xl hover:bg-[#f26522] transition-all shadow-3xl uppercase tracking-widest">Donate Now</a>
+            <h2 class="text-7xl md:text-[12rem] font-black tracking-tighter leading-[0.75] uppercase mb-16">BUILD<br><span class="text-[#f26522]">WITH US.</span></h2>
+            <a href="https://anglicanmissions.org.nz/donate" class="inline-block bg-black text-white px-20 py-8 rounded-sm font-black text-3xl hover:bg-[#f26522] transition-all uppercase tracking-tighter shadow-2xl">Donate Now</a>
         </div>
     </section>
 
-    <footer class="py-24 bg-white text-center border-t border-slate-100 relative z-20">
-        <div class="font-[950] text-3xl tracking-tighter uppercase italic">Bricks <span class="text-[#f26522]">For Life</span></div>
-        <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.5em] mt-8">© 2026 Anglican Missions Aotearoa</p>
+    <footer class="p-12 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-8 bg-white">
+        <span class="font-black uppercase tracking-tighter">Bricks/Life © 2026</span>
+        <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400 text-center md:text-right">Anglican Missions AWA Global Development</span>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1200, once: true, easing: 'ease-out-quint' });
+        AOS.init({ duration: 1000, once: true });
         lucide.createIcons();
 
-        const nav = document.getElementById('main-nav');
-        const heroTitle = document.getElementById('hero-title');
-        const heroDiscovery = document.getElementById('hero-reveal-zone');
         const videoSection = document.getElementById('video-section');
-        const videoWrapper = document.getElementById('video-wrapper');
-        const cards = [document.getElementById('c1'), document.getElementById('c2'), document.getElementById('c3'), document.getElementById('c4')];
-
+        const videoFrame = document.getElementById('video-frame');
+        
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             const viewH = window.innerHeight;
-            const scrollPercent = Math.min(scrollY / (viewH * 1.3), 1.5);
-            
-            // Hero Explosion
-            cards.forEach((card, i) => {
-                if(!card) return;
-                const offsets = [{x:-1200,y:-1000,r:-40},{x:1300,y:-1100,r:30},{x:-1100,y:1200,r:-25},{x:1200,y:1000,r:40}];
-                card.style.transform = `translate(${scrollPercent * offsets[i].x}px, ${scrollPercent * offsets[i].y}px) rotate(${offsets[i].r}deg) scale(1.1)`;
-                card.style.filter = `grayscale(${100 - (scrollPercent * 150)}%)`;
-            });
+            const scrollPercent = scrollY / viewH;
 
-            // Headline Scale (Desktop Only)
-            if (window.innerWidth >= 768) {
-                heroTitle.style.transform = `scale(${1 + scrollPercent * 0.1})`;
-            }
+            // Hero Construction Parallax
+            // Images move up into place as you scroll
+            const b1 = document.getElementById('b1');
+            const b2 = document.getElementById('b2');
+            const b3 = document.getElementById('b3');
+            const b4 = document.getElementById('b4');
 
-            if (scrollPercent > 0.4) heroDiscovery.classList.add('visible');
-            else heroDiscovery.classList.remove('visible');
-
-            // THEATER LOGIC
-            if (videoSection && videoWrapper) {
-                const videoRect = videoSection.getBoundingClientRect();
-                const sectionMiddle = videoRect.top + (videoRect.height / 2);
-                const distance = Math.abs(viewH / 2 - sectionMiddle);
+            if (scrollPercent < 2) {
+                b1.style.transform = `translateY(${-scrollY * 0.8}px) rotate(-5deg)`;
+                b2.style.transform = `translateY(${-scrollY * 1.2}px) rotate(3deg)`;
+                b3.style.transform = `translateY(${-scrollY * 0.5}px) rotate(8deg)`;
+                b4.style.transform = `translateY(${-scrollY * 1.5}px) rotate(-2deg)`;
                 
-                if (videoRect.top < viewH * 0.6 && videoRect.bottom > viewH * 0.1) {
-                    let progress = Math.max(0, 1 - (distance / 600));
-                    let intensity = Math.floor(255 - (Math.pow(progress, 2.5) * 253));
-                    document.documentElement.style.setProperty('--bg-intensity', intensity);
-                    
-                    if (distance < 300) videoSection.classList.add('video-active');
-                    else videoSection.classList.remove('video-active');
-                } else {
-                    document.documentElement.style.setProperty('--bg-intensity', 255);
-                }
+                // Gradually bleed images into color
+                const saturate = Math.min(100, scrollPercent * 100);
+                [b1, b2, b3, b4].forEach(img => img.style.filter = `grayscale(${100 - saturate}%) contrast(1.1)`);
             }
 
-            if (scrollY > 100) nav.classList.add('nav-scrolled');
-            else nav.classList.remove('nav-scrolled');
+            // Video Theater Expansion
+            const videoRect = videoSection.getBoundingClientRect();
+            if (videoRect.top < viewH / 2 && videoRect.bottom > viewH / 2) {
+                videoSection.classList.add('theater-active');
+                document.body.style.backgroundColor = "#000";
+            } else {
+                videoSection.classList.remove('theater-active');
+                document.body.style.backgroundColor = "#fff";
+            }
+
+            // Bio Section Color Bleed
+            const bio = document.getElementById('bio');
+            const bioRect = bio.getBoundingClientRect();
+            if (bioRect.top < viewH) {
+                document.body.style.backgroundColor = "#f8fafc";
+            }
         });
     </script>
 </body>
